@@ -136,3 +136,20 @@ The periodicity miner was planned before this exposure (Step 0 plan, same date).
 ## 2026-10-13: Commit history rewritten (messages and author emails only)
 
 Before the first publication, at the author's request: an automatically added attribution trailer was removed from all 19 commit messages, and the author's personal email was replaced with the GitHub no-reply address. Every file tree is unchanged, verified commit by commit. All SHAs changed, and SHAs cited earlier in this log and in manifests, run outputs and registry events are the original ones: see `docs/commit_sha_map.md`. The tag `rediscovery-frozen` now points to `1a99e9c` (originally `3e4aead`) with its original tagger date. Full pre-rewrite backups exist as git bundles outside the repository.
+
+---
+
+## 2026-10-13: Rediscovery steps 4–5 (ground truth and scoring)
+
+- **Step 4** (`8004d8d`): the author's v1 (arXiv:2604.25952v1) and v2 (v2, n ≤ 3000) conjectures, committed verbatim after steps 1–3 were public on GitHub.
+- **Step 5:** `experiments/rediscovery/REPORT.md`. Scores are proposed by the AI assistant and await the author's confirmation.
+  - **Pipeline vs v1: 0 found, 0 partial, 4 missed. No wrong survivors.**
+  - The frozen view builder computed all four "coordinate is determined by the others" dependencies (C1 included) but never emitted them as conjectures: a design gap.
+  - C2–C4 are distributional or geometric statements the miners cannot express.
+  - The 69 surviving proposals (exact eventual periodicity of a − b in b for fixed (c, d)) are in neither paper version. They are probably covered by known periodicity results (Byrnes 2003, to verify); novelty is not claimed.
+- **Post-hoc checks of the ground truth** (AI-assisted, not blind, not pipeline output; scripts in `experiments/rediscovery/posthoc/`):
+  - The author's n ≤ 3000 data has 961,619,972 rows. An independent re-solve of all P-positions with a ≤ 3000, c ≤ 300 matches it exactly (47,986,319 positions).
+  - v1 C1 = v2 Lemma 1, a theorem. The one-move proof gives uniqueness of every coordinate given the other three.
+  - v1 C2 is false as stated: the family (a, a−1, 0, 0) has b/a → 1. Only the per-a medians match.
+  - v1 C3 is not supported. Lag 112 ranks 190/299 in the d-sequence autocorrelation. Mod-112 information ranks 13/25 among moduli 100–124 and is beaten by plain contiguous binning of a − b (271.5 vs 110.8 millibits).
+  - v2 HIGH/LOW (per-a median of d/a > 0.21) ⇔ the max d/a among P-positions at that a exceeds 0.45: 100% agreement over a ∈ [200, 3000]. Max d/a lies in [0.432, 0.446] for LOW a and [0.855, 0.907] for HIGH a. v2 Conjectures 1–2 are therefore false as literally stated; a sharper open question is proposed.
