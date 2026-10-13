@@ -205,3 +205,20 @@ Lean v4.35.0, Mathlib v4.35.0 (`56a0058`). Details: `lean/README.md`. **No `sorr
   - A deliberately false period (S = {1,3,4}, p = 6) fails to compile.
 - Registry: **143 conjectures `proved`** (139 subtraction periodicity + 4 Chomp functional dependencies; Unique Extension moves from `known` to `proved`). Totals: 143 proved, 368 survived, 22 known, 13 refuted (546).
 - Not done: the Chomp periodicity survivors (a − b eventually periodic for fixed (c, d)) are not formalized. Unlike subtraction games, a finite window does not obviously suffice there; Byrnes's proof would be the starting point.
+
+---
+
+## 2026-10-13: Phase F (LLM proposer) and Phase H (new family: W(S))
+
+- **Phase F built:** claim language (`conjecture/claims.py`: whitelisted expressions compiled to Polars; predicate / translation / statistic); LLM interface (`conjecture/llm.py`: window-only packets with SHA-256; mock, session and anthropic-stub providers; usage recorded); the falsifier tests claims on window and full data. No API key exists, so proposals come from the `session` provider: the project's AI assistant writes them in-session from the committed packet only.
+- **Family H:** W(S), two heaps, removing s ∈ S from one heap or both; all 31 S ⊆ {1..5}, x, y < 1000 (`wsub_subsets5_n1000`, 31M Grundy values). Pre-registered (tag `familyH-frozen` → `13fc528`). Literature checked first: Larsson–Saha–Yokoo (arXiv:2307.12458) is the closest framework.
+- **Classical miners:** 597 proposals (row periodicity of Grundy values plus 28 second-order); **597 survived** at 10×.
+- **LLM (session) proposals:** 19 claims, none malformed; **19 survived** at 10×. Each was checked on 0.5M–4M positions. Together they give exact Grundy formulas for 13 sets and exact P-set characterizations for 13 more (26/31 sets), plus a region-restricted rule for {1,3,4}. Highlights:
+  - (x+y) mod 3 when 1, 2 ∈ S and 3 ∤ s;
+  - an explicit Grundy formula for every all-odd S containing 1;
+  - the scaling W(kS) ≅ k² × W(S);
+  - W({1..k}) ↔ Wythoff modulo k+1;
+  - W({a,a+1}) with period 2a+1;
+  - diagonal-split periodic P-sets.
+- Falsifier sanity: three mutated LLM claims were all refuted (55k–2.7M counterexamples).
+- Caveats and literature: `experiments/familyH/REPORT.md`. The W({1..k}) result may already be known (bounded Wythoff; to verify). No novelty is claimed. Next: Lean proofs of H01–H04.

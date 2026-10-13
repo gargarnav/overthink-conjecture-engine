@@ -21,7 +21,8 @@ Early development. See [`docs/results_log.md`](docs/results_log.md) for a dated 
 | Parquet datasets + schema | Done (Phase C): 3 datasets, one command each, hash-verified ([datasets/](datasets/)) |
 | Classical pattern miners | Done (Phase D): 5 miners, synthetic benchmark, Wythoff's theorem recovered from data |
 | Conjecture registry + falsifier | Done (Phase E): 297 dev conjectures, all survived 10× re-testing |
-| LLM proposer (optional, mock by default) | TODO (Phase F) |
+| LLM proposer (optional, mock by default) | Done (Phase F): claim language, window-only packets, mock/session/API providers |
+| New game family | Done (Phase H): W(S) Wythoff subtraction games. Classical 597/597 and LLM 19/19 proposals survived 10×; LLM claims characterize 26/31 sets exactly ([report](experiments/familyH/REPORT.md)) |
 | Blind rediscovery test on 4×n Chomp | Done: run 1 (blind) 0/4 v1 conjectures found, 69 exact statements survived at 30×; run 2 (not blind) 167/176 survived. See [experiments/rediscovery/REPORT.md](experiments/rediscovery/REPORT.md) |
 | Lean 4 formalization | Done (Phase I): general theorems for k-row Chomp (incl. Unique Extension) and 511 pipeline-proposed subtraction-game periodicity theorems, all kernel-checked, no `sorry`/`native_decide` ([lean/](lean/README.md)) |
 
