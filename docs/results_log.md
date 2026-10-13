@@ -99,3 +99,22 @@ The periodicity miner was planned before this exposure (Step 0 plan, same date).
 - Wythoff: from the P-positions alone the pipeline proposed a_k = ⌊kφ + β⌋, b_k = ⌊kφ² + β⌋ with β ∈ [0, 0.021) (so β = 0 is allowed), and b_k − a_k = k. That is Wythoff's theorem. Rows y = 0..6 of the Grundy table were proposed additively periodic (periods 1, 3, 3, 6, 12, 24, 12). This agrees with the published result that rows are ultimately additively periodic (Dress, Flammenkamp & Pink 1999; *citation to verify*). The specific periods haven't been checked against the literature.
 
 **Rediscovery pre-registration drafted** (not yet frozen): `experiments/rediscovery/PROTOCOL.md` and `experiments/configs/mining/rediscovery_chomp4.yaml`. Its views, miner and second-order parameters are identical (checked with diff) to the development config. **No miner has been run on Chomp data.**
+
+---
+
+## 2026-10-13: Phase E, falsifier and registry
+
+**Built**
+- `overthink falsify RUN_DIR`: rebuilds the run's views on the full dataset, checks each candidate on its sequence and all aliases, and stores counterexamples (index, observed, predicted). Refuted candidates get unfalsified re-proposals from the full data. Second-order candidates are checked against parameters re-estimated on the full data.
+- `registry/events.jsonl`: an append-only event log (proposed, falsification, known, proved) with provenance: run ID, config, dataset content hash, method, model (none), seed (none), git SHA. "Refuted" is permanent.
+- 6 new tests (78 total), including injected false candidates (refuted at the right index, true period re-proposed), a missing sequence (untestable), registry status rules, and a toy family that exercises second-order survival and refutation.
+
+**Problems found and fixed**
+- Enumeration views were applied to Grundy-value tables, producing a tautology ("n_k = k") that survived trivially and appeared as one candidate covering all 511 subtraction sets. Enumeration is now only applied to sets of positions.
+- Second-order statements were wrongly marked untestable ("no new terms"); for them, the new evidence is parameter re-estimation on 10× data.
+- Two runs started in the same second collided on directory name.
+
+**Dev data falsification** (proposal windows n ≤ 199 and x, y ≤ 99; re-tested at n ≤ 2000 and x, y ≤ 999, a scale factor of 10.05–10.09)
+- All 297 proposals survived (279 subtraction, 18 Wythoff). Per sequence, the median was 1,990 checks; extension factors ranged 9.6–10.6×. This includes the Wythoff Beatty statements with φ and φ² (checked over 382 P-pairs) and all 511 subtraction-game periodicity statements.
+- Stress test: no natural refutations occurred even with proposal windows of n ≤ 40 (subtraction, 50× scale, 101/101 survived) or x, y ≤ 40 (Wythoff, 25×, 7/7 survived). The miners' evidence thresholds kept them from proposing on too little data. The refutation path is verified by tests and by the synthetic benchmark (false proposals on noisy controls are refuted).
+- *Interpretation:* survival at 10× is evidence, not proof. For subtraction games, ultimate periodicity is a theorem (finite subtraction sets), so these survivals mainly confirm that the miners' periods and preperiods are right on this range.

@@ -20,7 +20,7 @@ Early development. See [`docs/results_log.md`](docs/results_log.md) for a dated 
 | Exact solvers (subtraction, Wythoff, 4×n Chomp) | Done (Phase B): 4×n Chomp reproduces all 35,029,679 reference P-positions for n ≤ 1000 |
 | Parquet datasets + schema | Done (Phase C): 3 datasets, one command each, hash-verified ([datasets/](datasets/)) |
 | Classical pattern miners | Done (Phase D): 5 miners, synthetic benchmark, Wythoff's theorem recovered from data |
-| Conjecture registry + falsifier | TODO (Phase E) |
+| Conjecture registry + falsifier | Done (Phase E): 297 dev conjectures, all survived 10× re-testing |
 | LLM proposer (optional, mock by default) | TODO (Phase F) |
 | Blind rediscovery test on 4×n Chomp | TODO (Phase G) |
 | Lean 4 formalization | TODO (Phase I) |
