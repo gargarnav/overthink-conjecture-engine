@@ -22,7 +22,7 @@ W(S): two heaps; a move removes s ∈ S from one heap or s from both. Data: all 
 | Sets with a statement about their whole 2D structure | 0 of 31 | **26 of 31** (exact), 1 partial |
 | Positions checked per claim at full scale | ≈ 1,000 per row | 0.5M – 4M |
 
-The LLM proposer is the AI assistant of this project session (Claude Opus 5.5 in Claude Code, no API). It worked from the 154,094-character packet (about 38.5k input tokens) and wrote 19 claims. API cost: $0.
+The LLM proposer is the AI coding assistant used in this project, working interactively (no API); the exact model identifier is recorded in the committed proposals file. It worked from the 154,094-character packet (about 38.5k input tokens) and wrote 19 claims. API cost: $0.
 
 **Sanity checks on the falsifier** (run after the proposals were committed): three deliberately mutated LLM claims were all refuted on the full data, with 55,444, 2,664,000 and 106,840 counterexamples respectively. The mutations were: drop the (3,5) pair from H07; replace (x+y) mod 3 by (x+2y) mod 3 in H02; widen H14's region to max ≥ 1.2·min.
 

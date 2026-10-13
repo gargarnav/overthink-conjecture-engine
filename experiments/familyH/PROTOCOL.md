@@ -11,7 +11,7 @@ W(S), for a finite set S of positive integers: two heaps (x, y); a move removes 
 ## Two proposers on the same window (x, y < 100)
 
 1. **Classical miners**, with the same settings as rediscovery run 2: `experiments/configs/mining/familyH_wsub.yaml`.
-2. **LLM proposer = the AI assistant in this session** (Claude Opus 5.5 in Claude Code; no API), through the `session` provider (`src/overthink/conjecture/llm.py`).
+2. **LLM proposer = the AI coding assistant used in this project, working interactively** (no API), through the `session` provider (`src/overthink/conjecture/llm.py`).
 
 ## Rules for the LLM proposer (fixed in advance)
 
