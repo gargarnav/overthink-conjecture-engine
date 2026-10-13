@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Match sequences against a local OEIS snapshot (the `stripped` file from oeis.org).
 
 Each line of the snapshot looks like `A000045 ,0,1,1,2,3,5,8,13,`. Matching is exact:

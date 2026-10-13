@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Per-a statistics of d/a for a in [200, 3000] from the author's n <= 3000 data (Parquet in data_ref/)."""
 
 import polars as pl

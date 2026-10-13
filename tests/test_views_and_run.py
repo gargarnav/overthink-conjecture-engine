@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Views (dataset -> sequences) and the end-to-end mining run."""
 
 import json

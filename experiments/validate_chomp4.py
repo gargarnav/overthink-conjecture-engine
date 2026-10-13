@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Cross-validate the Rust 4-row Chomp solver against the author's reference C++ output.
 
 usage: uv run python experiments/validate_chomp4.py [--n 1000] [--csv data_ref/p_positions_4xn_cpp_1000.csv]

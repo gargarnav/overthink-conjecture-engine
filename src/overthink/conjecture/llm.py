@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """LLM proposer: provider-agnostic interface, data packets, and ingestion into a run.
 
 Flow

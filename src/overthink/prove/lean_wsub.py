@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Record Lean proofs of the LLM's W(S) proposals H01–H04 (family H) in the registry.
 
 `lean/OverthinkLean/WythoffSubtraction.lean` proves, for every position:

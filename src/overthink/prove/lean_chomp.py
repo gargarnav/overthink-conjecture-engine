@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Record Lean proofs of the 4-row Chomp functional dependencies in the registry.
 
 `lean/OverthinkLean/Chomp.lean` proves, for all P-positions of 4-row Chomp, that each row

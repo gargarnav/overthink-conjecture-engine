@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Machine-checkable claims about a dataset table, for proposers (e.g. an LLM) that state more
 than single-sequence laws.
 

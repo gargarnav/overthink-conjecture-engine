@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Falsifier and registry: refutation, survival, untestable cases, status rules."""
 
 import json

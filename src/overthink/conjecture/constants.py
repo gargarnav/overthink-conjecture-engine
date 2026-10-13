@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """A fixed library of named real constants for identifying slopes of floor-linear sequences.
 
 The library is part of the miner configuration: adding constants after seeing data is

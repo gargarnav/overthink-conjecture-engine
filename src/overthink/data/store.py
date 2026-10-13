@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Dataset generation from a config file: Parquet + manifest + dataset card.
 
 Layout of a generated dataset `<id>`:

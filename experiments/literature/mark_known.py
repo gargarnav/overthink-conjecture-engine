@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Append `known` events to the registry for surviving conjectures that exactly match a
 published statement (same (c, d), period and start). Idempotent: skips IDs already known.
 

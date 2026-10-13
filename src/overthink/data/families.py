@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Builders: turn a family's `params` into a DataFrame matching its schema."""
 
 from __future__ import annotations

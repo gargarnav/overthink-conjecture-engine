@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Functional dependencies as conjectures.
 
 If, in a table of positions, column T never takes two different values for the same

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Ultimate (additive) periodicity miner.
 
 Finds p >= 1, delta and n0 such that s(n + p) = s(n) + delta for every observed n >= n0.

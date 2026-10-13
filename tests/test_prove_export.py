@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """The Lean exporter's selection and rendering (Lean itself is exercised in the Lean CI job)."""
 
 from overthink.prove import lean_subtraction

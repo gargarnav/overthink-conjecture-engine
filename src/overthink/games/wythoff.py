@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Wythoff's game: two heaps; remove any positive number from one heap, or the same
 positive number from both."""
 

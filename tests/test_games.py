@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Solver correctness: Rust implementations vs pure-Python oracles and known theorems."""
 
 import numpy as np

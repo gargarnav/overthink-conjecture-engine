@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Classical miners: exact recovery on known sequences, checker behaviour, selection rules."""
 
 import math

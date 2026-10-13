@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Linear recurrences with constant rational coefficients (Berlekamp-Massey over Q).
 
 Finds the shortest recurrence s(n) = c_1 s(n-1) + ... + c_L s(n-L) that generates the

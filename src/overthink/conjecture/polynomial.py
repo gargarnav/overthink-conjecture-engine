@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Polynomial and quasi-polynomial miner (difference tables).
 
 Finds a modulus m and degree k such that, for all observed n >= n0, s(n) = P_r(n) with

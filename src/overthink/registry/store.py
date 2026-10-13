@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Append-only conjecture registry.
 
 The registry is a JSONL file of events. Nothing is ever edited or deleted; the current

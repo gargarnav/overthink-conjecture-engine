@@ -1,3 +1,4 @@
+-- SPDX-License-Identifier: MIT
 import OverthinkLean
 /-! Run `lake env lean CheckAxioms.lean`. Every theorem below must depend only on
 `propext`, `Classical.choice` and `Quot.sound`: no `sorryAx`, and no `Lean.ofReduceBool`

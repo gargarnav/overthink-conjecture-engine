@@ -29,3 +29,7 @@ The generated file is produced by `uv run overthink prove` from the conjecture r
 Scope notes:
 - The Chomp definitions use positions `Fin k → ℕ` of row lengths. Moves and validity mirror `src/overthink/games/chomp.py`. `IsP` is *the* P-labelling, unique by `isP_unique`.
 - `grundy` is defined by the mex recursion, i.e. the Sprague-Grundy function of the subtraction game. It is not separately proved equal to the Sprague-Grundy value of an abstract game object.
+
+## License
+
+The Lean code in this directory is MIT-licensed (see `../LICENSE`). It depends on Lean 4 and Mathlib, which are Apache-2.0; MIT and Apache-2.0 are compatible, and nothing from Mathlib is copied into this repository (it is fetched by Lake).

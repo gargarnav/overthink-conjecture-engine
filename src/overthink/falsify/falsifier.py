@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Falsify a mining run: re-test every candidate on the full (larger) dataset.
 
 For each dataset of the run, the same views (same config) are rebuilt on the full data

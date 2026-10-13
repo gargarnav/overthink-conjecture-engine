@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """HIGH/LOW (per-a median of d/a > 0.21) vs. the largest d/a among P-positions with first row a.
 
 Needs data_ref/v2_per_a_stats.parquet (from v2_per_a_stats_n3000.py) and

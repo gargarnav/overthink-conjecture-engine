@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 //! Exact P-positions of 4-row Chomp.
 //!
 //! A position is (a, b, c, d) with a >= b >= c >= d >= 0 and a >= 1 (row

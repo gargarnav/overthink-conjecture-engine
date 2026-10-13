@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Core types: integer sequences to mine, and candidate conjectures about them."""
 
 from __future__ import annotations

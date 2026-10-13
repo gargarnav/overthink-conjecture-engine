@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Compare X. Sun (2004, PhD thesis, Temple University), Table 2.1 "Periodic Properties of Some
 Four-rowed P-positions", with this project's exact data (chomp4_a3000_c60, a <= 3000).
 

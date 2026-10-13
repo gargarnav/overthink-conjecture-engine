@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 //! Subtraction games: a heap of n tokens, a move removes s tokens for some s in S.
 
 use crate::mex_of;

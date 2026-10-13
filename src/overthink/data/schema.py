@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Dataset schemas: the single source of truth for column names, types and meaning.
 
 Bump SCHEMA_VERSION whenever a column is added, removed, renamed or changes meaning.

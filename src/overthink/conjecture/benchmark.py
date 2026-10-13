@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Benchmark the classical miners on planted synthetic sequences.
 
 For each planted sequence: mine at the proposal length, then check every candidate on a

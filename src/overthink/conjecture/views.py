@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Turn a dataset table into integer sequences to mine. Nothing here is game-specific.
 
 Views

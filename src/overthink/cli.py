@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Command-line entry point: `overthink <command>`."""
 
 from __future__ import annotations

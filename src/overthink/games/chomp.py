@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Chomp on Young-diagram positions with a poisoned corner.
 
 A k-row position is a non-increasing tuple of row lengths r[0] >= ... >= r[k-1] >= 0

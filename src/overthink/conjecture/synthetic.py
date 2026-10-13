@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Synthetic sequences with planted structure, plus negative controls, for benchmarking miners.
 
 Each generator returns a function `make(length)` so the same planted sequence can be

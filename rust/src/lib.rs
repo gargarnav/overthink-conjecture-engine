@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 //! Performance-critical core of the Overthink Conjecture Engine.
 //!
 //! Exposed to Python as `overthink._core`. Pure-Rust logic lives in plain

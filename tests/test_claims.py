@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Claim language: safe compilation and checking."""
 
 import numpy as np

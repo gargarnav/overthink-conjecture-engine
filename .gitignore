@@ -36,3 +36,6 @@ experiments/runs/
 
 # Local reference data (too large for git)
 data_ref/
+
+# OEIS snapshot (CC BY-SA 4.0): downloaded at runtime, never committed
+cache/

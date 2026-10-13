@@ -1,0 +1,7 @@
+The datasets in this directory (dataset cards, manifests, samples) and the full dataset files
+published from them are licensed under the Creative Commons Attribution 4.0 International
+License (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/legalcode
+
+Attribution: Arnav Garg, Overthink Conjecture Engine (https://github.com/gargarnav/overthink-conjecture-engine).
+
+The code that generates them is MIT-licensed (see ../LICENSE).

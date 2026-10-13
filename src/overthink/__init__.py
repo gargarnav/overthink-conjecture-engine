@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Overthink Conjecture Engine: falsification-first discovery for combinatorial games."""
 
 from importlib.metadata import version as _pkg_version

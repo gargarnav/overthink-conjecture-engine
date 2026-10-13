@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Run all classical miners on one sequence and select by description length.
 
 Every miner runs on every sequence. Each candidate gets a description length: the number

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Dataset generation: schema, determinism, manifest and round-trip."""
 
 import json

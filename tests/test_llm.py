@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """LLM proposer: packet, providers, ingestion and falsification of claims."""
 
 import json

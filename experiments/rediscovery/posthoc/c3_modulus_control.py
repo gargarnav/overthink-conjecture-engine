@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Checks of the v1 conjectures on chomp4_n1000 (a <= 500 for C3, as in the paper). Run from the repo root."""
 
 import numpy as np

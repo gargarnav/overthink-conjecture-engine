@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """A mining run: datasets -> views -> classical miners -> candidates, with provenance.
 
 Output directory `<runs_dir>/<run_name>-<UTC timestamp>/`:

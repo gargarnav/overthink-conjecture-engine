@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Compare published 3-row Chomp periodicity data with this project's solver and miner.
 
 Source: A. E. Brouwer, "The game of Chomp" (https://aeb.win.tue.nl/games/chomp.html), table of

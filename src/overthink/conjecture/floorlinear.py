@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Floor-linear (Beatty-type) miner: s(n) = floor(alpha * n + beta).
 
 A sequence has this form for some real alpha, beta exactly when

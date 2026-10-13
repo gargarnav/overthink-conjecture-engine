@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Test a candidate conjecture against a (typically much longer) version of its sequence.
 
 `check` returns a dict with
