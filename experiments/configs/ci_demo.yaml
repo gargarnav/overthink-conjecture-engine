@@ -3,6 +3,6 @@ name: ci_demo
 data_dir: experiments/runs/ci_data
 meta_dir: experiments/runs/ci_meta
 steps:
-  - generate: experiments/configs/datasets/ci_wythoff_n500.yaml
-  - mine: experiments/configs/mining/ci_demo.yaml
+  - generate: experiments/configs/ci/ci_wythoff_n500.yaml
+  - mine: experiments/configs/ci/ci_mining.yaml
   - falsify: {}
