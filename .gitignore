@@ -33,3 +33,6 @@ experiments/runs/
 .DS_Store
 .idea/
 .vscode/
+
+# Local reference data (too large for git)
+data_ref/
