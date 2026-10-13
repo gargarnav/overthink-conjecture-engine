@@ -63,6 +63,11 @@ tests/
 - Data: open, with dataset cards, schema and reproduction commands (see [`datasets/`](datasets/)).
 - Papers: arXiv preprints.
 
+## Funding
+
+No external funding at present. (The acknowledgment text for any future grant lives in
+`funding.yaml` and is only rendered when `funded: true`.)
+
 ## Citation
 
 See [CITATION.cff](CITATION.cff).
