@@ -18,6 +18,21 @@ from typing import Any
 from overthink.conjecture.types import Candidate, Sequence
 
 METHOD = "oeis-exact@1"
+OEIS_URL = "https://oeis.org/stripped.gz"
+OEIS_CACHE = Path("cache/oeis/stripped.gz")  # git-ignored; never commit OEIS data
+ATTRIBUTION = (
+    "Data from The On-Line Encyclopedia of Integer Sequences (OEIS), "
+    "https://oeis.org, licensed CC BY-SA 4.0."
+)
+
+
+def fetch_snapshot(dest: Path = OEIS_CACHE) -> Path:
+    """Download the OEIS `stripped` file into the git-ignored cache (run on demand only)."""
+    import urllib.request
+
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    urllib.request.urlretrieve(OEIS_URL, dest)
+    return dest
 
 
 class OEISSnapshot:
@@ -79,6 +94,7 @@ def mine(seq: Sequence, cfg: dict[str, Any], snapshot: OEISSnapshot | None) -> l
                 "overlap_terms": overlap,
                 "n_hits": len(hits),
                 "snapshot": snapshot.path.name,
+                "attribution": ATTRIBUTION,
                 "support": overlap,
             },
             method=METHOD,

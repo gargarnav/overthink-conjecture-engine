@@ -242,6 +242,15 @@ def _cmd_stats(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_oeis_fetch(args: argparse.Namespace) -> int:
+    from overthink.conjecture.oeis import ATTRIBUTION, OEIS_URL, fetch_snapshot
+
+    print(f"downloading {OEIS_URL} into the git-ignored cache ...")
+    dest = fetch_snapshot()
+    print(f"saved {dest} ({dest.stat().st_size / 1e6:.1f} MB). {ATTRIBUTION}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="overthink",
@@ -348,6 +357,10 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("stats", help="project metrics for progress reports").set_defaults(
         func=_cmd_stats
     )
+
+    sub.add_parser(
+        "oeis-fetch", help="download the OEIS snapshot (CC BY-SA 4.0) into cache/ (git-ignored)"
+    ).set_defaults(func=_cmd_oeis_fetch)
 
     return parser
 
