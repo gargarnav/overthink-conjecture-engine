@@ -1,0 +1,121 @@
+{
+  "run_id": "llm-session-familyH_wsub-20261013T163931Z",
+  "config_path": "experiments/configs/mining/familyH_wsub.yaml",
+  "config": {
+    "run_name": "familyH_wsub",
+    "datasets": [
+      {
+        "id": "wsub_subsets5_n1000",
+        "proposal_window": {
+          "x": 99,
+          "y": 99
+        }
+      }
+    ],
+    "views": {
+      "max_group_value": 30,
+      "min_length": 30,
+      "transforms": [
+        "raw",
+        "minus_index"
+      ],
+      "zero_set": true,
+      "enumeration": true,
+      "max_sequences": 50000
+    },
+    "miners": {
+      "structural_transforms": [
+        "raw"
+      ],
+      "functional_dependencies": {
+        "enabled": true
+      },
+      "periodic": {
+        "max_period": 200,
+        "min_repeats": 3,
+        "min_support": 20,
+        "min_tail_fraction": 0.0
+      },
+      "polynomial": {
+        "max_degree": 4,
+        "max_modulus": 6,
+        "min_support": 20
+      },
+      "recurrence": {
+        "max_order": 12,
+        "min_support": 20
+      },
+      "floor_linear": {
+        "min_points": 30,
+        "max_points": 3000
+      },
+      "oeis": {
+        "snapshot": null,
+        "min_terms": 12,
+        "max_hits": 10
+      }
+    },
+    "second_order": {
+      "enabled": true,
+      "min_length": 12,
+      "miners": {
+        "structural_transforms": [
+          "raw"
+        ],
+        "periodic": {
+          "max_period": 50,
+          "min_repeats": 3,
+          "min_support": 8
+        },
+        "polynomial": {
+          "max_degree": 3,
+          "max_modulus": 4,
+          "min_support": 8
+        },
+        "recurrence": {
+          "max_order": 6,
+          "min_support": 8
+        },
+        "floor_linear": {
+          "min_points": 12,
+          "max_points": 3000
+        }
+      }
+    }
+  },
+  "started_at": "20261013T163931Z",
+  "datasets": [
+    {
+      "id": "wsub_subsets5_n1000",
+      "content_sha256": "3414dbb5f3ee4b766d47ee00dd097b3705cfcdc111c1f9c59835f2a583e5000c"
+    }
+  ],
+  "proposer": {
+    "provider": "session",
+    "model": "claude-opus-5-5",
+    "packet_path": "experiments/familyH/packet.md",
+    "packet_sha256": "f52cbb11377aba69a7b035f3318468f0a03b39ee2fe61b773acdcfa390e9aaae",
+    "usage": {
+      "api_cost_usd": 0.0,
+      "approx_input_tokens": 38523,
+      "output_chars": 12310,
+      "note": "Written by the AI assistant (Claude Opus 5.5, Claude Code session) acting as the LLM proposer, from experiments/familyH/packet.md only; no code was run on the dataset; expressions were only syntax-checked. Interactive session, no API call."
+    }
+  },
+  "counts": {
+    "proposals": 19,
+    "accepted": 19,
+    "rejected": 0
+  },
+  "random_seed": null,
+  "provenance": {
+    "git_sha": "f9020d9af14b30d2c6d0a6665d44b323b4d4a791",
+    "git_dirty": false,
+    "overthink_version": "0.1.0",
+    "rust_core_version": "0.1.0",
+    "polars_version": "2.0.0",
+    "python": "3.12.12",
+    "platform": "macOS-26.3-arm64-arm-64bit",
+    "command": "overthink llm-ingest experiments/configs/mining/familyH_wsub.yaml --packet experiments/familyH/packet.md --provider session --proposals experiments/familyH/llm_proposals.json --runs-dir experiments/familyH/run"
+  }
+}

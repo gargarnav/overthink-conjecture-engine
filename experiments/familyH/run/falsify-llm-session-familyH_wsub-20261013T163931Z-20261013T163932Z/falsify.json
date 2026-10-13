@@ -1,0 +1,43 @@
+{
+  "falsify_run_id": "falsify-llm-session-familyH_wsub-20261013T163931Z-20261013T163932Z",
+  "mining_run_id": "llm-session-familyH_wsub-20261013T163931Z",
+  "seconds": 16.47,
+  "datasets": [
+    {
+      "id": "wsub_subsets5_n1000",
+      "falsified_against": "wsub_subsets5_n1000",
+      "content_sha256": "3414dbb5f3ee4b766d47ee00dd097b3705cfcdc111c1f9c59835f2a583e5000c",
+      "full_rows": 31000000,
+      "proposal_window": {
+        "x": 99,
+        "y": 99
+      },
+      "scale_factor": {
+        "x": 10.09,
+        "y": 10.09
+      },
+      "full_sequences": 1219,
+      "candidates": 19,
+      "seconds": 16.46
+    }
+  ],
+  "counts": {
+    "survived": 19
+  },
+  "counts_by_kind": {
+    "claim_predicate": {
+      "survived": 19
+    }
+  },
+  "rule": "refuted if violated on any sequence in scope; survived if it holds on all and at least one has new terms; otherwise untestable",
+  "provenance": {
+    "git_sha": "f9020d9af14b30d2c6d0a6665d44b323b4d4a791",
+    "git_dirty": false,
+    "overthink_version": "0.1.0",
+    "rust_core_version": "0.1.0",
+    "polars_version": "2.0.0",
+    "python": "3.12.12",
+    "platform": "macOS-26.3-arm64-arm-64bit",
+    "command": "overthink falsify experiments/familyH/run/llm-session-familyH_wsub-20261013T163931Z --runs-dir experiments/familyH/run"
+  }
+}
