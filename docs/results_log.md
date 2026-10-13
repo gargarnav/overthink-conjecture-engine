@@ -130,3 +130,9 @@ The periodicity miner was planned before this exposure (Step 0 plan, same date).
 - Candidate table: `experiments/rediscovery/survivors.md` (mechanically generated).
 - **Coverage:** only 61 of the 364 `a~b` sequences produced a candidate in the window. The rest were silent: no period with enough support within a ≤ 100.
 - **Ground truth is still not in the repository.** Next: the author commits `experiments/rediscovery/ground_truth.md` (step 4), then scoring (step 5).
+
+---
+
+## 2026-10-13: Commit history rewritten (messages and author emails only)
+
+Before the first publication, at the author's request: an automatically added attribution trailer was removed from all 19 commit messages, and the author's personal email was replaced with the GitHub no-reply address. Every file tree is unchanged, verified commit by commit. All SHAs changed, and SHAs cited earlier in this log and in manifests, run outputs and registry events are the original ones: see `docs/commit_sha_map.md`. The tag `rediscovery-frozen` now points to `1a99e9c` (originally `3e4aead`) with its original tagger date. Full pre-rewrite backups exist as git bundles outside the repository.
