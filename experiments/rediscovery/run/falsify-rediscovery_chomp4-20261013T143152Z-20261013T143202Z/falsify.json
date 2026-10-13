@@ -1,0 +1,42 @@
+{
+  "falsify_run_id": "falsify-rediscovery_chomp4-20261013T143152Z-20261013T143202Z",
+  "mining_run_id": "rediscovery_chomp4-20261013T143152Z",
+  "seconds": 17.55,
+  "datasets": [
+    {
+      "id": "chomp4_n1000",
+      "content_sha256": "a3fd877c39bb5b9ec1ea4519e157b1c84574f82e09ff5d08db4aeab4935166eb",
+      "full_rows": 35029679,
+      "proposal_window": {
+        "a": 100
+      },
+      "scale_factor": {
+        "a": 10.0
+      },
+      "full_sequences": 388,
+      "candidates": 73,
+      "seconds": 17.55
+    }
+  ],
+  "counts": {
+    "survived": 69,
+    "refuted": 4
+  },
+  "counts_by_kind": {
+    "additive_periodic": {
+      "survived": 69,
+      "refuted": 4
+    }
+  },
+  "rule": "refuted if violated on any sequence in scope; survived if it holds on all and at least one has new terms; otherwise untestable",
+  "provenance": {
+    "git_sha": "bbdd356a6cd70d27c6647929d4152ca603410dfc",
+    "git_dirty": false,
+    "overthink_version": "0.1.0",
+    "rust_core_version": "0.1.0",
+    "polars_version": "2.0.0",
+    "python": "3.12.12",
+    "platform": "macOS-26.3-arm64-arm-64bit",
+    "command": "overthink falsify experiments/rediscovery/run/rediscovery_chomp4-20261013T143152Z --runs-dir experiments/rediscovery/run --registry registry/events.jsonl"
+  }
+}
