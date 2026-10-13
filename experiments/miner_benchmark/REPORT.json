@@ -1,0 +1,167 @@
+{
+  "periodic": {
+    "n": 200,
+    "candidates": 202,
+    "recovered": 200,
+    "exact": 200,
+    "other_true": 2,
+    "failures_sample": []
+  },
+  "additive_periodic": {
+    "n": 200,
+    "candidates": 200,
+    "recovered": 200,
+    "exact": 200,
+    "failures_sample": []
+  },
+  "periodic_long_preperiod": {
+    "n": 200,
+    "candidates": 200,
+    "recovered": 200,
+    "exact": 200,
+    "failures_sample": []
+  },
+  "linear_recurrence": {
+    "n": 200,
+    "candidates": 206,
+    "recovered": 200,
+    "exact": 0,
+    "failures_sample": []
+  },
+  "polynomial": {
+    "n": 200,
+    "candidates": 200,
+    "recovered": 200,
+    "exact": 0,
+    "failures_sample": []
+  },
+  "quasi_polynomial": {
+    "n": 200,
+    "candidates": 200,
+    "recovered": 200,
+    "exact": 0,
+    "failures_sample": []
+  },
+  "floor_linear": {
+    "n": 200,
+    "candidates": 322,
+    "recovered": 200,
+    "exact": 0,
+    "wrong": 19,
+    "failures_sample": [
+      {
+        "statement": "s(n) = floor((197/42)*n + beta) for all n >= 0, some beta in [0.809524, 0.833333)",
+        "check": {
+          "status": "violated",
+          "first_counterexample": 358,
+          "checked_range": [
+            0,
+            1999
+          ],
+          "n_checked": 358
+        },
+        "planted": {
+          "alpha_name": null,
+          "alpha": 4.69041575982343
+        }
+      },
+      {
+        "statement": "s(n) = floor((182/25)*n + beta) for all n >= 0, some beta in [0.28, 0.32)",
+        "check": {
+          "status": "violated",
+          "first_counterexample": 381,
+          "checked_range": [
+            0,
+            1999
+          ],
+          "n_checked": 381
+        },
+        "planted": {
+          "alpha_name": null,
+          "alpha": 7.280109889280518
+        }
+      },
+      {
+        "statement": "s(n) = floor((449/40)*n + beta) for all n >= 0, some beta in [0.725, 0.75)",
+        "check": {
+          "status": "violated",
+          "first_counterexample": 379,
+          "checked_range": [
+            0,
+            1999
+          ],
+          "n_checked": 379
+        },
+        "planted": {
+          "alpha_name": null,
+          "alpha": 11.224972160321824
+        }
+      }
+    ]
+  },
+  "negative_uniform": {
+    "n": 200,
+    "candidates": 0,
+    "silent": 200,
+    "recovered": 0,
+    "exact": 0,
+    "failures_sample": []
+  },
+  "negative_random_walk": {
+    "n": 200,
+    "candidates": 0,
+    "silent": 200,
+    "recovered": 0,
+    "exact": 0,
+    "failures_sample": []
+  },
+  "negative_noisy_periodic": {
+    "n": 200,
+    "candidates": 111,
+    "wrong": 111,
+    "recovered": 0,
+    "exact": 0,
+    "silent": 89,
+    "failures_sample": [
+      {
+        "statement": "s(n + 4) = s(n) for all n >= 257",
+        "check": {
+          "status": "violated",
+          "first_counterexample": 328,
+          "checked_range": [
+            257,
+            2999
+          ],
+          "n_checked": 67
+        },
+        "planted": {}
+      },
+      {
+        "statement": "s(n + 8) = s(n) for all n >= 239",
+        "check": {
+          "status": "violated",
+          "first_counterexample": 407,
+          "checked_range": [
+            239,
+            2999
+          ],
+          "n_checked": 160
+        },
+        "planted": {}
+      },
+      {
+        "statement": "s(n + 4) = s(n) for all n >= 231",
+        "check": {
+          "status": "violated",
+          "first_counterexample": 312,
+          "checked_range": [
+            231,
+            2999
+          ],
+          "n_checked": 77
+        },
+        "planted": {}
+      }
+    ]
+  }
+}

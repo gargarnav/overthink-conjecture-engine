@@ -62,6 +62,34 @@ def _cmd_mine(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_benchmark(args: argparse.Namespace) -> int:
+    import yaml
+
+    from overthink.conjecture.benchmark import run_benchmark
+
+    cfg = yaml.safe_load(args.config.read_text()) if args.config else {}
+    miners = cfg.get("miners", {})
+    report = run_benchmark(miners, n_per_family=args.n, seed=args.seed)
+    cols = ["n", "recovered", "exact", "wrong", "other_true", "silent", "candidates"]
+    lines = [
+        f"# Miner benchmark (n={args.n} per family, seed={args.seed}, scale 10x)",
+        "",
+        f"Config: `{args.config}`" if args.config else "Config: defaults",
+        "",
+        "| Family | " + " | ".join(cols) + " |",
+        "|---|" + "---|" * len(cols),
+    ]
+    for fam, st in report.items():
+        lines.append(f"| {fam} | " + " | ".join(str(st.get(c, 0)) for c in cols) + " |")
+    text = "\n".join(lines) + "\n"
+    print(text)
+    if args.out:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        args.out.write_text(text)
+        args.out.with_suffix(".json").write_text(json.dumps(report, indent=2, default=str))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="overthink",
@@ -92,6 +120,13 @@ def build_parser() -> argparse.ArgumentParser:
     p_mine.add_argument("--runs-dir", type=Path, default=Path("experiments/runs"))
     p_mine.add_argument("--data-dir", type=Path, default=Path("data_out"))
     p_mine.set_defaults(func=_cmd_mine)
+
+    p_bench = sub.add_parser("benchmark", help="benchmark miners on planted synthetic data")
+    p_bench.add_argument("--config", type=Path, help="mining config (uses its 'miners')")
+    p_bench.add_argument("--n", type=int, default=200, help="sequences per family")
+    p_bench.add_argument("--seed", type=int, default=7)
+    p_bench.add_argument("--out", type=Path, help="write markdown (+ .json) report here")
+    p_bench.set_defaults(func=_cmd_benchmark)
 
     return parser
 

@@ -24,6 +24,7 @@ second_order:
   enabled: true
   min_length: 12
   miners:
+    structural_transforms: [raw]
     periodic: {max_period: 50, min_repeats: 3, min_support: 8}
     polynomial: {max_degree: 3, max_modulus: 4, min_support: 8}
     recurrence: {max_order: 6, min_support: 8}

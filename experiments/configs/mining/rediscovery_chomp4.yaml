@@ -1,0 +1,31 @@
+# Blind rediscovery run on 4-row Chomp (pre-registered; see experiments/rediscovery/PROTOCOL.md).
+# Views and miner parameters are copied unchanged from dev_subtraction_wythoff.yaml, which was
+# developed on synthetic data, subtraction games and Wythoff only.
+# Proposal window a <= 100 is 1/10 of the falsification data (chomp4_n1000, a <= 1000).
+run_name: rediscovery_chomp4
+datasets:
+  - id: chomp4_n1000
+    proposal_window: {a: 100}
+views:
+  max_group_value: 30
+  min_length: 30
+  transforms: [raw, minus_index]
+  zero_set: true
+  enumeration: true
+  max_sequences: 50000
+miners:
+  structural_transforms: [raw]
+  periodic: {max_period: 200, min_repeats: 3, min_support: 20, min_tail_fraction: 0.0}
+  polynomial: {max_degree: 4, max_modulus: 6, min_support: 20}
+  recurrence: {max_order: 12, min_support: 20}
+  floor_linear: {min_points: 30, max_points: 3000}
+  oeis: {snapshot: null, min_terms: 12, max_hits: 10}
+second_order:
+  enabled: true
+  min_length: 12
+  miners:
+    structural_transforms: [raw]
+    periodic: {max_period: 50, min_repeats: 3, min_support: 8}
+    polynomial: {max_degree: 3, max_modulus: 4, min_support: 8}
+    recurrence: {max_order: 6, min_support: 8}
+    floor_linear: {min_points: 12, max_points: 3000}

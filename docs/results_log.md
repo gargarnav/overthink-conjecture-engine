@@ -71,3 +71,31 @@ The periodicity miner was planned before this exposure (Step 0 plan, same date).
 **Not done**
 - Full datasets are not hosted publicly yet (Hugging Face/Zenodo TODO).
 - Data license CC BY 4.0 is proposed, not confirmed.
+
+---
+
+## 2026-10-13: Phase D, classical miners (development on non-Chomp data only)
+
+**Built**
+- Miners (`src/overthink/conjecture/`): ultimate (additive) periodicity; polynomial and quasi-polynomial (difference tables, exact rational fits); linear recurrences (Berlekamp-Massey over Q); floor-linear/Beatty (exact feasible-slope interval, simplest rational, fixed library of 15 named constants); exact OEIS snapshot matching (implemented and unit-tested on a fake snapshot; **no real OEIS snapshot downloaded yet**).
+- Selection by minimal description length per sequence; losing alternatives are kept in the evidence.
+- `checks.check` tests any candidate on a longer sequence and reports the first counterexample.
+- Generic views: grouped (auto-detected functional dependencies), zero-set (P-positions), enumeration (with symmetry detection), second-order (period parameters across groups).
+- CLI: `overthink mine CONFIG`, `overthink benchmark`. 72 tests passing.
+
+**Synthetic benchmark** (`uv run overthink benchmark --config experiments/configs/mining/dev_subtraction_wythoff.yaml --n 200 --seed 7`, report in `experiments/miner_benchmark/REPORT.md`). A candidate counts as correct only if it holds on a 10× extension of the planted sequence.
+- Planted periodic, additive-periodic, long-preperiod periodic, linear-recurrence, polynomial, quasi-polynomial and Beatty sequences: 200/200 recovered in every family. The exact period, delta and preperiod were recovered 200/200 in all three periodic families.
+- Negative controls (uniform random, random walk): 0 candidates on 400 sequences.
+- Noisy periodic control (each term corrupted with probability 1/40): **111/200 sequences produce a false proposal** (a clean tail looks periodic). These are refuted by the 10× check. Requiring the periodic part to cover ≥ 50% of the data cut false proposals to 40/200, but recall on true long-preperiod sequences fell from 200/200 to 87/200. We keep the permissive setting and rely on falsification.
+- Beatty sequences: 19 strong guesses for the slope (a rational or a named constant) were refuted on the 10× extension. The weak statement (some real slope works) survived in all 200 cases.
+
+**Problems found and fixed during development**
+- The periodicity miner reported spurious additive periods for Beatty sequences near continued-fraction convergents (28/40 wrong in the first run). Fixed by selecting on description length across all miners.
+- A test generator bug made the uniform-random control constant; it was caught because it produced candidates.
+- Logically equivalent duplicates (Y vs Y − index) inflated candidate counts by about 55%. Structural miners now run on raw sequences only.
+
+**Development run on real non-Chomp data** (`dev_subtraction_wythoff-20261013T142154Z`, proposal windows n ≤ 199 and x, y ≤ 99; these are *unfalsified proposals*)
+- Subtraction games (511 sets S ⊆ {1..9}): a periodicity candidate for the Grundy sequence of all 511 sets. Spot checks agree with textbook values: {1,2,3} period 4, {1,2} period 3, {1,3,4} period 7.
+- Wythoff: from the P-positions alone the pipeline proposed a_k = ⌊kφ + β⌋, b_k = ⌊kφ² + β⌋ with β ∈ [0, 0.021) (so β = 0 is allowed), and b_k − a_k = k. That is Wythoff's theorem. Rows y = 0..6 of the Grundy table were proposed additively periodic (periods 1, 3, 3, 6, 12, 24, 12). This agrees with the published result that rows are ultimately additively periodic (Dress, Flammenkamp & Pink 1999; *citation to verify*). The specific periods haven't been checked against the literature.
+
+**Rediscovery pre-registration drafted** (not yet frozen): `experiments/rediscovery/PROTOCOL.md` and `experiments/configs/mining/rediscovery_chomp4.yaml`. Its views, miner and second-order parameters are identical (checked with diff) to the development config. **No miner has been run on Chomp data.**
