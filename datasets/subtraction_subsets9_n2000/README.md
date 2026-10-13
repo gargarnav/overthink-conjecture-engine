@@ -4,6 +4,10 @@
 
 Grundy values g_S(n), n <= 2000, for every non-empty subtraction set S contained in {1, ..., 9} (511 sets).
 
+## Motivation
+
+Grundy sequences of all subtraction games with S in {1..9} as a benchmark where periodicity is a theorem, used to develop the miners and the Lean finite-window proofs.
+
 ## Game
 
 **Subtraction games: Grundy values.** A heap of n tokens. A move removes s tokens for some s in the subtraction set S (s <= n). The player unable to move loses (normal play).
@@ -45,8 +49,8 @@ Every n in 0..n_max for every listed subtraction set S.
 uv run overthink generate experiments/configs/datasets/subtraction_subsets9_n2000.yaml
 ```
 
-Generation is deterministic (no randomness) and took 0.12 s.
-Generated 2026-10-13T14:03:33+00:00 from git `1c73b5720703e05d9b8443ee12ae1651f52368a3` with overthink
+Random seeds: none. Generation is deterministic and took 0.13 s.
+Generated 2026-10-13T19:21:34+00:00 from git `e67814266d6c91d871b3dcdec598ec46d6a80ed3` (uncommitted changes present) with overthink
 0.1.0 (Rust core 0.1.0), polars
 2.0.0, Python 3.12.12 on macOS-26.3-arm64-arm-64bit.
 
@@ -54,10 +58,17 @@ Generated 2026-10-13T14:03:33+00:00 from git `1c73b5720703e05d9b8443ee12ae1651f5
 
 Solver correctness evidence is in `tests/test_games.py` and `docs/results_log.md`.
 
+## Known limitations
+
+Only n <= 2000 and S within {1..9}.
+
 ## License
 
-Data: CC BY 4.0 *(proposed; TODO confirm before public release)*. Code: MIT.
+Data: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (see `datasets/LICENSE`).
+Code that generates it: MIT.
 
 ## Citation
 
-See `CITATION.cff` in the repository root.
+Arnav Garg, *Overthink Conjecture Engine*, dataset `subtraction_subsets9_n2000` (schema
+1.0), https://github.com/gargarnav/overthink-conjecture-engine.
+See `CITATION.cff`. DOI: TODO (assigned at the first Zenodo release).

@@ -22,17 +22,17 @@
   "sample_row_count": 1024,
   "sample_content_sha256": "71303913f51fc1a4edbe4ff5a8c00f15bf5432ddf66a9d98cdbb016df28cec26",
   "random_seed": null,
-  "generated_at": "2026-10-13T14:03:36+00:00",
+  "generated_at": "2026-10-13T19:21:43+00:00",
   "generation_seconds": 2.88,
   "config_path": "experiments/configs/datasets/wythoff_n1000.yaml",
   "provenance": {
-    "git_sha": "1c73b5720703e05d9b8443ee12ae1651f52368a3",
-    "git_dirty": false,
+    "git_sha": "e67814266d6c91d871b3dcdec598ec46d6a80ed3",
+    "git_dirty": true,
     "overthink_version": "0.1.0",
     "rust_core_version": "0.1.0",
     "polars_version": "2.0.0",
     "python": "3.12.12",
     "platform": "macOS-26.3-arm64-arm-64bit",
-    "command": "overthink generate experiments/configs/datasets/chomp4_n1000.yaml experiments/configs/datasets/subtraction_subsets9_n2000.yaml experiments/configs/datasets/wythoff_n1000.yaml"
+    "command": "overthink generate experiments/configs/datasets/chomp4_a3000_c60.yaml experiments/configs/datasets/chomp4_n1000.yaml experiments/configs/datasets/subtraction_subsets9_n2000.yaml experiments/configs/datasets/wsub_subsets5_n1000.yaml experiments/configs/datasets/wythoff_n1000.yaml"
   }
 }

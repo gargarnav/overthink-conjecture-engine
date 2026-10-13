@@ -4,6 +4,10 @@
 
 All P-positions (a, b, c, d) of 4-row Chomp with first row a <= 3000 and third row c <= 60. Used as the 10x-30x falsification set for mining runs whose views only read positions with c <= 60 (grouped views with max_group_value <= 60 never read rows with c > 60). Cross-checked against the author's independent n <= 3000 data.
 
+## Motivation
+
+Falsification set at 10-30x the proposal windows used for 4-row Chomp; restricted to c <= 60, which contains every row read by grouped views with group values <= 60.
+
 ## Game
 
 **4-row Chomp: P-positions.** Row lengths a >= b >= c >= d >= 0 with a >= 1. Square (0,0) is poisoned and cannot be taken. A move picks a square (i, j) != (0,0) inside the position and removes it with every square (i', j') where i' >= i and j' >= j. The player unable to move loses, so (1,0,0,0) is a P-position.
@@ -46,8 +50,8 @@ Every P-position with a <= max_a (and c <= max_c). Positions not listed, within 
 uv run overthink generate experiments/configs/datasets/chomp4_a3000_c60.yaml
 ```
 
-Generation is deterministic (no randomness) and took 0.15 s.
-Generated 2026-10-13T15:03:33+00:00 from git `94a03644f4091ad0410cec22db6fb32fcb062fe9` (uncommitted changes present) with overthink
+Random seeds: none. Generation is deterministic and took 0.14 s.
+Generated 2026-10-13T19:20:28+00:00 from git `e67814266d6c91d871b3dcdec598ec46d6a80ed3` with overthink
 0.1.0 (Rust core 0.1.0), polars
 2.0.0, Python 3.12.12 on macOS-26.3-arm64-arm-64bit.
 
@@ -55,10 +59,17 @@ Generated 2026-10-13T15:03:33+00:00 from git `94a03644f4091ad0410cec22db6fb32fcb
 
 Solver correctness evidence is in `tests/test_games.py` and `docs/results_log.md`.
 
+## Known limitations
+
+Only rows with c <= 60 and a <= 3000; not a complete tabulation of 4-row Chomp for a <= 3000.
+
 ## License
 
-Data: CC BY 4.0 *(proposed; TODO confirm before public release)*. Code: MIT.
+Data: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (see `datasets/LICENSE`).
+Code that generates it: MIT.
 
 ## Citation
 
-See `CITATION.cff` in the repository root.
+Arnav Garg, *Overthink Conjecture Engine*, dataset `chomp4_a3000_c60` (schema
+1.0), https://github.com/gargarnav/overthink-conjecture-engine.
+See `CITATION.cff`. DOI: TODO (assigned at the first Zenodo release).

@@ -4,6 +4,10 @@
 
 All P-positions (a, b, c, d) of 4-row Chomp with first row a <= 1000. Restricting to a <= 500 gives the 4,316,097 positions used in the author's 4xn Chomp paper.
 
+## Motivation
+
+Exact P-positions of 4-row Chomp are the raw material for testing structural conjectures about 4xn Chomp (A. Garg, arXiv:2604.25952) and for blind rediscovery experiments; few exact 4-row tabulations are public.
+
 ## Game
 
 **4-row Chomp: P-positions.** Row lengths a >= b >= c >= d >= 0 with a >= 1. Square (0,0) is poisoned and cannot be taken. A move picks a square (i, j) != (0,0) inside the position and removes it with every square (i', j') where i' >= i and j' >= j. The player unable to move loses, so (1,0,0,0) is a P-position.
@@ -45,8 +49,8 @@ Every P-position with a <= max_a (and c <= max_c). Positions not listed, within 
 uv run overthink generate experiments/configs/datasets/chomp4_n1000.yaml
 ```
 
-Generation is deterministic (no randomness) and took 51.35 s.
-Generated 2026-10-13T14:03:32+00:00 from git `1c73b5720703e05d9b8443ee12ae1651f52368a3` with overthink
+Random seeds: none. Generation is deterministic and took 62.28 s.
+Generated 2026-10-13T19:21:34+00:00 from git `e67814266d6c91d871b3dcdec598ec46d6a80ed3` (uncommitted changes present) with overthink
 0.1.0 (Rust core 0.1.0), polars
 2.0.0, Python 3.12.12 on macOS-26.3-arm64-arm-64bit.
 
@@ -54,10 +58,17 @@ Generated 2026-10-13T14:03:32+00:00 from git `1c73b5720703e05d9b8443ee12ae1651f5
 
 Solver correctness evidence is in `tests/test_games.py` and `docs/results_log.md`.
 
+## Known limitations
+
+Only P-positions are listed (N-positions are implicit). Truncated at a <= 1000; statements about larger a are extrapolations. Produced by this project's solver, cross-checked against the author's independent C++ output and brute force (see docs/results_log.md).
+
 ## License
 
-Data: CC BY 4.0 *(proposed; TODO confirm before public release)*. Code: MIT.
+Data: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (see `datasets/LICENSE`).
+Code that generates it: MIT.
 
 ## Citation
 
-See `CITATION.cff` in the repository root.
+Arnav Garg, *Overthink Conjecture Engine*, dataset `chomp4_n1000` (schema
+1.0), https://github.com/gargarnav/overthink-conjecture-engine.
+See `CITATION.cff`. DOI: TODO (assigned at the first Zenodo release).

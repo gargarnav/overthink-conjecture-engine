@@ -4,6 +4,10 @@
 
 Grundy values of the Wythoff subtraction game W(S) for every non-empty S contained in {1, ..., 5} (31 sets) and all positions with x, y < 1000. Family H (new game family) of the project; proposal window x, y < 100, falsification on the full table (10x).
 
+## Motivation
+
+Grundy values of the Wythoff subtraction games W(S), a family of finite two-dimensional subtraction games used for the AI-proposer experiment (family H).
+
 ## Game
 
 **Wythoff subtraction games W(S): Grundy values.** Two heaps (x, y) and a finite subtraction set S. A move removes s tokens from one heap, or s tokens from both heaps, for some s in S. Normal play. This is the finite two-dimensional subtraction game with move vectors (s,0), (0,s), (s,s), s in S.
@@ -46,8 +50,8 @@ Every position (x, y) with 0 <= x, y < n, for every listed set S.
 uv run overthink generate experiments/configs/datasets/wsub_subsets5_n1000.yaml
 ```
 
-Generation is deterministic (no randomness) and took 2.6 s.
-Generated 2026-10-13T16:28:29+00:00 from git `2afec99f0d91994f37053113d3c74f40df6eb290` (uncommitted changes present) with overthink
+Random seeds: none. Generation is deterministic and took 2.57 s.
+Generated 2026-10-13T19:21:40+00:00 from git `e67814266d6c91d871b3dcdec598ec46d6a80ed3` (uncommitted changes present) with overthink
 0.1.0 (Rust core 0.1.0), polars
 2.0.0, Python 3.12.12 on macOS-26.3-arm64-arm-64bit.
 
@@ -55,10 +59,17 @@ Generated 2026-10-13T16:28:29+00:00 from git `2afec99f0d91994f37053113d3c74f40df
 
 Solver correctness evidence is in `tests/test_games.py` and `docs/results_log.md`.
 
+## Known limitations
+
+Only S within {1..5} and x, y < 1000; most structure is periodic, which may make this family easier than typical 2D subtraction games.
+
 ## License
 
-Data: CC BY 4.0 *(proposed; TODO confirm before public release)*. Code: MIT.
+Data: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (see `datasets/LICENSE`).
+Code that generates it: MIT.
 
 ## Citation
 
-See `CITATION.cff` in the repository root.
+Arnav Garg, *Overthink Conjecture Engine*, dataset `wsub_subsets5_n1000` (schema
+1.0), https://github.com/gargarnav/overthink-conjecture-engine.
+See `CITATION.cff`. DOI: TODO (assigned at the first Zenodo release).

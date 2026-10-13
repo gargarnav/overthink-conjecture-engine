@@ -4,6 +4,10 @@
 
 Grundy values of Wythoff's game for all positions with both heaps below 1000.
 
+## Motivation
+
+Grundy values of Wythoff's game as a well-understood benchmark family for developing and testing the miners (Wythoff's theorem was recovered from it).
+
 ## Game
 
 **Wythoff's game: Grundy values.** Two heaps (x, y). A move removes any positive number of tokens from one heap, or the same positive number from both. Normal play.
@@ -44,8 +48,8 @@ Every position (x, y) with 0 <= x, y < n.
 uv run overthink generate experiments/configs/datasets/wythoff_n1000.yaml
 ```
 
-Generation is deterministic (no randomness) and took 2.88 s.
-Generated 2026-10-13T14:03:36+00:00 from git `1c73b5720703e05d9b8443ee12ae1651f52368a3` with overthink
+Random seeds: none. Generation is deterministic and took 2.88 s.
+Generated 2026-10-13T19:21:43+00:00 from git `e67814266d6c91d871b3dcdec598ec46d6a80ed3` (uncommitted changes present) with overthink
 0.1.0 (Rust core 0.1.0), polars
 2.0.0, Python 3.12.12 on macOS-26.3-arm64-arm-64bit.
 
@@ -53,10 +57,17 @@ Generated 2026-10-13T14:03:36+00:00 from git `1c73b5720703e05d9b8443ee12ae1651f5
 
 Solver correctness evidence is in `tests/test_games.py` and `docs/results_log.md`.
 
+## Known limitations
+
+Square window x, y < 1000; row/column statements beyond it are extrapolations.
+
 ## License
 
-Data: CC BY 4.0 *(proposed; TODO confirm before public release)*. Code: MIT.
+Data: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (see `datasets/LICENSE`).
+Code that generates it: MIT.
 
 ## Citation
 
-See `CITATION.cff` in the repository root.
+Arnav Garg, *Overthink Conjecture Engine*, dataset `wythoff_n1000` (schema
+1.0), https://github.com/gargarnav/overthink-conjecture-engine.
+See `CITATION.cff`. DOI: TODO (assigned at the first Zenodo release).
