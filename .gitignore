@@ -42,3 +42,10 @@ cache/
 
 # MkDocs build output
 site/
+
+# Grant drafts, budget and personal details stay out of the public repo
+grant/
+
+# coverage output
+.coverage
+coverage.xml
