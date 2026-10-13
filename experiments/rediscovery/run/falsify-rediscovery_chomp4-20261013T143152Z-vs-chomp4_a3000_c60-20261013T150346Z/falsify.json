@@ -1,0 +1,43 @@
+{
+  "falsify_run_id": "falsify-rediscovery_chomp4-20261013T143152Z-vs-chomp4_a3000_c60-20261013T150346Z",
+  "mining_run_id": "rediscovery_chomp4-20261013T143152Z",
+  "seconds": 0.98,
+  "datasets": [
+    {
+      "id": "chomp4_n1000",
+      "falsified_against": "chomp4_a3000_c60",
+      "content_sha256": "62e1cbdcc3d4ca6811fe97232409223bf86e91474461c9ce2d346480bd5998a8",
+      "full_rows": 2010792,
+      "proposal_window": {
+        "a": 100
+      },
+      "scale_factor": {
+        "a": 30.0
+      },
+      "full_sequences": 388,
+      "candidates": 73,
+      "seconds": 0.98
+    }
+  ],
+  "counts": {
+    "survived": 69,
+    "refuted": 4
+  },
+  "counts_by_kind": {
+    "additive_periodic": {
+      "survived": 69,
+      "refuted": 4
+    }
+  },
+  "rule": "refuted if violated on any sequence in scope; survived if it holds on all and at least one has new terms; otherwise untestable",
+  "provenance": {
+    "git_sha": "144e0b84bfd046e02f079e11ae39116be5bc99e1",
+    "git_dirty": false,
+    "overthink_version": "0.1.0",
+    "rust_core_version": "0.1.0",
+    "polars_version": "2.0.0",
+    "python": "3.12.12",
+    "platform": "macOS-26.3-arm64-arm-64bit",
+    "command": "overthink falsify experiments/rediscovery/run/rediscovery_chomp4-20261013T143152Z --runs-dir experiments/rediscovery/run --dataset-map chomp4_n1000=chomp4_a3000_c60"
+  }
+}
