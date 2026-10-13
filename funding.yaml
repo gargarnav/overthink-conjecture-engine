@@ -1,10 +1,7 @@
-# Funding status. Single source of truth for every funding acknowledgment in this repository.
+# Funding status. Single source of truth for any funding acknowledgment in this repository.
 #
-# funded: false means NO FUNDING HAS BEEN AWARDED. While false, the acknowledgment below must
-# not appear in any rendered output (README, dataset cards, docs site, papers). It is kept here
-# only so that it can be switched on in one place if a grant is awarded.
-# See docs/grant_compliance.md for every location that reads this flag.
+# funded: false means no funding has been awarded, and no acknowledgment is rendered anywhere
+# (README, dataset cards, docs site). If funding is awarded, set funded: true and fill in the
+# acknowledgment text the funder requires.
 funded: false
-acknowledgment: >-
-  This work is supported by the AI For Math Fund, which is run by Renaissance Philanthropy
-  and funded by XTX Markets.
+acknowledgment: ""

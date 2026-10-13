@@ -3,8 +3,7 @@ site_url: https://gargarnav.github.io/overthink-conjecture-engine/
 repo_url: https://github.com/gargarnav/overthink-conjecture-engine
 repo_name: gargarnav/overthink-conjecture-engine
 site_author: Arnav Garg
-# Footer. If funding.yaml is switched to funded: true, add the acknowledgment here
-# (see docs/grant_compliance.md). It must not appear while no grant has been awarded.
+# Footer. If funding.yaml is switched to funded: true, add the acknowledgment here.
 copyright: "Code MIT · Data CC BY 4.0 · © 2026 Arnav Garg"
 theme:
   name: material
@@ -26,5 +25,4 @@ nav:
       - "W({a,a+1}) theorem": results/W_pair_theorem.md
       - Metrics: metrics.md
       - Costs: costs.md
-  - Grant compliance: grant_compliance.md
   - Commit SHA map: commit_sha_map.md

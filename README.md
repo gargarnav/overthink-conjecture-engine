@@ -56,7 +56,7 @@ rust/            performance-critical core (PyO3)
 lean/            Lean 4 + Mathlib proofs
 datasets/        dataset cards, manifests, samples, conjecture registry export
 experiments/     configs, pre-registered experiments and their reports
-docs/            methodology, results log, metrics, costs, grant compliance
+docs/            methodology, results log, metrics, costs
 ```
 
 ## Documentation
@@ -69,7 +69,7 @@ Code: MIT ([LICENSE](LICENSE)). Data: CC BY 4.0 ([datasets/LICENSE](datasets/LIC
 
 ## Funding
 
-No external funding at present. (The acknowledgment text for any future grant lives in `funding.yaml` and is only rendered when `funded: true`.)
+No external funding at present.
 
 ## Citation
 

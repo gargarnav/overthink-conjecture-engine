@@ -52,4 +52,4 @@ Every experiment runs from one command and one config file, e.g. `overthink run 
 
 ## 6. Reporting
 
-`docs/results_log.md` is the source of truth. It records failures as well as successes. Grant and paper text may only cite numbers that appear in the log or in a committed artifact.
+`docs/results_log.md` is the source of truth. It records failures as well as successes. Papers and other write-ups may only cite numbers that appear in the log or in a committed artifact.

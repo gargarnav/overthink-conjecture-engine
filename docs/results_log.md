@@ -1,6 +1,6 @@
 # Results log
 
-Dated, append-only record of what actually worked and what failed. Newest entries at the bottom. This file is the source of truth for any number cited in papers or grant materials.
+Dated, append-only record of what actually worked and what failed. Newest entries at the bottom. This file is the source of truth for any number cited in papers or other write-ups.
 
 ---
 
