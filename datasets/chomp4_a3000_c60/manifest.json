@@ -1,0 +1,42 @@
+{
+  "dataset": "chomp4_a3000_c60",
+  "family": "chomp4",
+  "description": "All P-positions (a, b, c, d) of 4-row Chomp with first row a <= 3000 and third row c <= 60. Used as the 10x-30x falsification set for mining runs whose views only read positions with c <= 60 (grouped views with max_group_value <= 60 never read rows with c > 60). Cross-checked against the author's independent n <= 3000 data.",
+  "params": {
+    "max_a": 3000,
+    "max_c": 60
+  },
+  "schema_version": "1.0",
+  "columns": {
+    "a": "UInt32",
+    "b": "UInt32",
+    "c": "UInt32",
+    "d": "UInt32"
+  },
+  "sort_order": [
+    "a",
+    "b",
+    "c",
+    "d"
+  ],
+  "row_count": 2010792,
+  "content_sha256": "62e1cbdcc3d4ca6811fe97232409223bf86e91474461c9ce2d346480bd5998a8",
+  "file_sha256": "426fcd29d251f01520fb459a3def008ab734e264a6b2cdf5374df5805b7d9995",
+  "file_bytes": 2471319,
+  "sample_row_count": 1317,
+  "sample_content_sha256": "95809d1ed00e15f5843a5dbb58640f12739890b412e37971da6a5134a0857dd5",
+  "random_seed": null,
+  "generated_at": "2026-10-13T15:03:33+00:00",
+  "generation_seconds": 0.15,
+  "config_path": "experiments/configs/datasets/chomp4_a3000_c60.yaml",
+  "provenance": {
+    "git_sha": "94a03644f4091ad0410cec22db6fb32fcb062fe9",
+    "git_dirty": true,
+    "overthink_version": "0.1.0",
+    "rust_core_version": "0.1.0",
+    "polars_version": "2.0.0",
+    "python": "3.12.12",
+    "platform": "macOS-26.3-arm64-arm-64bit",
+    "command": "overthink generate experiments/configs/datasets/chomp4_a3000_c60.yaml"
+  }
+}

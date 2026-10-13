@@ -195,3 +195,24 @@ def test_second_order_survival_and_refutation(tmp_path, monkeypatch):
     assert by_seq["delta over g"]["status"] == "holds"
     first = [r for r in res.values() if not r["second_order"] and "g=15|raw" in r["sequence_id"]]
     assert first and all(r["status"] == "refuted" for r in first)
+
+
+def test_falsify_against_larger_dataset(mined, tmp_path):
+    cfg = tmp_path / "s_big.yaml"
+    cfg.write_text(
+        json.dumps(
+            {
+                "dataset": "s_big",
+                "family": "subtraction",
+                "params": {"sets": [[1, 3, 4], [2, 5, 7]], "n_max": 1800},
+            }
+        )
+    )
+    generate(cfg, out_dir=tmp_path / "data_out", meta_dir=tmp_path / "datasets")
+    out = falsify_run(mined, runs_dir=tmp_path / "runs", dataset_map={"s": "s_big"})
+    info = json.loads((out / "falsify.json").read_text())
+    assert info["datasets"][0]["falsified_against"] == "s_big"
+    assert info["datasets"][0]["scale_factor"] == {"n": round(1800 / 59, 2)}
+    res = _results(out)
+    p = next(r for r in res.values() if "subtraction_set=1,3,4|raw" in r["sequence_id"])
+    assert p["status"] == "survived" and p["per_sequence"][0]["full_range"][1] == 1800

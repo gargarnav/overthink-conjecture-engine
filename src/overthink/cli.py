@@ -95,7 +95,10 @@ def _cmd_falsify(args: argparse.Namespace) -> int:
     from overthink.registry.store import Registry
 
     reg = None if args.no_registry else Registry(args.registry)
-    out = falsify_run(args.run_dir, runs_dir=args.runs_dir, data_dir=args.data_dir, registry=reg)
+    dmap = dict(m.split("=", 1) for m in args.dataset_map)
+    out = falsify_run(
+        args.run_dir, runs_dir=args.runs_dir, data_dir=args.data_dir, registry=reg, dataset_map=dmap
+    )
     info = json.loads((out / "falsify.json").read_text())
     for d in info["datasets"]:
         print(
@@ -174,6 +177,13 @@ def build_parser() -> argparse.ArgumentParser:
     p_fal.add_argument("--data-dir", type=Path, default=Path("data_out"))
     p_fal.add_argument("--registry", type=Path, default=Path("registry/events.jsonl"))
     p_fal.add_argument("--no-registry", action="store_true", help="do not record events")
+    p_fal.add_argument(
+        "--dataset-map",
+        action="append",
+        default=[],
+        metavar="RUN_ID=TEST_ID",
+        help="test against another (e.g. larger) dataset; repeatable",
+    )
     p_fal.set_defaults(func=_cmd_falsify)
 
     p_reg = sub.add_parser("registry", help="inspect the conjecture registry")

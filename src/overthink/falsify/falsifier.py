@@ -125,7 +125,11 @@ def falsify_run(
     data_dir: Path = Path("data_out"),
     meta_dir: Path = Path("datasets"),
     registry: Registry | None = None,
+    dataset_map: dict[str, str] | None = None,
 ) -> Path:
+    """`dataset_map` tests a run against a different dataset, e.g. a larger one:
+    {"chomp4_n1000": "chomp4_a3000_c60"}. Sequence IDs keep the original dataset name."""
+    dataset_map = dataset_map or {}
     run_dir = Path(run_dir)
     info = json.loads((run_dir / "run.json").read_text())
     cfg = info["config"]
@@ -138,13 +142,15 @@ def falsify_run(
     ]
     prop_idx = _index(prop_seqs)
 
-    out_dir, _ = new_run_dir(runs_dir, f"falsify-{info['run_id']}")
+    suffix = "".join(f"-vs-{v}" for v in sorted(set(dataset_map.values())))
+    out_dir, _ = new_run_dir(runs_dir, f"falsify-{info['run_id']}{suffix}")
     t_start = time.perf_counter()
     results, ds_info = [], []
     for ds in cfg["datasets"]:
         t0 = time.perf_counter()
-        manifest_path = meta_dir / ds["id"] / "manifest.json"
-        full = load(data_dir / ds["id"], manifest_path=manifest_path)
+        full_id = dataset_map.get(ds["id"], ds["id"])
+        manifest_path = meta_dir / full_id / "manifest.json"
+        full = load(data_dir / full_id, manifest_path=manifest_path)
         manifest = json.loads(manifest_path.read_text())
         window = ds.get("proposal_window") or {}
         scale = {c: round(full[c].max() / mx, 2) if mx else None for c, mx in window.items()}
@@ -185,6 +191,7 @@ def falsify_run(
         ds_info.append(
             {
                 "id": ds["id"],
+                "falsified_against": full_id,
                 "content_sha256": manifest["content_sha256"],
                 "full_rows": full.height,
                 "proposal_window": window,
@@ -243,12 +250,13 @@ def render_summary(s: dict[str, Any], results: list[dict]) -> str:
         "",
         f"Rule: {s['rule']}.",
         "",
-        "| Dataset | Window | Scale factor | Candidates |",
-        "|---|---|---|---|",
+        "| Dataset | Tested against | Window | Scale factor | Candidates |",
+        "|---|---|---|---|---|",
     ]
     for d in s["datasets"]:
         lines.append(
-            f"| `{d['id']}` | `{d['proposal_window']}` | `{d['scale_factor']}` | "
+            f"| `{d['id']}` | `{d.get('falsified_against', d['id'])}` | "
+            f"`{d['proposal_window']}` | `{d['scale_factor']}` | "
             f"{d['candidates']} |"
         )
     lines += ["", f"Overall: {s['counts']}", "", "| Kind | Status counts |", "|---|---|"]

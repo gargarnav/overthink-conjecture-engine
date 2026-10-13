@@ -1,0 +1,10 @@
+dataset: chomp4_a3000_c60
+family: chomp4
+description: >-
+  All P-positions (a, b, c, d) of 4-row Chomp with first row a <= 3000 and third row c <= 60.
+  Used as the 10x-30x falsification set for mining runs whose views only read positions with
+  c <= 60 (grouped views with max_group_value <= 60 never read rows with c > 60).
+  Cross-checked against the author's independent n <= 3000 data.
+params:
+  max_a: 3000
+  max_c: 60
