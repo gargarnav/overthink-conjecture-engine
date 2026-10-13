@@ -10,7 +10,9 @@ name = "_core"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
+numpy = "0.29"
 pyo3 = { version = "0.29", features = ["abi3-py312"] }
+rayon = "1"
 
 [profile.release]
 lto = "thin"
