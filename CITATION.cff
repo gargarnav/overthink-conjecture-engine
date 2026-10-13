@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software or its datasets, please cite it as below."
+title: "Overthink Conjecture Engine"
+abstract: >-
+  A falsification-first discovery loop for combinatorial game theory:
+  compute exact game data, mine it for conjectures, aggressively try to
+  refute them, formalize survivors in Lean 4, and record everything in an
+  open dataset.
+type: software
+authors:
+  - given-names: Arnav
+    family-names: Garg
+    affiliation: "Independent researcher"
+    # orcid: "https://orcid.org/TODO"
+license: MIT
+version: 0.1.0
+date-released: "2026-10-13"
+# repository-code: "https://github.com/TODO/overthink"
+keywords:
+  - combinatorial game theory
+  - automated conjecture generation
+  - formal verification
+  - Lean 4
+  - impartial games
+  - Chomp

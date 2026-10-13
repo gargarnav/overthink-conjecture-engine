@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Rust
+rust/target/
+target/
+
+# Lean
+lean/.lake/
+
+# Large generated data: hosted separately, see datasets/README.md
+data_out/
+*.parquet
+!datasets/samples/*.parquet
+
+# Experiment run outputs (configs and reports are tracked)
+experiments/runs/
+
+# Secrets
+.env
+*.key
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
