@@ -1,0 +1,10 @@
+{
+  "config_path": "experiments/configs/mining/familyH_wsub.yaml",
+  "mining_run": "experiments/familyH/run/familyH_wsub-20261013T163305Z",
+  "grid": 48,
+  "grundy_cells": 12,
+  "created_at": "2026-10-13T16:33:24+00:00",
+  "sha256": "f52cbb11377aba69a7b035f3318468f0a03b39ee2fe61b773acdcfa390e9aaae",
+  "chars": 154094,
+  "approx_tokens": 38523
+}
