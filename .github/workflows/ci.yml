@@ -66,3 +66,9 @@ jobs:
       - uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: No Co-Authored-By trailers in commit messages
+        run: |
+          if git log --format='%H%n%B' | grep -i '^[[:space:]]*co-authored-by:'; then
+            echo "::error::Commit messages must not contain Co-Authored-By trailers"
+            exit 1
+          fi
