@@ -1,6 +1,6 @@
 # Blind rediscovery of 4×n Chomp structure: report (step 5)
 
-**Status: scores below are PROPOSED by the AI assistant and await confirmation by the author** (`PROTOCOL.md`: scoring is done by the author). Inputs: raw output of steps 2–3 (`run/`), candidate table (`survivors.md`), ground truth (`ground_truth.md`).
+**Status: scores CONFIRMED by the author on 2026-10-13** (proposed by the AI assistant, then confirmed by the author as `PROTOCOL.md` requires). Inputs: raw output of steps 2–3 (`run/`), candidate table (`survivors.md`), ground truth (`ground_truth.md`).
 
 ## Summary
 
@@ -16,7 +16,7 @@ Separately, applying the same falsification-first checks by hand to the ground t
 
 ### v1 conjectures (primary)
 
-| Ground truth | Proposed score | Justification |
+| Ground truth | Score | Justification |
 |---|---|---|
 | C1 Unique Extension | **Missed** | No candidate states it. The frozen view builder *did* compute it: `functional_targets` finds that each of a, b, c, d is determined by the other three, both in the a ≤ 100 window and on all 35,029,679 positions. But it only used this internally to build sequences and never emitted it as a conjecture. That is a design gap in the pipeline (see "Lessons"). |
 | C2 Asymptotic Ratios | **Missed** | A statement about limits of ratio statistics over sets of positions; the miners have no such statement form (limitation stated in advance in `PROTOCOL.md`). |
@@ -27,7 +27,7 @@ Separately, applying the same falsification-first checks by hand to the ground t
 
 ### v2 statements (secondary)
 
-| Ground truth | Proposed score | Justification |
+| Ground truth | Score | Justification |
 |---|---|---|
 | Lemma 1 (Unique Extension, proved) | **Missed** | As C1 above. |
 | Conjecture 1 (HIGH family) | **Missed** | Statement form not expressible. |
