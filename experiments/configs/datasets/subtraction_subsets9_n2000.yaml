@@ -1,0 +1,8 @@
+dataset: subtraction_subsets9_n2000
+family: subtraction
+description: >-
+  Grundy values g_S(n), n <= 2000, for every non-empty subtraction set S contained in {1, ..., 9}
+  (511 sets).
+params:
+  all_subsets_of: 9
+  n_max: 2000

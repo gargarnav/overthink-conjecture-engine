@@ -1,0 +1,7 @@
+dataset: chomp4_n1000
+family: chomp4
+description: >-
+  All P-positions (a, b, c, d) of 4-row Chomp with first row a <= 1000.
+  Restricting to a <= 500 gives the 4,316,097 positions used in the author's 4xn Chomp paper.
+params:
+  max_a: 1000

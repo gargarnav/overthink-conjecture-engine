@@ -20,7 +20,7 @@ lean/.lake/
 # Large generated data: hosted separately, see datasets/README.md
 data_out/
 *.parquet
-!datasets/samples/*.parquet
+!datasets/*/sample.parquet
 
 # Experiment run outputs (configs and reports are tracked)
 experiments/runs/

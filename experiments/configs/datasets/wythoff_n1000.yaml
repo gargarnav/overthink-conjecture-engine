@@ -1,0 +1,5 @@
+dataset: wythoff_n1000
+family: wythoff
+description: Grundy values of Wythoff's game for all positions with both heaps below 1000.
+params:
+  n: 1000
