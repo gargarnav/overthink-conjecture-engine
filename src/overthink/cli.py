@@ -191,6 +191,15 @@ def _cmd_llm_ingest(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_package_dataset(args: argparse.Namespace) -> int:
+    from overthink.data.package import package
+
+    for ds in args.datasets:
+        archive = package(ds, args.version, data_dir=args.data_dir)
+        print(f"{ds}: {archive} ({archive.stat().st_size / 1e6:.1f} MB)")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="overthink",
@@ -274,6 +283,12 @@ def build_parser() -> argparse.ArgumentParser:
     p_in.add_argument("--runs-dir", type=Path, default=Path("experiments/runs"))
     p_in.add_argument("--data-dir", type=Path, default=Path("data_out"))
     p_in.set_defaults(func=_cmd_llm_ingest)
+
+    p_pkg = sub.add_parser("package-dataset", help="package datasets for Zenodo / Hugging Face")
+    p_pkg.add_argument("datasets", nargs="+", metavar="DATASET_ID")
+    p_pkg.add_argument("--version", required=True, help="release version, e.g. 0.1.0")
+    p_pkg.add_argument("--data-dir", type=Path, default=Path("data_out"))
+    p_pkg.set_defaults(func=_cmd_package_dataset)
 
     return parser
 

@@ -94,3 +94,33 @@ def test_content_hash_ignores_file_encoding():
     df = build("wythoff", {"n": 10})
     assert content_sha256(df) == content_sha256(pl.DataFrame(df.to_dict()))
     assert content_sha256(df) != content_sha256(df.with_columns(pl.col("grundy") + 1))
+
+
+def test_package_dataset(tmp_path):
+    import zipfile
+
+    from overthink.data.package import package
+
+    cfg = _write_config(tmp_path, "wythoff")
+    generate(cfg, out_dir=tmp_path / "out", meta_dir=tmp_path / "meta")
+    (tmp_path / "meta" / "LICENSE").write_text("CC BY 4.0")
+    archive = package(
+        "t_wythoff",
+        "0.0.1",
+        data_dir=tmp_path / "out",
+        meta_dir=tmp_path / "meta",
+        out_dir=tmp_path / "dist",
+    )
+    names = set(zipfile.ZipFile(archive).namelist())
+    assert {
+        f"t_wythoff-v0.0.1/{n}"
+        for n in [
+            "data.parquet",
+            "README.md",
+            "manifest.json",
+            "sample.parquet",
+            "LICENSE",
+            "SHA256SUMS",
+            "RELEASE.json",
+        ]
+    } == names

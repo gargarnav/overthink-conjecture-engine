@@ -1,0 +1,29 @@
+{
+  "title": "Overthink Conjecture Engine",
+  "upload_type": "software",
+  "description": "A falsification-first discovery loop for combinatorial game theory: exact game data, classical and AI conjecture proposers, falsification on at least 10x more data, Lean 4 proofs of survivors, and an open conjecture registry that keeps refuted conjectures. Code MIT; datasets CC BY 4.0.",
+  "creators": [
+    {
+      "name": "Garg, Arnav",
+      "affiliation": "Independent researcher; undergraduate, BITS Pilani",
+      "orcid": "0009-0009-2362-1903"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "combinatorial game theory",
+    "automated conjecture generation",
+    "falsification",
+    "formal verification",
+    "Lean 4",
+    "Chomp",
+    "subtraction games"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/gargarnav/overthink-conjecture-engine",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}
