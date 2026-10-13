@@ -160,10 +160,16 @@ def dedupe(seqs: list[Sequence]) -> list[Sequence]:
     return list(seen.values())
 
 
-def build_views(df: pl.DataFrame, dataset: str, cfg: dict) -> list[Sequence]:
+def dataset_tables(df: pl.DataFrame, cfg: dict) -> dict[str, pl.DataFrame]:
+    """The tables views are built from: the data itself and, for Grundy data, its P-positions."""
     tables = {"data": df}
     if cfg.get("zero_set", True) and "grundy" in df.columns:
         tables["P"] = df.filter(pl.col("grundy") == 0).drop("grundy")
+    return tables
+
+
+def build_views(df: pl.DataFrame, dataset: str, cfg: dict) -> list[Sequence]:
+    tables = dataset_tables(df, cfg)
     seqs = []
     for name, t in tables.items():
         seqs += grouped_views(t, dataset, name, cfg)

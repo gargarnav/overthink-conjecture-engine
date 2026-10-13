@@ -153,3 +153,14 @@ Before the first publication, at the author's request: an automatically added at
   - v1 C2 is false as stated: the family (a, a−1, 0, 0) has b/a → 1. Only the per-a medians match.
   - v1 C3 is not supported. Lag 112 ranks 190/299 in the d-sequence autocorrelation. Mod-112 information ranks 13/25 among moduli 100–124 and is beaten by plain contiguous binning of a − b (271.5 vs 110.8 millibits).
   - v2 HIGH/LOW (per-a median of d/a > 0.21) ⇔ the max d/a among P-positions at that a exceeds 0.45: 100% agreement over a ∈ [200, 3000]. Max d/a lies in [0.432, 0.446] for LOW a and [0.855, 0.907] for HIGH a. v2 Conjectures 1–2 are therefore false as literally stated; a sharper open question is proposed.
+
+---
+
+## 2026-10-13: Run-1 survivors at 30×; run 2 pre-registered
+
+- Scores for run 1 confirmed by the author.
+- New dataset `chomp4_a3000_c60` (this project's solver, a ≤ 3000, c ≤ 60): 2,010,792 P-positions, identical to the author's independent n ≤ 3000 data on that range. The author's n ≤ 3000 CSV: 961,619,972 rows, SHA-256 `c08553c0…b1d8c`. Our solver reproduces it exactly for c ≤ 300 (47,986,319 positions).
+- `overthink falsify --dataset-map` tests a run against another dataset.
+- **Run-1 candidates re-tested at a ≤ 3000 (30× the a ≤ 100 window): 69 survived, 4 refuted (the same 4).** Each survivor was checked on 2,920–2,990 relations, out to b = 2,972–3,000 (extension 30–65× per sequence).
+- Functional dependencies can now be emitted as conjectures (off by default). With the new code, run 1's frozen config reproduces run 1's 73 candidates exactly. 83 tests passing.
+- Run 2 pre-registered: `experiments/rediscovery2/PROTOCOL.md`, `experiments/configs/mining/rediscovery2_chomp4.yaml`. Not blind.

@@ -27,10 +27,11 @@ from pathlib import Path
 from typing import Any
 
 from overthink.conjecture.checks import check
+from overthink.conjecture.dependencies import check_table
 from overthink.conjecture.mine import mine_sequence
 from overthink.conjecture.run import new_run_dir
 from overthink.conjecture.types import Candidate, Sequence
-from overthink.conjecture.views import build_views, second_order_views
+from overthink.conjecture.views import build_views, dataset_tables, second_order_views
 from overthink.data.store import load, provenance
 from overthink.registry.store import Registry
 
@@ -164,7 +165,35 @@ def falsify_run(
                 x for s in full_seqs for x in mine_sequence(s, miner_cfg)
             ]
             full_so_idx = _index(second_order_views(full_first, full_seqs, so_cfg))
+        full_tables = dataset_tables(full, cfg.get("views", {}))
         for c in ds_cands:
+            if c["kind"] == "functional_dependency":
+                res = check_table(c["params"], full_tables)
+                status = {"holds": "survived", "violated": "refuted"}.get(
+                    res["status"], "untestable"
+                )
+                rows_prop = c["evidence"]["rows"]
+                if status == "survived" and full_tables[c["params"]["table"]].height <= rows_prop:
+                    status, res["reason"] = "untestable", "no new rows at full scale"
+                res.update(
+                    {
+                        "sequence_id": c["sequence_id"],
+                        "proposal_rows": rows_prop,
+                        "full_rows": full_tables[c["params"]["table"]].height,
+                    }
+                )
+                results.append(
+                    {
+                        "conjecture_id": c["id"],
+                        "kind": c["kind"],
+                        "sequence_id": c["sequence_id"],
+                        "statement": c["statement"],
+                        "second_order": False,
+                        "status": status,
+                        "per_sequence": [res],
+                    }
+                )
+                continue
             is_so = c["sequence_meta"].get("view") == "second_order"
             prop = prop_idx.get(c["sequence_id"])
             scope = [c["sequence_id"]] + [

@@ -19,10 +19,11 @@ from typing import Any
 import polars as pl
 import yaml
 
+from overthink.conjecture.dependencies import mine_tables
 from overthink.conjecture.mine import mine_sequence
 from overthink.conjecture.oeis import OEISSnapshot
 from overthink.conjecture.types import Candidate, Sequence
-from overthink.conjecture.views import build_views, second_order_views
+from overthink.conjecture.views import build_views, dataset_tables, second_order_views
 from overthink.data.store import load, provenance
 
 
@@ -72,6 +73,8 @@ def run_mining(
         df = apply_window(df, ds.get("proposal_window"))
         seqs = build_views(df, ds["id"], cfg.get("views", {}))
         cands = [c for s in seqs for c in mine_sequence(s, miner_cfg, snapshot)]
+        if miner_cfg.get("functional_dependencies", {}).get("enabled", False):
+            cands += mine_tables(dataset_tables(df, cfg.get("views", {})), ds["id"])
         so_seqs: list[Sequence] = []
         if so_cfg.get("enabled", False):
             so_seqs = second_order_views(cands, seqs, so_cfg)
