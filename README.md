@@ -17,7 +17,7 @@ Early development. See [`docs/results_log.md`](docs/results_log.md) for a dated 
 | Component | Status |
 |---|---|
 | Repository scaffold, Rust↔Python core | Done (Phase A) |
-| Exact solvers (subtraction, Wythoff-type, 4×n Chomp) | TODO (Phase B) |
+| Exact solvers (subtraction, Wythoff, 4×n Chomp) | Done (Phase B): 4×n Chomp reproduces all 35,029,679 reference P-positions for n ≤ 1000 |
 | Parquet datasets + schema | TODO (Phase C) |
 | Classical pattern miners | TODO (Phase D) |
 | Conjecture registry + falsifier | TODO (Phase E) |
