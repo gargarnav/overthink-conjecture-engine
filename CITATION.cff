@@ -14,6 +14,14 @@ authors:
     affiliation: "Independent researcher; undergraduate, BITS Pilani"
     orcid: "https://orcid.org/0009-0009-2362-1903"
 license: MIT
+doi: 10.5281/zenodo.23350597
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23350597
+    description: "Concept DOI (all versions)"
+  - type: doi
+    value: 10.5281/zenodo.23350598
+    description: "Version 0.1.0"
 version: 0.1.0
 date-released: "2026-10-14"
 repository-code: "https://github.com/gargarnav/overthink-conjecture-engine"

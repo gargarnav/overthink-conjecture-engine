@@ -12,7 +12,7 @@ Checklist for the AI for Math Fund seed grant (Renaissance Philanthropy, funded 
 |---|---|---|
 | **Open-source code** (OSI license) | [`LICENSE`](https://github.com/gargarnav/overthink-conjecture-engine/blob/main/LICENSE) (MIT); SPDX headers on every source file, enforced in CI (`scripts/check_spdx.py`); [`THIRD_PARTY_NOTICES.md`](https://github.com/gargarnav/overthink-conjecture-engine/blob/main/THIRD_PARTY_NOTICES.md), generated from package metadata (one dependency flagged and explained: a CC0 component in numpy); Lean MIT/Apache-2.0 compatibility noted in `lean/README.md` | Done |
 | **Open datasets with documentation** | Dataset cards (description, motivation, schema with types, generation command and git commit, seeds, size, limitations, license, citation, SHA-256) in `datasets/<id>/README.md`; manifests; samples under 5 MB; `datasets/LICENSE` (CC BY 4.0); conjecture registry export `datasets/conjecture_registry/` (refuted conjectures kept); packaging `overthink package-dataset`; guide `datasets/PUBLISHING.md` | Done in repo |
-| ↳ public hosting with DOI | Zenodo via GitHub release (`.zenodo.json`); optional Hugging Face mirror | **TODO (manual)** |
+| ↳ public hosting with DOI | Software: Zenodo DOI [10.5281/zenodo.23350597](https://doi.org/10.5281/zenodo.23350597), release v0.1.0 (code, cards, manifests, samples, registry export). Full data files: attached to the [GitHub release](https://github.com/gargarnav/overthink-conjecture-engine/releases/tag/v0.1.0); separate Zenodo dataset record pending. Hugging Face mirror optional. | Software done; dataset DOI **TODO (manual)** |
 | **Open preprints** (arXiv) | None yet. Candidate first preprint: the W({a,a+1}) note ([write-up](results/W_pair_theorem.md)), after specialist review | **TODO** |
 | **Acknowledgment on all outputs** | Text stored once in `funding.yaml`; inactive (`funded: false`). Locations listed below. | Ready, inactive (correct while unfunded) |
 | **Budget rules**: indirect costs ≤ 10%, no visa costs | The budget is kept *out of this public repository* (`grant/` is git-ignored). Measured compute and API costs for the justification are in [costs](costs.md) (`overthink costs`). | **TODO (applicant, private)** |
@@ -41,7 +41,8 @@ Everything in this repository is open source and stays that way. Any future comm
 ## Manual steps for the applicant
 
 - [ ] **Verify the official call text** and update the requirement rows above.
-- [ ] **Zenodo:** sign in with GitHub, switch on `gargarnav/overthink-conjecture-engine` under *Account → GitHub*, then create a GitHub release (e.g. `v0.1.0`) with the `dist/datasets/*.zip` archives attached. Add the DOI badge to `README.md` and the DOI to `CITATION.cff`. Steps are in `datasets/PUBLISHING.md`.
+- [x] **Zenodo software DOI:** integration on; release v0.1.0 archived as 10.5281/zenodo.23350598 (concept 10.5281/zenodo.23350597).
+- [ ] **Zenodo dataset DOI:** upload the six `dist/datasets/*.zip` archives (also attached to the v0.1.0 GitHub release) as a Zenodo *Dataset* record, CC BY 4.0, "is supplement to" 10.5281/zenodo.23350597 (`datasets/PUBLISHING.md`).
 - [ ] **Hugging Face** (optional): create an account and upload the packaged datasets (`datasets/PUBLISHING.md`).
 - [ ] **GitHub Pages:** *Settings → Pages → Source: GitHub Actions*; then *Settings → Variables → Actions*, add `PAGES_ENABLED = true`.
 - [ ] **Security reporting:** *Settings → Security → Private vulnerability reporting: enable*.

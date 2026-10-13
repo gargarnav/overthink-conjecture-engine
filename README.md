@@ -4,6 +4,7 @@
 [![Lean](https://github.com/gargarnav/overthink-conjecture-engine/actions/workflows/lean.yml/badge.svg)](https://github.com/gargarnav/overthink-conjecture-engine/actions/workflows/lean.yml)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 [![Data: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-lightgrey.svg)](datasets/LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23350597.svg)](https://doi.org/10.5281/zenodo.23350597)
 
 **A falsification-first discovery loop for combinatorial game theory.** The system:
 
@@ -72,4 +73,4 @@ No external funding at present. (The acknowledgment text for any future grant li
 
 ## Citation
 
-Arnav Garg, *Overthink Conjecture Engine* (ORCID [0009-0009-2362-1903](https://orcid.org/0009-0009-2362-1903)). See [CITATION.cff](CITATION.cff). A DOI will be added with the first Zenodo release.
+Arnav Garg, *Overthink Conjecture Engine* (ORCID [0009-0009-2362-1903](https://orcid.org/0009-0009-2362-1903)). DOI [10.5281/zenodo.23350597](https://doi.org/10.5281/zenodo.23350597) (all versions; v0.1.0: [10.5281/zenodo.23350598](https://doi.org/10.5281/zenodo.23350598)). See [CITATION.cff](CITATION.cff).

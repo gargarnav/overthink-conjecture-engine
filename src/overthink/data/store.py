@@ -224,7 +224,8 @@ Code that generates it: MIT.
 
 Arnav Garg, *Overthink Conjecture Engine*, dataset `{manifest["dataset"]}` (schema
 {manifest["schema_version"]}), https://github.com/gargarnav/overthink-conjecture-engine.
-See `CITATION.cff`. DOI: TODO (assigned at the first Zenodo release).
+See `CITATION.cff`. Software DOI: 10.5281/zenodo.23350597 (all versions). Dataset DOI: TODO
+(full data files are archived as a separate Zenodo dataset record).
 {_ack_section()}"""
 
 
