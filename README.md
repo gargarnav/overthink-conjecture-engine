@@ -5,74 +5,71 @@
 [![Code: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
 [![Data: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-lightgrey.svg)](datasets/LICENSE)
 
-A falsification-first discovery loop for combinatorial game theory.
+**A falsification-first discovery loop for combinatorial game theory.** The system:
 
-1. **Compute**: exact datasets of positions and values (P/N, Grundy values) for families of impartial games.
-2. **Conjecture**: mine the data for structure (periodicity, recurrences, closed forms, OEIS links) with classical methods and an optional LLM proposer.
-3. **Overthink**: try hard to break every conjecture: test on instances at least 10× larger, search for counterexamples, check against known literature and OEIS, and record every failure.
-4. **Prove**: formalize surviving statements in Lean 4 + Mathlib, starting with finite cases.
-5. **Record**: every conjecture, with its evidence, counterexamples, proof status and full provenance, goes into an open dataset.
+1. computes exact game data;
+2. proposes conjectures with classical miners and an AI proposer;
+3. tries hard to break every conjecture on at least 10× more data;
+4. proves survivors in Lean 4;
+5. keeps every conjecture, including the failures, in an open registry.
 
-The project goes deep on one underexplored area (combinatorial games). It is not a general AI mathematician, and it does not try to compete with those efforts.
+The project goes deep on one area, impartial games. It is not a general AI mathematician and does not try to compete with those efforts.
 
-## Status
+## Results so far
 
-Early development. See [`docs/results_log.md`](docs/results_log.md) for a dated record of what has actually worked and failed. Nothing is claimed here that isn't in that log.
+Every number below is in [`docs/results_log.md`](docs/results_log.md). Current totals are in [`docs/metrics.md`](docs/metrics.md).
 
-| Component | Status |
-|---|---|
-| Repository scaffold, Rust↔Python core | Done (Phase A) |
-| Exact solvers (subtraction, Wythoff, 4×n Chomp) | Done (Phase B): 4×n Chomp reproduces all 35,029,679 reference P-positions for n ≤ 1000 |
-| Parquet datasets + schema | Done (Phase C): 3 datasets, one command each, hash-verified ([datasets/](datasets/)) |
-| Classical pattern miners | Done (Phase D): 5 miners, synthetic benchmark, Wythoff's theorem recovered from data |
-| Conjecture registry + falsifier | Done (Phase E): 297 dev conjectures, all survived 10× re-testing |
-| LLM proposer (optional, mock by default) | Done (Phase F): claim language, window-only packets, mock/session/API providers |
-| New game family | Done (Phase H): W(S) Wythoff subtraction games. Classical 597/597 and LLM 19/19 proposals survived 10×; LLM claims characterize 26/31 sets exactly ([report](experiments/familyH/REPORT.md)) |
-| Blind rediscovery test on 4×n Chomp | Done: run 1 (blind) 0/4 v1 conjectures found, 69 exact statements survived at 30×; run 2 (not blind) 167/176 survived. See [experiments/rediscovery/REPORT.md](experiments/rediscovery/REPORT.md) |
-| Lean 4 formalization | Done (Phase I): general theorems for k-row Chomp (incl. Unique Extension), 511 pipeline-proposed subtraction-game periodicity theorems, 7 LLM-proposed W(S) Grundy formulas, and a classification of the P-positions of W({a,a+1}) for every a ([write-up](docs/results/W_pair_theorem.md)), all kernel-checked, no `sorry`/`native_decide` ([lean/](lean/README.md)) |
+- **One result that may be new**, proved for every parameter. The P-positions of the two-heap game W({a, a+1}) (remove a or a+1 from one heap or both) are periodic modulo 2a+1: an a×a square plus the points (a, 2a) and (2a, a). The AI proposer found it from cases a ≤ 4; it was falsified on 3M positions and proved in Lean for all a. The proof is elementary once the statement is known, and novelty is pending specialist review. See [write-up](docs/results/W_pair_theorem.md).
+- **Falsification corrected published conjectures.** Applied to the author's own 4×n Chomp paper (arXiv:2604.25952), the same falsification-first checks showed:
+  - one conjecture is false as literally stated;
+  - the "period-112" signal is not supported by a modulus control;
+  - the paper's v2 HIGH/LOW split is exactly "some P-position has d > 0.45a".
+  
+  See the [report](experiments/rediscovery/REPORT.md).
+- **AI proposer vs classical miners** (pre-registered, [family H](experiments/familyH/REPORT.md)). On 31 two-dimensional subtraction games the classical miners described no game's 2D structure, while 19 AI proposals, committed before testing, characterized 26/31. All 19 survived 10× falsification; 10 are now Lean theorems.
+- **Honest negative.** In a blind, pre-registered test, the classical miners rediscovered **0 of 4** of the author's published 4×n Chomp conjectures (statement forms they cannot express). [Protocol](experiments/rediscovery/PROTOCOL.md), [report](experiments/rediscovery/REPORT.md).
+- **Verified computation.** The 4-row Chomp solver matches the author's independent data exactly (all 35M P-positions with a ≤ 1000, and the 48M of the 961M with a ≤ 3000 and c ≤ 300), brute force, Sun's 2004 four-row periods (10/10), and all 9 published Brouwer–Nivasch three-row periods up to r = 6541.
+
+Most proved statements are known or elementary (see the [literature check](experiments/literature/REPORT.md)). The registry counts instances, not distinct theorems.
 
 ## Quickstart
 
-Requirements: [uv](https://docs.astral.sh/uv/) and a Rust toolchain (`rustup`). The Rust core is compiled automatically on first sync.
+Requirements: [uv](https://docs.astral.sh/uv/) and a Rust toolchain. Or use Docker (`docker build -t overthink .`).
 
 ```bash
-uv sync
-uv run overthink info
-uv run pytest
-uv run overthink generate experiments/configs/datasets/*.yaml   # ~1 min
-uv run overthink verify chomp4_n1000 wythoff_n1000 subtraction_subsets9_n2000
+uv sync                                   # Python 3.12 + compiled Rust core
+make test                                 # pytest + cargo test
+make reproduce-demo                       # blind Chomp run, end to end (~90 s), compared with the committed result
+uv run overthink run experiments/configs/ci_demo.yaml   # small generate -> mine -> falsify
+uv run overthink stats                    # project metrics
 ```
+
+Lean proofs: `make lean` (downloads the Mathlib cache, about 7 GB).
 
 ## Repository layout
 
 ```
-src/overthink/   Python package
-  games/         game definitions + exact solvers
-  data/          dataset generation, Parquet storage, schema
-  conjecture/    pattern miners + LLM proposer
-  falsify/       scale-up testing, counterexample search, literature/OEIS check
-  prove/         Lean export + proof attempt orchestration
-  registry/      conjecture registry with full provenance
-rust/            performance-critical core (PyO3 extension: overthink._core)
-lean/            Lean 4 + Mathlib project
-datasets/        dataset cards + small samples (large data hosted separately)
-experiments/     reproducible run configs, reports
-docs/            architecture, methodology, results log
-grant/           grant application drafts
-tests/
+src/overthink/   games/ (solvers) · data/ (datasets) · conjecture/ (miners, AI proposer, claims)
+                 falsify/ · prove/ (Lean export) · registry/ (append-only log + export)
+rust/            performance-critical core (PyO3)
+lean/            Lean 4 + Mathlib proofs
+datasets/        dataset cards, manifests, samples, conjecture registry export
+experiments/     configs, pre-registered experiments and their reports
+docs/            methodology, results log, metrics, costs, grant compliance
 ```
+
+## Documentation
+
+[Methodology](docs/methodology.md) · [Architecture](docs/architecture.md) · [Results log](docs/results_log.md) · [AI usage](AI_USAGE.md) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md) · [Publishing datasets](datasets/PUBLISHING.md)
 
 ## Openness
 
-- Code: MIT ([LICENSE](LICENSE)).
-- Data: open, with dataset cards, schema and reproduction commands (see [`datasets/`](datasets/)).
-- Papers: arXiv preprints.
+Code: MIT ([LICENSE](LICENSE)). Data: CC BY 4.0 ([datasets/LICENSE](datasets/LICENSE)). Third-party licenses: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Papers will be posted on arXiv.
 
 ## Funding
 
-No external funding at present. (The acknowledgment text for any future grant lives in
-`funding.yaml` and is only rendered when `funded: true`.)
+No external funding at present. (The acknowledgment text for any future grant lives in `funding.yaml` and is only rendered when `funded: true`.)
 
 ## Citation
 
-See [CITATION.cff](CITATION.cff).
+Arnav Garg, *Overthink Conjecture Engine* (ORCID [0009-0009-2362-1903](https://orcid.org/0009-0009-2362-1903)). See [CITATION.cff](CITATION.cff). A DOI will be added with the first Zenodo release.

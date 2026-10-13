@@ -27,6 +27,7 @@ overthink = "overthink.cli:main"
 
 [dependency-groups]
 dev = [
+    "mkdocs-material>=9.7.7",
     "mypy>=2.4.0",
     "pytest>=8",
     "pytest-cov>=7.1.0",
