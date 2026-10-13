@@ -3,7 +3,8 @@
 Each experiment is reproducible from one command and one config:
 
 ```bash
-uv run overthink run experiments/configs/<name>.yaml   # available from Phase C
+uv run overthink generate experiments/configs/datasets/<name>.yaml   # datasets
+# uv run overthink run experiments/configs/<name>.yaml            # pipeline runs (Phase E)
 ```
 
 - `configs/`: tracked YAML configs.

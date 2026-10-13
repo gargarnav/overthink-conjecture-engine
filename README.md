@@ -18,7 +18,7 @@ Early development. See [`docs/results_log.md`](docs/results_log.md) for a dated 
 |---|---|
 | Repository scaffold, Rust↔Python core | Done (Phase A) |
 | Exact solvers (subtraction, Wythoff, 4×n Chomp) | Done (Phase B): 4×n Chomp reproduces all 35,029,679 reference P-positions for n ≤ 1000 |
-| Parquet datasets + schema | TODO (Phase C) |
+| Parquet datasets + schema | Done (Phase C): 3 datasets, one command each, hash-verified ([datasets/](datasets/)) |
 | Classical pattern miners | TODO (Phase D) |
 | Conjecture registry + falsifier | TODO (Phase E) |
 | LLM proposer (optional, mock by default) | TODO (Phase F) |
@@ -33,6 +33,8 @@ Requirements: [uv](https://docs.astral.sh/uv/) and a Rust toolchain (`rustup`). 
 uv sync
 uv run overthink info
 uv run pytest
+uv run overthink generate experiments/configs/datasets/*.yaml   # ~1 min
+uv run overthink verify chomp4_n1000 wythoff_n1000 subtraction_subsets9_n2000
 ```
 
 ## Repository layout

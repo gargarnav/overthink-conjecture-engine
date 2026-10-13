@@ -1,0 +1,39 @@
+{
+  "dataset": "subtraction_subsets9_n2000",
+  "family": "subtraction",
+  "description": "Grundy values g_S(n), n <= 2000, for every non-empty subtraction set S contained in {1, ..., 9} (511 sets).",
+  "params": {
+    "all_subsets_of": 9,
+    "n_max": 2000
+  },
+  "schema_version": "1.0",
+  "columns": {
+    "subtraction_set": "String",
+    "n": "UInt32",
+    "grundy": "UInt32"
+  },
+  "sort_order": [
+    "subtraction_set",
+    "n"
+  ],
+  "row_count": 1022511,
+  "content_sha256": "ad0c48688f70a7cc7a1b5a737358346b11b61187e6acb3e7aaa01dab2778d620",
+  "file_sha256": "5654e4ac8b6dfbbf7d9686df55282bdb00e8bec1bd3cf88f118e90ca66d98bf8",
+  "file_bytes": 279940,
+  "sample_row_count": 31171,
+  "sample_content_sha256": "9a7524aeb49e58048451330499c38f4cded3301ce301a1f835e684a5aec068b4",
+  "random_seed": null,
+  "generated_at": "2026-10-13T14:03:33+00:00",
+  "generation_seconds": 0.12,
+  "config_path": "experiments/configs/datasets/subtraction_subsets9_n2000.yaml",
+  "provenance": {
+    "git_sha": "1c73b5720703e05d9b8443ee12ae1651f52368a3",
+    "git_dirty": false,
+    "overthink_version": "0.1.0",
+    "rust_core_version": "0.1.0",
+    "polars_version": "2.0.0",
+    "python": "3.12.12",
+    "platform": "macOS-26.3-arm64-arm-64bit",
+    "command": "overthink generate experiments/configs/datasets/chomp4_n1000.yaml experiments/configs/datasets/subtraction_subsets9_n2000.yaml experiments/configs/datasets/wythoff_n1000.yaml"
+  }
+}

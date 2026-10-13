@@ -1,0 +1,41 @@
+{
+  "dataset": "chomp4_n1000",
+  "family": "chomp4",
+  "description": "All P-positions (a, b, c, d) of 4-row Chomp with first row a <= 1000. Restricting to a <= 500 gives the 4,316,097 positions used in the author's 4xn Chomp paper.",
+  "params": {
+    "max_a": 1000
+  },
+  "schema_version": "1.0",
+  "columns": {
+    "a": "UInt32",
+    "b": "UInt32",
+    "c": "UInt32",
+    "d": "UInt32"
+  },
+  "sort_order": [
+    "a",
+    "b",
+    "c",
+    "d"
+  ],
+  "row_count": 35029679,
+  "content_sha256": "a3fd877c39bb5b9ec1ea4519e157b1c84574f82e09ff5d08db4aeab4935166eb",
+  "file_sha256": "8dca457c4e2268d5fe2bac62b87aa4372ffdfac06f0660f2d88ef29f74f120ff",
+  "file_bytes": 52540208,
+  "sample_row_count": 1317,
+  "sample_content_sha256": "95809d1ed00e15f5843a5dbb58640f12739890b412e37971da6a5134a0857dd5",
+  "random_seed": null,
+  "generated_at": "2026-10-13T14:03:32+00:00",
+  "generation_seconds": 51.35,
+  "config_path": "experiments/configs/datasets/chomp4_n1000.yaml",
+  "provenance": {
+    "git_sha": "1c73b5720703e05d9b8443ee12ae1651f52368a3",
+    "git_dirty": false,
+    "overthink_version": "0.1.0",
+    "rust_core_version": "0.1.0",
+    "polars_version": "2.0.0",
+    "python": "3.12.12",
+    "platform": "macOS-26.3-arm64-arm-64bit",
+    "command": "overthink generate experiments/configs/datasets/chomp4_n1000.yaml experiments/configs/datasets/subtraction_subsets9_n2000.yaml experiments/configs/datasets/wythoff_n1000.yaml"
+  }
+}

@@ -47,3 +47,27 @@ Before any miner was written, the agent building this was exposed to:
 (2) a comment in `reference/cpp/rows3_fast.cpp` mentioning a "mean eventual shift" for live rows in 3-row Chomp;
 (3) three truncated lines of `reference/cpp/sealed/rows4_fast.cpp`, shown by a keyword search, indicating the author studied eventual periodicity of `delta(b) = a − b`.
 The periodicity miner was planned before this exposure (Step 0 plan, same date). The sealed files have not been read. The ground-truth statements have not been seen.
+
+---
+
+## 2026-10-13: Phase C, datasets
+
+**Done**
+- `overthink generate CONFIG` → `data_out/<id>/data.parquet` (zstd) plus a tracked `datasets/<id>/` holding an auto-generated dataset card, `manifest.json` (params, schema version, row count, hashes, git SHA, library versions, timing) and `sample.parquet`.
+- `overthink verify ID` checks a dataset's content hash against its tracked manifest.
+- Schema v1.0 is defined once in `src/overthink/data/schema.py`.
+- 11 new tests (49 pytest total): schema conformance, canonical sort, determinism, round-trip, tamper detection, CLI, and the chomp4 dataset vs brute force at n = 15.
+
+**Datasets generated** (Apple M4, git `1c73b57`)
+
+| Dataset | Rows | Parquet size | Generation time |
+|---|---|---|---|
+| `chomp4_n1000` | 35,029,679 | 50.1 MB (the reference CSV is 686 MB) | 51 s |
+| `wythoff_n1000` | 1,000,000 | 1.4 MB | 2.9 s |
+| `subtraction_subsets9_n2000` | 1,022,511 | 0.3 MB | 0.1 s |
+
+**Reproducibility check:** regenerating `chomp4_n1000` into a separate directory gave an identical `content_sha256` and an identical `file_sha256`, so the Parquet file is byte-identical on the same machine and library versions. Cross-machine byte identity hasn't been tested; `content_sha256` is the hash meant to be portable.
+
+**Not done**
+- Full datasets are not hosted publicly yet (Hugging Face/Zenodo TODO).
+- Data license CC BY 4.0 is proposed, not confirmed.
