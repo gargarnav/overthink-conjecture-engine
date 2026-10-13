@@ -206,6 +206,21 @@ def _cmd_package_dataset(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_run(args: argparse.Namespace) -> int:
+    from overthink.pipeline import run
+
+    run_dir = run(args.config, runs_dir=args.runs_dir)
+    m = json.loads((run_dir / "manifest.json").read_text())
+    for st in m["steps"]:
+        extra = st.get("counts") or st.get("result") or st.get("dataset") or st.get("output")
+        print(f"{st['step']:9s} {st['seconds']:8.2f} s  {extra}")
+    print(f"manifest: {run_dir / 'manifest.json'}")
+    if "comparison_pass" in m:
+        print("REPRODUCED" if m["comparison_pass"] else "MISMATCH")
+        return 0 if m["comparison_pass"] else 1
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="overthink",
@@ -300,6 +315,11 @@ def build_parser() -> argparse.ArgumentParser:
     p_pkg.add_argument("--version", required=True, help="release version, e.g. 0.1.0")
     p_pkg.add_argument("--data-dir", type=Path, default=Path("data_out"))
     p_pkg.set_defaults(func=_cmd_package_dataset)
+
+    p_run = sub.add_parser("run", help="run an experiment end to end from one config")
+    p_run.add_argument("config", type=Path)
+    p_run.add_argument("--runs-dir", type=Path, default=Path("experiments/runs"))
+    p_run.set_defaults(func=_cmd_run)
 
     return parser
 

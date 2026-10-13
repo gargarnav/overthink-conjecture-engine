@@ -1,0 +1,14 @@
+# make reproduce-demo: regenerate the blind 4-row Chomp rediscovery (run 1) from scratch and
+# check that every candidate and every falsification status matches the committed outputs.
+name: reproduce_demo
+# regenerate into scratch locations; the committed dataset manifests are only compared against
+data_dir: experiments/runs/repro_data
+meta_dir: experiments/runs/repro_meta
+steps:
+  - generate: experiments/configs/datasets/chomp4_n1000.yaml
+  - mine: experiments/configs/mining/rediscovery_chomp4.yaml
+  - falsify: {}
+  - compare:
+      datasets: datasets
+      candidates: experiments/rediscovery/run/rediscovery_chomp4-20261013T143152Z
+      falsification: experiments/rediscovery/run/falsify-rediscovery_chomp4-20261013T143152Z-20261013T143202Z

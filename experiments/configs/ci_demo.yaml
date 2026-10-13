@@ -1,0 +1,8 @@
+# Small end-to-end pipeline run on every push to main (CI): generate -> mine -> falsify.
+name: ci_demo
+data_dir: experiments/runs/ci_data
+meta_dir: experiments/runs/ci_meta
+steps:
+  - generate: experiments/configs/datasets/ci_wythoff_n500.yaml
+  - mine: experiments/configs/mining/ci_demo.yaml
+  - falsify: {}

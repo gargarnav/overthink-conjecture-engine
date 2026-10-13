@@ -1,0 +1,10 @@
+.git
+.venv
+data_out
+data_ref
+dist
+cache
+rust/target
+lean/.lake
+experiments/runs
+**/__pycache__

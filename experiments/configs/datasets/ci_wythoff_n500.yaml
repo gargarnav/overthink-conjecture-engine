@@ -1,0 +1,5 @@
+dataset: ci_wythoff_n500
+family: wythoff
+description: Small Wythoff Grundy table for the CI demo pipeline.
+params:
+  n: 500
