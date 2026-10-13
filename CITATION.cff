@@ -15,7 +15,7 @@ authors:
 license: MIT
 version: 0.1.0
 date-released: "2026-10-13"
-# repository-code: "https://github.com/TODO/overthink"
+repository-code: "https://github.com/gargarnav/overthink-conjecture-engine"
 keywords:
   - combinatorial game theory
   - automated conjecture generation
