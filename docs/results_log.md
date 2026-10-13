@@ -118,3 +118,15 @@ The periodicity miner was planned before this exposure (Step 0 plan, same date).
 - All 297 proposals survived (279 subtraction, 18 Wythoff). Per sequence, the median was 1,990 checks; extension factors ranged 9.6–10.6×. This includes the Wythoff Beatty statements with φ and φ² (checked over 382 P-pairs) and all 511 subtraction-game periodicity statements.
 - Stress test: no natural refutations occurred even with proposal windows of n ≤ 40 (subtraction, 50× scale, 101/101 survived) or x, y ≤ 40 (Wythoff, 25×, 7/7 survived). The miners' evidence thresholds kept them from proposing on too little data. The refutation path is verified by tests and by the synthetic benchmark (false proposals on noisy controls are refuted).
 - *Interpretation:* survival at 10× is evidence, not proof. For subtraction games, ultimate periodicity is a theorem (finite subtraction sets), so these survivals mainly confirm that the miners' periods and preperiods are right on this range.
+
+---
+
+## 2026-10-13: Rediscovery steps 1–3 (blind run on 4-row Chomp)
+
+- **Step 1:** tag `rediscovery-frozen` at `3e4aead`, after all pre-freeze checks passed: 78 pytest + 8 cargo tests, the rediscovery config's views, miners and second-order sections identical to the dev config (diff), and the dataset hash verified.
+- **Step 2** (commit `bbdd356`): proposal window a ≤ 100 gave 388 sequences (364 in view `a~b` grouped by (c, d) ≤ 30, and 24 in `b~a`). That produced 73 candidates, all of the form "a(b + p) = a(b) + p for b ≥ n0" for a fixed (c, d). The periods proposed were 1, 2, 3, 4, 6, 8, 12 and 16. There were **no second-order sequences**: no 12 consecutive groups all had a candidate, so no statement about how p or n0 depends on (c, d) was proposed. 2.5 s.
+- **Step 3** (commit `320b832`): falsification at a ≤ 1000 (scale factor 10.0, per-sequence extension 10–21×): **69 survived, 4 refuted, 0 untestable**. 18 s.
+  - The 4 refuted claims were all period 1 (a = b + const from n0 on), for (c, d) = (20, 19), (21, 4), (21, 21) and (29, 21). They failed at b = 81, 106, 81 and 130 respectively. Re-proposals from the full data (unfalsified) have periods 192, 48, 192 and 1 (the last from n0 = 881).
+- Candidate table: `experiments/rediscovery/survivors.md` (mechanically generated).
+- **Coverage:** only 61 of the 364 `a~b` sequences produced a candidate in the window. The rest were silent: no period with enough support within a ≤ 100.
+- **Ground truth is still not in the repository.** Next: the author commits `experiments/rediscovery/ground_truth.md` (step 4), then scoring (step 5).
