@@ -1,0 +1,17 @@
+[package]
+name = "overthink-core"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Performance-critical solvers for the Overthink Conjecture Engine"
+
+[lib]
+name = "_core"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3 = { version = "0.29", features = ["abi3-py312"] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
