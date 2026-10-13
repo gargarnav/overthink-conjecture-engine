@@ -188,3 +188,20 @@ Report: `experiments/literature/REPORT.md`.
 - **Retracted:** the "periods are 2ᵏ or 3·2ᵏ" observation from run 2. Counterexample: (c, d) = (6541, 0), period 9.
 - Registry: 23 conjectures marked `known`, i.e. exact matches with Sun's table, Brouwer, Winning Ways, and Unique Extension (author's v2 Lemma 1). No novelty is claimed for the other survivors.
 - Solver: optional `max_d` bound (max_d = 0 is exactly 3-row Chomp). Existing datasets regenerate byte-identically. 85 tests passing.
+
+---
+
+## 2026-10-13: Phase I, Lean 4 formalization
+
+Lean v4.35.0, Mathlib v4.35.0 (`56a0058`). Details: `lean/README.md`. **No `sorry`, no `native_decide`**: every main theorem depends only on `propext`, `Classical.choice` and `Quot.sound`, checked by `lean/CheckAxioms.lean` and enforced in the new Lean CI workflow.
+
+- **General theorems** (kernel-checked):
+  - P-positions of a terminating game exist and are unique.
+  - k-row Chomp terminates.
+  - **Two valid P-positions of k-row Chomp that differ in at most one row are equal.**
+  - Corollary: all four 4-row functional dependencies, including Unique Extension (author's v2 Lemma 1).
+  - Subtraction games: periodicity follows from a finite window of max(S) values.
+- **Pipeline conjectures proved for all n:** `uv run overthink prove` exported all 139 surviving subtraction-game periodicity conjectures. Counting aliases, that is 511 Lean theorems, one for every non-empty S ⊆ {1,…,9}. Each was proved by the finite-window lemma with the window evaluated by kernel `decide`. Build and axiom check took about 80 s.
+  - A deliberately false period (S = {1,3,4}, p = 6) fails to compile.
+- Registry: **143 conjectures `proved`** (139 subtraction periodicity + 4 Chomp functional dependencies; Unique Extension moves from `known` to `proved`). Totals: 143 proved, 368 survived, 22 known, 13 refuted (546).
+- Not done: the Chomp periodicity survivors (a − b eventually periodic for fixed (c, d)) are not formalized. Unlike subtraction games, a finite window does not obviously suffice there; Byrnes's proof would be the starting point.
