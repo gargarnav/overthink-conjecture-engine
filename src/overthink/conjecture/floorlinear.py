@@ -43,13 +43,13 @@ def alpha_interval(values: list[int], chunk: int = 512) -> tuple[Fraction, Fract
             hi = np.where(mask, (diff + 1) / dj, np.inf)
         a = np.unravel_index(np.argmax(lo), lo.shape)
         if lo[a] > best_lo:
-            best_lo, lo_pair = lo[a], (i0 + a[0], a[1])
+            best_lo, lo_pair = lo[a], (i0 + int(a[0]), int(a[1]))
         b = np.unravel_index(np.argmin(hi), hi.shape)
         if hi[b] < best_hi:
-            best_hi, hi_pair = hi[b], (i0 + b[0], b[1])
-    (i, j), (k, m) = (int(x) for x in lo_pair), (int(x) for x in hi_pair)
-    lo_exact = Fraction(values[j] - values[i] - 1, j - i)
-    hi_exact = Fraction(values[m] - values[k] + 1, m - k)
+            best_hi, hi_pair = hi[b], (i0 + int(b[0]), int(b[1]))
+    (i1, j1), (k1, m1) = lo_pair, hi_pair
+    lo_exact = Fraction(values[j1] - values[i1] - 1, j1 - i1)
+    hi_exact = Fraction(values[m1] - values[k1] + 1, m1 - k1)
     return lo_exact, hi_exact
 
 

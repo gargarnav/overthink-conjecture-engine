@@ -14,6 +14,9 @@ jobs:
       - uses: leanprover/lean-action@v1
         with:
           lake-package-directory: lean
+      - name: No sorry / admit in proved files
+        run: |
+          ! grep -rnwE "sorry|admit" lean/OverthinkLean lean/OverthinkLean.lean
       - name: Axiom check (no sorry, no native_decide)
         working-directory: lean
         run: |

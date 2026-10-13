@@ -1,5 +1,10 @@
 # Overthink Conjecture Engine
 
+[![CI](https://github.com/gargarnav/overthink-conjecture-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/gargarnav/overthink-conjecture-engine/actions/workflows/ci.yml)
+[![Lean](https://github.com/gargarnav/overthink-conjecture-engine/actions/workflows/lean.yml/badge.svg)](https://github.com/gargarnav/overthink-conjecture-engine/actions/workflows/lean.yml)
+[![Code: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE)
+[![Data: CC BY 4.0](https://img.shields.io/badge/data-CC%20BY%204.0-lightgrey.svg)](datasets/LICENSE)
+
 A falsification-first discovery loop for combinatorial game theory.
 
 1. **Compute**: exact datasets of positions and values (P/N, Grundy values) for families of impartial games.

@@ -189,8 +189,13 @@ def _cmd_llm_ingest(args: argparse.Namespace) -> int:
     if pk.sha256 != meta["sha256"]:
         print("packet file does not match its recorded SHA-256")
         return 1
-    provider = {"mock": MockProvider, "anthropic": AnthropicProvider}.get(args.provider)
-    provider = SessionProvider(args.proposals) if args.provider == "session" else provider()
+    provider: MockProvider | SessionProvider | AnthropicProvider
+    if args.provider == "session":
+        provider = SessionProvider(args.proposals)
+    elif args.provider == "mock":
+        provider = MockProvider()
+    else:
+        provider = AnthropicProvider()
     run_dir = ingest(pk, args.packet, provider, args.config, args.runs_dir, args.data_dir)
     info = json.loads((run_dir / "run.json").read_text())
     print(f"{info['counts']} -> {run_dir}")

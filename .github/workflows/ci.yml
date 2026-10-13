@@ -5,6 +5,21 @@ on:
   pull_request:
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync
+      - name: Ruff, formatting, SPDX headers
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+          uv run python scripts/check_spdx.py
+      - name: Type check (mypy)
+        run: uv run mypy
+
   test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -22,11 +37,32 @@ jobs:
           cargo fmt --check
           cargo clippy -- -D warnings
           cargo test
-      - name: Python sync
-        run: uv sync
-      - name: Python lint
-        run: |
-          uv run ruff check .
-          uv run ruff format --check .
-      - name: Python tests
-        run: uv run pytest -q
+      - run: uv sync
+      - name: Python tests with coverage
+        run: uv run pytest -q --cov --cov-report=term --cov-report=xml
+      - uses: actions/upload-artifact@v4
+        if: matrix.os == 'ubuntu-latest'
+        with:
+          name: coverage
+          path: coverage.xml
+
+  demo:
+    # small end-to-end pipeline (generate -> mine -> falsify) on every push to main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync
+      - run: make ci-demo
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -46,10 +46,12 @@ def _targets(registry: Registry) -> list[dict[str, Any]]:
             continue
         fals = [h for h in e["history"] if h.get("type") == "falsification"]
         scope = [p["sequence_id"] for p in fals[-1]["per_sequence"]]
-        sets = [
-            tuple(int(x) for x in re.search(r"subtraction_set=([\d,]+)", sid).group(1).split(","))
-            for sid in scope
-        ]
+        sets = []
+        for sid in scope:
+            m = re.search(r"subtraction_set=([\d,]+)", sid)
+            if m is None:
+                raise ValueError(f"cannot read the subtraction set from {sid!r}")
+            sets.append(tuple(int(x) for x in m.group(1).split(",")))
         out.append(
             {
                 "conjecture_id": cid,

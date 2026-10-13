@@ -29,7 +29,12 @@ def _result(
     observed: int | None = None,
     predicted: Any = None,
 ) -> dict[str, Any]:
-    out = {"status": status, "first_counterexample": first, "checked_range": rng, "n_checked": n}
+    out: dict[str, Any] = {
+        "status": status,
+        "first_counterexample": first,
+        "checked_range": rng,
+        "n_checked": n,
+    }
     if first is not None:
         out["counterexample"] = {"n": first, "observed": observed, "predicted": predicted}
     return out
@@ -99,17 +104,17 @@ def check(kind: str, params: dict[str, Any], seq: Sequence) -> dict[str, Any]:
             )
         if params.get("alpha") is not None:
             q = Fraction(params["alpha"])
-            alpha = Decimal(q.numerator) / Decimal(q.denominator)
+            alpha: Decimal = Decimal(q.numerator) / Decimal(q.denominator)
         else:
             alpha = CONSTANTS[params["alpha_name"]]
         # Scan forward, maintaining the feasible beta interval; the first n that empties it
         # is the first counterexample.
-        lo, hi = Decimal("-Infinity"), Decimal("Infinity")
+        beta_lo, beta_hi = Decimal("-Infinity"), Decimal("Infinity")
         for i, v in enumerate(vals):
             n = n0 + i
-            lo = max(lo, Decimal(v) - alpha * n)
-            hi = min(hi, Decimal(v + 1) - alpha * n)
-            if lo >= hi:
+            beta_lo = max(beta_lo, Decimal(v) - alpha * n)
+            beta_hi = min(beta_hi, Decimal(v + 1) - alpha * n)
+            if beta_lo >= beta_hi:
                 return _result("violated", n, [n0, end], i, v, "outside feasible beta range")
         return _result("holds", None, [n0, end], len(vals))
 

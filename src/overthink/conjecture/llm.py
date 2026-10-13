@@ -118,8 +118,8 @@ def build_packet(
                 "```",
             ]
             parts += _grid(sub, grid)
-            g = sub.filter((pl.col("x") < grundy_cells) & (pl.col("y") < grundy_cells))
-            g = g.sort("x", "y")["grundy"].to_numpy().reshape(grundy_cells, grundy_cells)
+            cells = sub.filter((pl.col("x") < grundy_cells) & (pl.col("y") < grundy_cells))
+            g = cells.sort("x", "y")["grundy"].to_numpy().reshape(grundy_cells, grundy_cells)
             parts += ["```", f"Grundy values for x, y < {grundy_cells} (row = x):", "```"]
             parts += [" ".join(f"{v:2d}" for v in row) for row in g]
             parts += ["```", ""]

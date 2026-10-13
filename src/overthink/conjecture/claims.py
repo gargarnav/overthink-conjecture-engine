@@ -85,7 +85,7 @@ def _to_polars(node: ast.AST, cols: set[str], src: str) -> pl.Expr:
                     isinstance(e, ast.Constant) for e in right.elts
                 ):
                     raise ClaimError(f"'in' needs a literal tuple of constants in {src!r}")
-                t = rec(left).is_in([e.value for e in right.elts])
+                t = rec(left).is_in([e.value for e in right.elts if isinstance(e, ast.Constant)])
                 terms.append(~t if isinstance(op, ast.NotIn) else t)
             else:
                 a, b = rec(left), rec(right)
@@ -172,6 +172,7 @@ def check_claim(claim: dict[str, Any], tables: dict[str, pl.DataFrame]) -> dict[
     full = tables[claim["table"]]
     dom = _domain(claim, full)
     keys = [c for c in dom.columns if c != claim.get("value")]
+    res: dict[str, Any]
     if claim["kind"] == "predicate":
         ok = dom.with_columns(compile_expr(claim["assert"], dom.columns).alias("_ok"))
         bad = ok.filter(~pl.col("_ok").fill_null(False))

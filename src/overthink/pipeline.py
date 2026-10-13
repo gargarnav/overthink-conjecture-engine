@@ -57,12 +57,12 @@ def _compare(step: dict[str, Any], mine_dir: Path | None, fals_dirs: list[Path])
         out["candidates"] = len(a)
     if "falsification" in step and fals_dirs:
 
-        def status(p: Path) -> dict[str, str]:
+        def statuses(p: Path) -> dict[str, str]:
             return {r["conjecture_id"]: r["status"] for r in map(json.loads, p.open())}
 
-        a = status(fals_dirs[0] / "falsification.jsonl")
-        b = status(Path(step["falsification"]) / "falsification.jsonl")
-        out["falsification_identical"] = a == b
+        sa = statuses(fals_dirs[0] / "falsification.jsonl")
+        sb = statuses(Path(step["falsification"]) / "falsification.jsonl")
+        out["falsification_identical"] = sa == sb
     out["pass"] = all(v for k, v in out.items() if k.endswith("identical"))
     return out
 

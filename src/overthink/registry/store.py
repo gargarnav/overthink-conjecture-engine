@@ -68,9 +68,10 @@ class Registry:
                 )
                 entry["proposals"].append({**e["provenance"], "recorded_at": e.get("recorded_at")})
                 continue
-            entry = st.get(cid)
-            if entry is None:
+            found = st.get(cid)
+            if found is None:
                 raise ValueError(f"{e['type']} event for unknown conjecture {cid}")
+            entry = found
             entry["history"].append(e)
             if entry["status"] == "refuted":
                 continue

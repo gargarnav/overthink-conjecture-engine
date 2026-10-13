@@ -140,7 +140,7 @@ def load(data_dir: Path, manifest_path: Path | None = None) -> pl.DataFrame:
     return df
 
 
-def _human_bytes(n: int) -> str:
+def _human_bytes(n: float) -> str:
     for unit in ("B", "KB", "MB", "GB"):
         if n < 1024 or unit == "GB":
             return f"{n:.0f} {unit}" if unit == "B" else f"{n:.1f} {unit}"
