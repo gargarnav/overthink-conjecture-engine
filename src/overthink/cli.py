@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import platform
 import sys
 from pathlib import Path
@@ -46,6 +47,21 @@ def _cmd_verify(args: argparse.Namespace) -> int:
     return status
 
 
+def _cmd_mine(args: argparse.Namespace) -> int:
+    from overthink.conjecture.run import run_mining
+
+    run_dir = run_mining(args.config, runs_dir=args.runs_dir, data_dir=args.data_dir)
+    info = json.loads((run_dir / "run.json").read_text())
+    for d in info["datasets"]:
+        print(
+            f"{d['id']}: {d['sequences']} sequences (+{d['second_order_sequences']} "
+            f"second-order), {d['candidates']} candidates, {d['seconds']} s"
+        )
+    print(f"by kind: {info['counts_by_kind']}")
+    print(f"run written to {run_dir}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="overthink",
@@ -70,6 +86,12 @@ def build_parser() -> argparse.ArgumentParser:
     p_ver.add_argument("--out", type=Path, default=Path("data_out"), help="data directory")
     p_ver.add_argument("--meta-dir", type=Path, default=Path("datasets"), help="manifest directory")
     p_ver.set_defaults(func=_cmd_verify)
+
+    p_mine = sub.add_parser("mine", help="run the classical miners from a YAML config")
+    p_mine.add_argument("config", type=Path)
+    p_mine.add_argument("--runs-dir", type=Path, default=Path("experiments/runs"))
+    p_mine.add_argument("--data-dir", type=Path, default=Path("data_out"))
+    p_mine.set_defaults(func=_cmd_mine)
 
     return parser
 

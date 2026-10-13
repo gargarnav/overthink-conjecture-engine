@@ -6,6 +6,11 @@ of integers or reals needed to state it, including the initial terms it does not
 conjectures; the others are recorded in `evidence["alternatives"]`. This stops e.g. a
 Beatty sequence floor(alpha*n) being reported as "additively periodic from n = 173 on",
 which can look true near a convergent of alpha. OEIS matches are kept separately.
+
+Structural miners only run on sequences whose transform is in `structural_transforms`
+(default: raw). Periodicity, (quasi-)polynomial and floor-linear structure are unchanged
+by subtracting the index, so mining the `minus_index` transform as well would only produce
+logically equivalent duplicates. Other transforms are used for OEIS lookup only.
 """
 
 from __future__ import annotations
@@ -33,12 +38,14 @@ def description_length(c: Candidate, seq_start: int) -> int:
 def mine_sequence(
     seq: Sequence, cfg: dict[str, Any], snapshot: OEISSnapshot | None = None
 ) -> list[Candidate]:
-    structural = (
-        periodic.mine(seq, cfg.get("periodic", {}))
-        + polynomial.mine(seq, cfg.get("polynomial", {}))
-        + recurrence.mine(seq, cfg.get("recurrence", {}))
-        + floorlinear.mine(seq, cfg.get("floor_linear", {}))
-    )
+    structural: list[Candidate] = []
+    if seq.meta.get("transform", "raw") in cfg.get("structural_transforms", ["raw"]):
+        structural = (
+            periodic.mine(seq, cfg.get("periodic", {}))
+            + polynomial.mine(seq, cfg.get("polynomial", {}))
+            + recurrence.mine(seq, cfg.get("recurrence", {}))
+            + floorlinear.mine(seq, cfg.get("floor_linear", {}))
+        )
     kept: list[Candidate] = []
     if structural:
         costs = [description_length(c, seq.start) for c in structural]

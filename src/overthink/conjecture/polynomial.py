@@ -58,7 +58,11 @@ def format_polynomial(coeffs: list[Fraction]) -> str:
         if c == 0:
             continue
         cs = str(c) if c.denominator == 1 else f"({c})"
-        terms.append(cs if j == 0 else f"{cs}*n" if j == 1 else f"{cs}*n^{j}")
+        if j == 0:
+            terms.append(cs)
+            continue
+        mono = "n" if j == 1 else f"n^{j}"
+        terms.append(mono if c == 1 else f"-{mono}" if c == -1 else f"{cs}*{mono}")
     return " + ".join(terms) if terms else "0"
 
 
@@ -106,6 +110,9 @@ def mine(seq: Sequence, cfg: dict[str, Any]) -> list[Candidate]:
         pts = [(seq.start + j, seq.values[j]) for j in range(i, len(seq.values), m)][: k + 1]
         polys[r] = fit_polynomial(pts)
     degree = max(len(c) - 1 for c in polys.values())
+    # Lower cases belong to the periodicity miner (same statement, simpler form).
+    if degree == 0 or (m == 1 and degree <= 1):
+        return []
     if m == 1:
         kind = "polynomial"
         statement = f"s(n) = {format_polynomial(polys[0])} for all n >= {n0}"

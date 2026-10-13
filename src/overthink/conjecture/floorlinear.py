@@ -74,7 +74,7 @@ def beta_interval(values: list[int], start: int, alpha: Decimal | Fraction) -> t
 
 
 def mine(seq: Sequence, cfg: dict[str, Any]) -> list[Candidate]:
-    min_points = cfg.get("min_points", 40)
+    min_points = cfg.get("min_points", 30)
     max_points = cfg.get("max_points", 3000)
     vals = seq.values[:max_points]
     if len(vals) < min_points:

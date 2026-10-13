@@ -70,7 +70,7 @@ def _git(*args: str) -> str:
     return r.stdout.strip()
 
 
-def _provenance() -> dict[str, Any]:
+def provenance() -> dict[str, Any]:
     return {
         "git_sha": _git("rev-parse", "HEAD") or None,
         "git_dirty": bool(_git("status", "--porcelain", "--untracked-files=no")),
@@ -120,7 +120,7 @@ def generate(config_path: Path, out_dir: Path, meta_dir: Path) -> dict[str, Any]
         "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "generation_seconds": round(seconds, 2),
         "config_path": str(config_path),
-        "provenance": _provenance(),
+        "provenance": provenance(),
     }
     (card_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     (card_dir / "README.md").write_text(render_card(manifest, cfg))
