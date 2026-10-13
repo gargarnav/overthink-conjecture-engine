@@ -8,7 +8,8 @@ grouped      For every integer column Y that is a function of all other columns 
              a sequence over consecutive values of X.
 zero_set     If the table has a `grundy` column, the P-positions (grundy == 0) form a new
              table "P" that gets the grouped and enumeration views.
-enumeration  For tables with at most two integer columns (per group of string columns):
+enumeration  For tables that are sets of positions (no `grundy` value column) with at most
+             two integer columns (per group of string columns):
              sort the rows and read each integer column, and their difference, as a
              sequence over the rank. If swapping the two columns maps the set to itself,
              only rows with first <= second are used.
@@ -166,7 +167,9 @@ def build_views(df: pl.DataFrame, dataset: str, cfg: dict) -> list[Sequence]:
     seqs = []
     for name, t in tables.items():
         seqs += grouped_views(t, dataset, name, cfg)
-        if cfg.get("enumeration", True):
+        # Enumeration lists the elements of a set of positions; a table of values is not one
+        # (enumerating it would only restate its index column).
+        if cfg.get("enumeration", True) and "grundy" not in t.columns:
             seqs += enumeration_views(t, dataset, name, cfg)
     seqs = dedupe(seqs)
     cap = cfg.get("max_sequences", 50_000)

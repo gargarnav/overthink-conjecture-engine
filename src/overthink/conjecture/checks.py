@@ -3,6 +3,7 @@
 `check` returns a dict with
     status: "holds" | "violated" | "insufficient" | "unsupported"
     first_counterexample: smallest index n where the statement fails (if known)
+    counterexample: {"n", "observed", "predicted"} at that index (predicted may be a range)
     checked_range: [first, last] index whose value was used
     n_checked: number of individual relations verified
 """
@@ -19,8 +20,18 @@ from overthink.conjecture.polynomial import eval_polynomial
 from overthink.conjecture.types import Sequence
 
 
-def _result(status: str, first: int | None, rng: list[int] | None, n: int) -> dict[str, Any]:
-    return {"status": status, "first_counterexample": first, "checked_range": rng, "n_checked": n}
+def _result(
+    status: str,
+    first: int | None,
+    rng: list[int] | None,
+    n: int,
+    observed: int | None = None,
+    predicted: Any = None,
+) -> dict[str, Any]:
+    out = {"status": status, "first_counterexample": first, "checked_range": rng, "n_checked": n}
+    if first is not None:
+        out["counterexample"] = {"n": first, "observed": observed, "predicted": predicted}
+    return out
 
 
 def _value_getter(seq: Sequence):
@@ -40,7 +51,7 @@ def check(kind: str, params: dict[str, Any], seq: Sequence) -> dict[str, Any]:
         count = 0
         for n in range(n0, end - p + 1):
             if s(n + p) - s(n) != delta:
-                return _result("violated", n + p, [n0, end], count)
+                return _result("violated", n + p, [n0, end], count, s(n + p), s(n) + delta)
             count += 1
         return _result("holds" if count else "insufficient", None, [n0, end], count)
 
@@ -51,7 +62,7 @@ def check(kind: str, params: dict[str, Any], seq: Sequence) -> dict[str, Any]:
         for n in range(n0 + order, end + 1):
             pred = sum(c * s(n - i) for i, c in enumerate(coeffs, start=1))
             if pred != s(n):
-                return _result("violated", n, [n0, end], count)
+                return _result("violated", n, [n0, end], count, s(n), str(pred))
             count += 1
         return _result("holds" if count else "insufficient", None, [n0, end], count)
 
@@ -60,8 +71,9 @@ def check(kind: str, params: dict[str, Any], seq: Sequence) -> dict[str, Any]:
         polys = {int(r): [Fraction(c) for c in cs] for r, cs in params["polynomials"].items()}
         count = 0
         for n in range(n0, end + 1):
-            if eval_polynomial(polys[n % m], n) != s(n):
-                return _result("violated", n, [n0, end], count)
+            pred = eval_polynomial(polys[n % m], n)
+            if pred != s(n):
+                return _result("violated", n, [n0, end], count, s(n), str(pred))
             count += 1
         return _result("holds" if count else "insufficient", None, [n0, end], count)
 
@@ -71,8 +83,19 @@ def check(kind: str, params: dict[str, Any], seq: Sequence) -> dict[str, Any]:
             return _result("insufficient", None, [n0, end], 0)
         if params.get("alpha") is None and params.get("alpha_name") is None:
             lo, hi = alpha_interval(vals)
-            ok = lo < hi
-            return _result("holds" if ok else "violated", None, [n0, end], len(vals))
+            if lo < hi:
+                return _result("holds", None, [n0, end], len(vals))
+            # Binary search for the shortest infeasible prefix: its last index is the
+            # first n at which no (alpha, beta) fits all terms so far.
+            good, bad = 2, len(vals)
+            while bad - good > 1:
+                mid = (good + bad) // 2
+                lo_m, hi_m = alpha_interval(vals[:mid])
+                good, bad = (mid, bad) if lo_m < hi_m else (good, mid)
+            n_bad = n0 + bad - 1
+            return _result(
+                "violated", n_bad, [n0, end], bad - 1, vals[bad - 1], "no real slope fits"
+            )
         if params.get("alpha") is not None:
             q = Fraction(params["alpha"])
             alpha = Decimal(q.numerator) / Decimal(q.denominator)
@@ -86,7 +109,7 @@ def check(kind: str, params: dict[str, Any], seq: Sequence) -> dict[str, Any]:
             lo = max(lo, Decimal(v) - alpha * n)
             hi = min(hi, Decimal(v + 1) - alpha * n)
             if lo >= hi:
-                return _result("violated", n, [n0, end], i)
+                return _result("violated", n, [n0, end], i, v, "outside feasible beta range")
         return _result("holds", None, [n0, end], len(vals))
 
     return _result("unsupported", None, None, 0)

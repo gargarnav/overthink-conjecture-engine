@@ -90,6 +90,46 @@ def _cmd_benchmark(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_falsify(args: argparse.Namespace) -> int:
+    from overthink.falsify.falsifier import falsify_run
+    from overthink.registry.store import Registry
+
+    reg = None if args.no_registry else Registry(args.registry)
+    out = falsify_run(args.run_dir, runs_dir=args.runs_dir, data_dir=args.data_dir, registry=reg)
+    info = json.loads((out / "falsify.json").read_text())
+    for d in info["datasets"]:
+        print(
+            f"{d['id']}: {d['candidates']} candidates, scale {d['scale_factor']}, {d['seconds']} s"
+        )
+    print(f"status counts: {info['counts']}")
+    print(f"written to {out}" + ("" if reg is None else f"; registry {reg.path} updated"))
+    return 0
+
+
+def _cmd_registry(args: argparse.Namespace) -> int:
+    from collections import Counter
+
+    from overthink.registry.store import Registry
+
+    reg = Registry(args.registry)
+    if args.action == "mark-known":
+        if not args.id or not args.source:
+            print("mark-known needs --id and --source")
+            return 2
+        reg.append([{"type": "known", "conjecture_id": args.id, "source": args.source}])
+        print(f"{args.id}: marked known ({args.source})")
+        return 0
+    st = reg.state()
+    print(f"{len(st)} conjectures in {reg.path}: {dict(Counter(e['status'] for e in st.values()))}")
+    if args.status:
+        for e in st.values():
+            if e["status"] == args.status:
+                print(
+                    f"{e['id']}  {e['conjecture']['sequence_id']}  {e['conjecture']['statement']}"
+                )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="overthink",
@@ -127,6 +167,22 @@ def build_parser() -> argparse.ArgumentParser:
     p_bench.add_argument("--seed", type=int, default=7)
     p_bench.add_argument("--out", type=Path, help="write markdown (+ .json) report here")
     p_bench.set_defaults(func=_cmd_benchmark)
+
+    p_fal = sub.add_parser("falsify", help="re-test a mining run's candidates on full data")
+    p_fal.add_argument("run_dir", type=Path)
+    p_fal.add_argument("--runs-dir", type=Path, default=Path("experiments/runs"))
+    p_fal.add_argument("--data-dir", type=Path, default=Path("data_out"))
+    p_fal.add_argument("--registry", type=Path, default=Path("registry/events.jsonl"))
+    p_fal.add_argument("--no-registry", action="store_true", help="do not record events")
+    p_fal.set_defaults(func=_cmd_falsify)
+
+    p_reg = sub.add_parser("registry", help="inspect the conjecture registry")
+    p_reg.add_argument("action", nargs="?", default="show", choices=["show", "mark-known"])
+    p_reg.add_argument("--registry", type=Path, default=Path("registry/events.jsonl"))
+    p_reg.add_argument("--status", help="list conjectures with this status")
+    p_reg.add_argument("--id", help="conjecture id (mark-known)")
+    p_reg.add_argument("--source", help="literature/OEIS source (mark-known)")
+    p_reg.set_defaults(func=_cmd_registry)
 
     return parser
 

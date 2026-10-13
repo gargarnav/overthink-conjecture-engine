@@ -26,6 +26,20 @@ from overthink.conjecture.views import build_views, second_order_views
 from overthink.data.store import load, provenance
 
 
+def new_run_dir(runs_dir: Path, name: str) -> tuple[Path, str]:
+    """Create `<runs_dir>/<name>-<UTC timestamp>[-k]`, never reusing an existing directory."""
+    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+    base = Path(runs_dir) / f"{name}-{stamp}"
+    path, k = base, 1
+    while True:
+        try:
+            path.mkdir(parents=True, exist_ok=False)
+            return path, stamp
+        except FileExistsError:
+            k += 1
+            path = base.with_name(f"{base.name}-{k}")
+
+
 def apply_window(df: pl.DataFrame, window: dict[str, int] | None) -> pl.DataFrame:
     for col, mx in (window or {}).items():
         df = df.filter(pl.col(col) <= mx)
@@ -39,9 +53,7 @@ def run_mining(
     meta_dir: Path = Path("datasets"),
 ) -> Path:
     cfg = yaml.safe_load(Path(config_path).read_text())
-    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
-    run_dir = Path(runs_dir) / f"{cfg['run_name']}-{stamp}"
-    run_dir.mkdir(parents=True, exist_ok=False)
+    run_dir, stamp = new_run_dir(runs_dir, cfg["run_name"])
 
     miner_cfg = cfg.get("miners", {})
     snap_path = miner_cfg.get("oeis", {}).get("snapshot")
