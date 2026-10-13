@@ -133,6 +133,19 @@ def _cmd_registry(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_prove(args: argparse.Namespace) -> int:
+    from overthink.prove import lean_chomp, lean_subtraction
+    from overthink.registry.store import Registry
+
+    reg = Registry(args.registry)
+    results = {
+        "subtraction_periodicity": lean_subtraction.run(reg, record=not args.dry_run),
+        "chomp_functional_dependencies": lean_chomp.run(reg, record=not args.dry_run),
+    }
+    print(json.dumps(results, indent=2))
+    return 0 if all(r["ok"] for r in results.values()) else 1
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="overthink",
@@ -193,6 +206,13 @@ def build_parser() -> argparse.ArgumentParser:
     p_reg.add_argument("--id", help="conjecture id (mark-known)")
     p_reg.add_argument("--source", help="literature/OEIS source (mark-known)")
     p_reg.set_defaults(func=_cmd_registry)
+
+    p_prove = sub.add_parser(
+        "prove", help="prove surviving conjectures in Lean and record them in the registry"
+    )
+    p_prove.add_argument("--registry", type=Path, default=Path("registry/events.jsonl"))
+    p_prove.add_argument("--dry-run", action="store_true", help="build only, do not record")
+    p_prove.set_defaults(func=_cmd_prove)
 
     return parser
 
