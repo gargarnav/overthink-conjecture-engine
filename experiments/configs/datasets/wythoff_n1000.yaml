@@ -1,5 +1,9 @@
 dataset: wythoff_n1000
 family: wythoff
 description: Grundy values of Wythoff's game for all positions with both heaps below 1000.
+motivation: >-
+  Grundy values of Wythoff's game as a well-understood benchmark family for developing and testing the miners (Wythoff's theorem was recovered from it).
+limitations: >-
+  Square window x, y < 1000; row/column statements beyond it are extrapolations.
 params:
   n: 1000

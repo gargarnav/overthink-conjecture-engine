@@ -3,6 +3,10 @@ family: subtraction
 description: >-
   Grundy values g_S(n), n <= 2000, for every non-empty subtraction set S contained in {1, ..., 9}
   (511 sets).
+motivation: >-
+  Grundy sequences of all subtraction games with S in {1..9} as a benchmark where periodicity is a theorem, used to develop the miners and the Lean finite-window proofs.
+limitations: >-
+  Only n <= 2000 and S within {1..9}.
 params:
   all_subsets_of: 9
   n_max: 2000

@@ -3,5 +3,9 @@ family: chomp4
 description: >-
   All P-positions (a, b, c, d) of 4-row Chomp with first row a <= 1000.
   Restricting to a <= 500 gives the 4,316,097 positions used in the author's 4xn Chomp paper.
+motivation: >-
+  Exact P-positions of 4-row Chomp are the raw material for testing structural conjectures about 4xn Chomp (A. Garg, arXiv:2604.25952) and for blind rediscovery experiments; few exact 4-row tabulations are public.
+limitations: >-
+  Only P-positions are listed (N-positions are implicit). Truncated at a <= 1000; statements about larger a are extrapolations. Produced by this project's solver, cross-checked against the author's independent C++ output and brute force (see docs/results_log.md).
 params:
   max_a: 1000

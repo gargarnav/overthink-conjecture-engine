@@ -5,6 +5,10 @@ description: >-
   Used as the 10x-30x falsification set for mining runs whose views only read positions with
   c <= 60 (grouped views with max_group_value <= 60 never read rows with c > 60).
   Cross-checked against the author's independent n <= 3000 data.
+motivation: >-
+  Falsification set at 10-30x the proposal windows used for 4-row Chomp; restricted to c <= 60, which contains every row read by grouped views with group values <= 60.
+limitations: >-
+  Only rows with c <= 60 and a <= 3000; not a complete tabulation of 4-row Chomp for a <= 3000.
 params:
   max_a: 3000
   max_c: 60

@@ -160,6 +160,10 @@ def render_card(manifest: dict[str, Any], cfg: dict[str, Any]) -> str:
 
 {manifest["description"] or schema.title}
 
+## Motivation
+
+{cfg.get("motivation", "TODO: motivation not recorded in the dataset config.")}
+
 ## Game
 
 **{schema.title}.** {schema.rules}
@@ -198,7 +202,7 @@ def render_card(manifest: dict[str, Any], cfg: dict[str, Any]) -> str:
 uv run overthink generate {manifest["config_path"]}
 ```
 
-Generation is deterministic (no randomness) and took {manifest["generation_seconds"]} s.
+Random seeds: none. Generation is deterministic and took {manifest["generation_seconds"]} s.
 Generated {manifest["generated_at"]} from git `{prov["git_sha"]}`{dirty} with overthink
 {prov["overthink_version"]} (Rust core {prov["rust_core_version"]}), polars
 {prov["polars_version"]}, Python {prov["python"]} on {prov["platform"]}.
@@ -207,11 +211,25 @@ Generated {manifest["generated_at"]} from git `{prov["git_sha"]}`{dirty} with ov
 
 Solver correctness evidence is in `tests/test_games.py` and `docs/results_log.md`.
 
+## Known limitations
+
+{cfg.get("limitations", "TODO: limitations not recorded in the dataset config.")}
+
 ## License
 
-Data: CC BY 4.0 *(proposed; TODO confirm before public release)*. Code: MIT.
+Data: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (see `datasets/LICENSE`).
+Code that generates it: MIT.
 
 ## Citation
 
-See `CITATION.cff` in the repository root.
-"""
+Arnav Garg, *Overthink Conjecture Engine*, dataset `{manifest["dataset"]}` (schema
+{manifest["schema_version"]}), https://github.com/gargarnav/overthink-conjecture-engine.
+See `CITATION.cff`. DOI: TODO (assigned at the first Zenodo release).
+{_ack_section()}"""
+
+
+def _ack_section() -> str:
+    from overthink.funding import acknowledgment
+
+    ack = acknowledgment()
+    return f"\n## Acknowledgment\n\n{ack}\n" if ack else ""
