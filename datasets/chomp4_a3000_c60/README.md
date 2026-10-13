@@ -50,8 +50,8 @@ Every P-position with a <= max_a (and c <= max_c). Positions not listed, within 
 uv run overthink generate experiments/configs/datasets/chomp4_a3000_c60.yaml
 ```
 
-Random seeds: none. Generation is deterministic and took 0.2 s.
-Generated 2026-10-13T20:01:12+00:00 from git `e8ca8713c4367298a33f2377e4100cb78b34169c` (uncommitted changes present) with overthink
+Random seeds: none. Generation is deterministic and took 0.18 s.
+Generated 2026-10-13T20:45:29+00:00 from git `2d3f01a5a21aa5bfb59a7a4e34e7ed2d698e2a22` (uncommitted changes present) with overthink
 0.1.0 (Rust core 0.1.0), polars
 2.0.0, Python 3.12.12 on macOS-26.3-arm64-arm-64bit.
 
@@ -72,5 +72,5 @@ Code that generates it: MIT.
 
 Arnav Garg, *Overthink Conjecture Engine*, dataset `chomp4_a3000_c60` (schema
 1.0), https://github.com/gargarnav/overthink-conjecture-engine.
-See `CITATION.cff`. Software DOI: 10.5281/zenodo.23350597 (all versions). Dataset DOI: TODO
-(full data files are archived as a separate Zenodo dataset record).
+See `CITATION.cff`. Full data files: Zenodo dataset DOI 10.5281/zenodo.23350850 (all
+versions; v0.1.0: 10.5281/zenodo.23350851). Software DOI: 10.5281/zenodo.23350597.

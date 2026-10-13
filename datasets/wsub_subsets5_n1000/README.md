@@ -50,8 +50,8 @@ Every position (x, y) with 0 <= x, y < n, for every listed set S.
 uv run overthink generate experiments/configs/datasets/wsub_subsets5_n1000.yaml
 ```
 
-Random seeds: none. Generation is deterministic and took 3.54 s.
-Generated 2026-10-13T20:02:21+00:00 from git `e8ca8713c4367298a33f2377e4100cb78b34169c` (uncommitted changes present) with overthink
+Random seeds: none. Generation is deterministic and took 2.66 s.
+Generated 2026-10-13T20:46:36+00:00 from git `2d3f01a5a21aa5bfb59a7a4e34e7ed2d698e2a22` (uncommitted changes present) with overthink
 0.1.0 (Rust core 0.1.0), polars
 2.0.0, Python 3.12.12 on macOS-26.3-arm64-arm-64bit.
 
@@ -72,5 +72,5 @@ Code that generates it: MIT.
 
 Arnav Garg, *Overthink Conjecture Engine*, dataset `wsub_subsets5_n1000` (schema
 1.0), https://github.com/gargarnav/overthink-conjecture-engine.
-See `CITATION.cff`. Software DOI: 10.5281/zenodo.23350597 (all versions). Dataset DOI: TODO
-(full data files are archived as a separate Zenodo dataset record).
+See `CITATION.cff`. Full data files: Zenodo dataset DOI 10.5281/zenodo.23350850 (all
+versions; v0.1.0: 10.5281/zenodo.23350851). Software DOI: 10.5281/zenodo.23350597.

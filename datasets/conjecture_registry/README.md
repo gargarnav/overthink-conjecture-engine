@@ -37,4 +37,4 @@ Proposal windows are small by design. `verified-finite` only means the statement
 
 ## License and citation
 
-CC BY 4.0 (`datasets/LICENSE`). Cite via `CITATION.cff`. Included in the software archive, DOI 10.5281/zenodo.23350597.
+CC BY 4.0 (`datasets/LICENSE`). Cite via `CITATION.cff`. Included in the software archive (DOI 10.5281/zenodo.23350597) and in the dataset record (DOI 10.5281/zenodo.23350850).

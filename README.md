@@ -73,4 +73,4 @@ No external funding at present. (The acknowledgment text for any future grant li
 
 ## Citation
 
-Arnav Garg, *Overthink Conjecture Engine* (ORCID [0009-0009-2362-1903](https://orcid.org/0009-0009-2362-1903)). DOI [10.5281/zenodo.23350597](https://doi.org/10.5281/zenodo.23350597) (all versions; v0.1.0: [10.5281/zenodo.23350598](https://doi.org/10.5281/zenodo.23350598)). See [CITATION.cff](CITATION.cff).
+Arnav Garg, *Overthink Conjecture Engine* (ORCID [0009-0009-2362-1903](https://orcid.org/0009-0009-2362-1903)). DOI [10.5281/zenodo.23350597](https://doi.org/10.5281/zenodo.23350597) (all versions; v0.1.0: [10.5281/zenodo.23350598](https://doi.org/10.5281/zenodo.23350598)). Datasets: DOI [10.5281/zenodo.23350850](https://doi.org/10.5281/zenodo.23350850) (v0.1.0: [10.5281/zenodo.23350851](https://doi.org/10.5281/zenodo.23350851)). See [CITATION.cff](CITATION.cff).
