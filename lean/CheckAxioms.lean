@@ -15,3 +15,11 @@ import OverthinkLean
 #print axioms Overthink.Subtraction.grundy_134_period7
 #print axioms Overthink.Subtraction.grundy_123_period4
 #print axioms Overthink.Subtraction.grundy_257_period22
+#print axioms Overthink.WSub.grundy_eq_of
+#print axioms Overthink.WSub.grundy_mod_three
+#print axioms Overthink.WSub.grundy_odd
+#print axioms Overthink.WSub.grundy_scale
+#print axioms Overthink.WSub.H01
+#print axioms Overthink.WSub.H02
+#print axioms Overthink.WSub.H03
+#print axioms Overthink.WSub.H04

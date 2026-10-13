@@ -134,13 +134,14 @@ def _cmd_registry(args: argparse.Namespace) -> int:
 
 
 def _cmd_prove(args: argparse.Namespace) -> int:
-    from overthink.prove import lean_chomp, lean_subtraction
+    from overthink.prove import lean_chomp, lean_subtraction, lean_wsub
     from overthink.registry.store import Registry
 
     reg = Registry(args.registry)
     results = {
         "subtraction_periodicity": lean_subtraction.run(reg, record=not args.dry_run),
         "chomp_functional_dependencies": lean_chomp.run(reg, record=not args.dry_run),
+        "wsub_llm_proposals": lean_wsub.run(reg, record=not args.dry_run),
     }
     print(json.dumps(results, indent=2))
     return 0 if all(r["ok"] for r in results.values()) else 1

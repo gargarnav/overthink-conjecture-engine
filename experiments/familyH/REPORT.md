@@ -51,7 +51,12 @@ Patterns across these, stated in the rationales: interval sets {a..b} have P-per
 
 ## Proof status and next steps
 
-- H01–H04 come with proof sketches in their rationales (parity case analysis, residues mod 3, isomorphism W(kS) ≅ k² × W(S)). They are the natural Lean targets and general proofs look within reach.
+- **H01–H04 are proved in Lean for every position** (`lean/OverthinkLean/WythoffSubtraction.lean`, kernel-checked, standard axioms only), so 7 of the 19 LLM claims are now `proved` in the registry. The general results are stronger than the proposals:
+  - H01 holds for *every* S of odd numbers containing 1 (`grundy_odd`);
+  - H02 holds for every S with 1, 2 ∈ S and no multiple of 3 (`grundy_mod_three`);
+  - the scaling theorem `grundy_scale` (G_{kS}(x,y) = G_S(⌊x/k⌋, ⌊y/k⌋)) holds for all S and k > 0.
+
+  The proofs follow the LLM's rationales: a parity case analysis, residues mod 3, and the isomorphism W(kS) ≅ k² × W(S).
 - H05–H13 are exactly periodic or diagonal-split periodic P-sets. A finite-window argument like the one used for 1D subtraction games may reduce them to finite checks, but that needs a 2D version of `periodic_of_window`.
 - H14 is a genuine conjecture about a region boundary. The slope 2 was a guess; it holds up to 1000, but the true boundary is unknown.
 

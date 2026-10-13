@@ -222,3 +222,18 @@ Lean v4.35.0, Mathlib v4.35.0 (`56a0058`). Details: `lean/README.md`. **No `sorr
   - diagonal-split periodic P-sets.
 - Falsifier sanity: three mutated LLM claims were all refuted (55k–2.7M counterexamples).
 - Caveats and literature: `experiments/familyH/REPORT.md`. The W({1..k}) result may already be known (bounded Wythoff; to verify). No novelty is claimed. Next: Lean proofs of H01–H04.
+
+---
+
+## 2026-10-13: Lean proofs of the LLM's W(S) conjectures
+
+`lean/OverthinkLean/WythoffSubtraction.lean` (kernel-checked; only `propext`, `Classical.choice`, `Quot.sound`):
+- W(S) is defined by its option list and the mex recursion.
+- **Characterization lemma:** a function that differs from itself on every option and reaches every smaller value on some option is the Grundy function.
+- **General theorems for every position:**
+  - S of odd numbers with 1 ∈ S ⇒ G = F₁ (explicit parity formula, values 0–3);
+  - 1, 2 ∈ S and 3 ∤ s for all s ∈ S ⇒ G = (x + y) mod 3;
+  - scaling G_{kS}(x, y) = G_S(⌊x/k⌋, ⌊y/k⌋) for every S and k > 0.
+- Corollaries are exactly the LLM's proposals H01, H02, H03 (s = 2..5) and H04. `overthink prove` recorded **7 LLM claims as proved**.
+- Registry: 1,162 conjectures: 150 proved, 977 survived, 22 known, 13 refuted.
+- So for family H, data → LLM conjecture → 10× falsification → general Lean proof is complete for 7 of 19 claims. H05–H13 (periodic P-sets) need a 2D finite-window lemma; H14 is open.

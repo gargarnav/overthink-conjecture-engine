@@ -48,3 +48,5 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+# Committed experiment artifacts are kept byte-identical to what was run.
+extend-exclude = ["experiments/familyH/write_proposals.py"]
