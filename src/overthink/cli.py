@@ -226,6 +226,22 @@ def _cmd_run(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_costs(args: argparse.Namespace) -> int:
+    from overthink.reporting import write_costs
+
+    print(write_costs())
+    print("written to docs/costs.md")
+    return 0
+
+
+def _cmd_stats(args: argparse.Namespace) -> int:
+    from overthink.reporting import write_stats
+
+    print(json.dumps(write_stats(), indent=2))
+    print("written to docs/metrics.md")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="overthink",
@@ -325,6 +341,13 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("config", type=Path)
     p_run.add_argument("--runs-dir", type=Path, default=Path("experiments/runs"))
     p_run.set_defaults(func=_cmd_run)
+
+    sub.add_parser("costs", help="summarize recorded compute and API spend").set_defaults(
+        func=_cmd_costs
+    )
+    sub.add_parser("stats", help="project metrics for progress reports").set_defaults(
+        func=_cmd_stats
+    )
 
     return parser
 
