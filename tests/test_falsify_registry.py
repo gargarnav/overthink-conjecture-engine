@@ -217,3 +217,20 @@ def test_falsify_against_larger_dataset(mined, tmp_path):
     res = _results(out)
     p = next(r for r in res.values() if "subtraction_set=1,3,4|raw" in r["sequence_id"])
     assert p["status"] == "survived" and p["per_sequence"][0]["full_range"][1] == 1800
+
+
+def test_registry_export_statuses(mined, tmp_path):
+    from overthink.registry.export import rows
+
+    reg = Registry(tmp_path / "registry" / "events.jsonl")
+
+    def wrong(c):
+        c["params"]["delta"] = 1
+
+    _inject(mined, wrong)
+    falsify_run(mined, runs_dir=tmp_path / "runs", registry=reg)
+    out = {r["id"]: r for r in rows(reg, meta_dir=tmp_path / "datasets")}
+    assert out["C-injected"]["proof_status"] == "refuted"
+    assert json.loads(out["C-injected"]["counterexamples"])
+    assert {r["proof_status"] for r in out.values()} <= {"refuted", "verified-finite"}
+    assert all(r["game_family"] == "subtraction" for r in out.values())

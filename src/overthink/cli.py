@@ -116,6 +116,12 @@ def _cmd_registry(args: argparse.Namespace) -> int:
     from overthink.registry.store import Registry
 
     reg = Registry(args.registry)
+    if args.action == "export":
+        from overthink.registry.export import export
+
+        counts = export(reg, args.out)
+        print(f"exported to {args.out}: {counts}")
+        return 0
     if args.action == "mark-known":
         if not args.id or not args.source:
             print("mark-known needs --id and --source")
@@ -254,9 +260,14 @@ def build_parser() -> argparse.ArgumentParser:
     p_fal.set_defaults(func=_cmd_falsify)
 
     p_reg = sub.add_parser("registry", help="inspect the conjecture registry")
-    p_reg.add_argument("action", nargs="?", default="show", choices=["show", "mark-known"])
+    p_reg.add_argument(
+        "action", nargs="?", default="show", choices=["show", "mark-known", "export"]
+    )
     p_reg.add_argument("--registry", type=Path, default=Path("registry/events.jsonl"))
     p_reg.add_argument("--status", help="list conjectures with this status")
+    p_reg.add_argument(
+        "--out", type=Path, default=Path("datasets/conjecture_registry"), help="export directory"
+    )
     p_reg.add_argument("--id", help="conjecture id (mark-known)")
     p_reg.add_argument("--source", help="literature/OEIS source (mark-known)")
     p_reg.set_defaults(func=_cmd_registry)

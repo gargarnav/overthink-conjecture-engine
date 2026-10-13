@@ -66,7 +66,7 @@ class Registry:
                         "history": [],
                     },
                 )
-                entry["proposals"].append(e["provenance"])
+                entry["proposals"].append({**e["provenance"], "recorded_at": e.get("recorded_at")})
                 continue
             entry = st.get(cid)
             if entry is None:
