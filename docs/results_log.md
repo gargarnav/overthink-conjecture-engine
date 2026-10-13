@@ -164,3 +164,15 @@ Before the first publication, at the author's request: an automatically added at
 - **Run-1 candidates re-tested at a ≤ 3000 (30× the a ≤ 100 window): 69 survived, 4 refuted (the same 4).** Each survivor was checked on 2,920–2,990 relations, out to b = 2,972–3,000 (extension 30–65× per sequence).
 - Functional dependencies can now be emitted as conjectures (off by default). With the new code, run 1's frozen config reproduces run 1's 73 candidates exactly. 83 tests passing.
 - Run 2 pre-registered: `experiments/rediscovery2/PROTOCOL.md`, `experiments/configs/mining/rediscovery2_chomp4.yaml`. Not blind.
+
+---
+
+## 2026-10-13: Rediscovery run 2 (not blind): results
+
+Tag `rediscovery2-frozen` → `c33c7c1`; output in `702dc2f` (mining) and `c1b3b05` (falsification). Report: `experiments/rediscovery2/REPORT.md`.
+
+- 1,546 sequences, 176 proposals: **167 survived, 9 refuted** at a ≤ 3000 (10×).
+- All 4 functional dependencies (including Unique Extension) proposed and survived on 2,010,792 positions, as predicted. Found only in the non-blind sense.
+- `a~b` survivors: 151 (run 1: 57). All 57 run-1 survivors get the same period in run 2. Still no second-order statements (longest run of consecutive groups with a proposal: 6; 12 needed).
+- One refutation came late: (c, d) = (48, 46), period 1 from b ≥ 87, failed at b = 2181 (7× the window).
+- Observation (AI-assisted, not pipeline output): every period found in runs 1–2, including re-proposals, is 2ᵏ or 3·2ᵏ (1 … 192), with no factor of 7.

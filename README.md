@@ -22,7 +22,7 @@ Early development. See [`docs/results_log.md`](docs/results_log.md) for a dated 
 | Classical pattern miners | Done (Phase D): 5 miners, synthetic benchmark, Wythoff's theorem recovered from data |
 | Conjecture registry + falsifier | Done (Phase E): 297 dev conjectures, all survived 10× re-testing |
 | LLM proposer (optional, mock by default) | TODO (Phase F) |
-| Blind rediscovery test on 4×n Chomp | TODO (Phase G) |
+| Blind rediscovery test on 4×n Chomp | Done: run 1 (blind) 0/4 v1 conjectures found, 69 exact statements survived at 30×; run 2 (not blind) 167/176 survived. See [experiments/rediscovery/REPORT.md](experiments/rediscovery/REPORT.md) |
 | Lean 4 formalization | TODO (Phase I) |
 
 ## Quickstart
