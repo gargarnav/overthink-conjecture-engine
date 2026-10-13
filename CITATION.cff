@@ -25,7 +25,7 @@ identifiers:
 version: 0.1.0
 date-released: "2026-10-14"
 repository-code: "https://github.com/gargarnav/overthink-conjecture-engine"
-url: "https://overthink.si"
+url: "https://gargarnav.github.io/overthink-conjecture-engine/"
 keywords:
   - combinatorial game theory
   - automated conjecture generation

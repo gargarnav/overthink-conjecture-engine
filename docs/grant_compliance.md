@@ -44,10 +44,10 @@ Everything in this repository is open source and stays that way. Any future comm
 - [x] **Zenodo software DOI:** integration on; release v0.1.0 archived as 10.5281/zenodo.23350598 (concept 10.5281/zenodo.23350597).
 - [ ] **Zenodo dataset DOI:** upload the six `dist/datasets/*.zip` archives (also attached to the v0.1.0 GitHub release) as a Zenodo *Dataset* record, CC BY 4.0, "is supplement to" 10.5281/zenodo.23350597 (`datasets/PUBLISHING.md`).
 - [ ] **Hugging Face** (optional): create an account and upload the packaged datasets (`datasets/PUBLISHING.md`).
-- [ ] **GitHub Pages:** *Settings → Pages → Source: GitHub Actions*; then *Settings → Variables → Actions*, add `PAGES_ENABLED = true`.
+- [x] **GitHub Pages:** source GitHub Actions, `PAGES_ENABLED = true`; docs site at https://gargarnav.github.io/overthink-conjecture-engine/.
 - [ ] **Security reporting:** *Settings → Security → Private vulnerability reporting: enable*.
 - [ ] **Contact email:** replace `TODO-CONTACT-EMAIL` in `CODE_OF_CONDUCT.md` and `SECURITY.md`.
-- [ ] **Website:** `https://overthink.si` is a placeholder in `CITATION.cff` until it is live.
+- [x] **Project website:** `CITATION.cff` `url` points to the docs site. (The company domain is deliberately not used for this open-source project.)
 - [ ] **ORCID:** already in `CITATION.cff` and `.zenodo.json` (0009-0009-2362-1903); check the ORCID profile lists the arXiv paper.
 - [ ] **Novelty of the W({a,a+1}) theorem:** ask a specialist (e.g. an author of arXiv:2307.12458) and check Duchêne–Fraenkel–Nowakowski–Rigo (JCTA 2010).
 - [ ] **Private application materials** (overview, milestones, team, budget, public benefit, catalytic plan) are kept outside this repository.
