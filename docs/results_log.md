@@ -37,8 +37,9 @@ Dated, append-only record of what actually worked and what failed. Newest entrie
 
 The n = 1000 run took 53 s wall time on an Apple M4 (10 cores) with about 7 GB peak RSS, including loading the CSV. Reproduce with `uv run python experiments/validate_chomp4.py`.
 
-**Open question**
-- The reference CSV has 35,029,679 P-positions with a ≤ 1000. The author's notes mention "4.3M+ P-positions" for the paper; that figure presumably refers to a different range. TODO: confirm with the author before citing either number in grant text.
+**P-position counts (4-row Chomp, all positions with a ≤ n)**
+- n = 500: 4,316,097 (our solver and the reference CSV agree). This is the "4.3M+" figure in the author's paper, as the author confirmed on 2026-10-13.
+- n = 1000: 35,029,679.
 
 **Blind-protocol exposure disclosure (methodology §4)**
 Before any miner was written, the agent building this was exposed to:
