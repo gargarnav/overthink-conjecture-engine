@@ -1,8 +1,9 @@
 """Record Lean proofs of the LLM's W(S) proposals H01–H04 (family H) in the registry.
 
 `lean/OverthinkLean/WythoffSubtraction.lean` proves, for every position:
-H01 (odd S with 1 ∈ S: G = F₁), H02 (1, 2 ∈ S, 3 ∤ s: G = (x + y) % 3), and via the scaling
-theorem H03 (G_{s} = F₁(⌊x/s⌋, ⌊y/s⌋)) and H04 (G_{2,4} = (⌊x/2⌋ + ⌊y/2⌋) % 3).
+H01 (odd S with 1 ∈ S: G = F₁), H02 (1, 2 ∈ S, 3 ∤ s: G = (x + y) % 3), via the scaling
+theorem H03 (G_{s} = F₁(⌊x/s⌋, ⌊y/s⌋)) and H04 (G_{2,4} = (⌊x/2⌋ + ⌊y/2⌋) % 3), and H08 (the
+P-positions of W({a, a+1}) for every a ≥ 1, `pair_P_positions`).
 """
 
 from __future__ import annotations
@@ -22,8 +23,11 @@ THEOREMS = {  # LLM proposal id -> Lean theorem
     "H03-4": "Overthink.WSub.H03",
     "H03-5": "Overthink.WSub.H03",
     "H04": "Overthink.WSub.H04",
+    "H08-2": "Overthink.WSub.pair_P_positions",
+    "H08-3": "Overthink.WSub.pair_P_positions",
+    "H08-4": "Overthink.WSub.pair_P_positions",
 }
-METHOD = "general: grundy_eq_of characterization (+ grundy_scale), kernel-checked"
+METHOD = "general: grundy_eq_of / grundy_zero_iff_of characterization, kernel-checked"
 
 
 def run(registry: Registry, record: bool = True) -> dict[str, Any]:

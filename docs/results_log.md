@@ -237,3 +237,12 @@ Lean v4.35.0, Mathlib v4.35.0 (`56a0058`). Details: `lean/README.md`. **No `sorr
 - Corollaries are exactly the LLM's proposals H01, H02, H03 (s = 2..5) and H04. `overthink prove` recorded **7 LLM claims as proved**.
 - Registry: 1,162 conjectures: 150 proved, 977 survived, 22 known, 13 refuted.
 - So for family H, data → LLM conjecture → 10× falsification → general Lean proof is complete for 7 of 19 claims. H05–H13 (periodic P-sets) need a 2D finite-window lemma; H14 is open.
+
+---
+
+## 2026-10-13: General theorem for the pair family W({a, a+1})
+
+- **Proved in Lean for every a ≥ 1** (`Overthink.WSub.pair_P_positions`; standard axioms only): (x, y) is a P-position of W({a, a+1}) iff, with m = 2a+1, (x mod m, y mod m) ∈ [0,a)² ∪ {(a,2a), (2a,a)}. The proof uses a residue-after-subtraction lemma (`sub_mod_eq`), which handles the variable modulus that `omega` cannot, and a P-position characterization (`grundy_zero_iff_of`).
+- **Provenance:** LLM proposal H08 (from a ≤ 4 data) → survived on x, y < 1000 for a = 2, 3, 4 → proved for all a. Cross-check: the theorem's formula vs the Rust solver for a = 1..30 gave 0 mismatches. A mutant with (a, 2a−1) fails to compile.
+- **Literature:** not found in Larsson–Saha–Yokoo (arXiv:2307.12458, including Thm 16 on diagonal twin rulesets) or in Duchêne–Fraenkel–Gravier–Nowakowski 2009, nor by targeted searches. Novelty is pending specialist review. Write-up: `docs/results/W_pair_theorem.md`.
+- Registry: 153 proved (10 of the 19 LLM claims).

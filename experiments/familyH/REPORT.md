@@ -57,7 +57,8 @@ Patterns across these, stated in the rationales: interval sets {a..b} have P-per
   - the scaling theorem `grundy_scale` (G_{kS}(x,y) = G_S(⌊x/k⌋, ⌊y/k⌋)) holds for all S and k > 0.
 
   The proofs follow the LLM's rationales: a parity case analysis, residues mod 3, and the isomorphism W(kS) ≅ k² × W(S).
-- H05–H13 are exactly periodic or diagonal-split periodic P-sets. A finite-window argument like the one used for 1D subtraction games may reduce them to finite checks, but that needs a 2D version of `periodic_of_window`.
+- **H08 is proved for every a ≥ 1** (`pair_P_positions`): the P-positions of W({a, a+1}) are periodic mod 2a+1, with an a×a square plus (a,2a) and (2a,a). The LLM proposed this from a ≤ 4; it survived 10× falsification for a = 2, 3, 4; it is proved for all a and cross-checked against the solver for a ≤ 30. We found no prior source (`docs/results/W_pair_theorem.md`). With it, 10 of the 19 LLM claims are proved.
+- The other periodic P-sets (H05–H07, H09–H13) remain open. A finite-window argument like the one used for 1D subtraction games may reduce them to finite checks, but that needs a 2D version of `periodic_of_window`.
 - H14 is a genuine conjecture about a region boundary. The slope 2 was a guess; it holds up to 1000, but the true boundary is unknown.
 
 ## Literature and novelty (no claims made)

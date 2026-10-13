@@ -23,3 +23,5 @@ import OverthinkLean
 #print axioms Overthink.WSub.H02
 #print axioms Overthink.WSub.H03
 #print axioms Overthink.WSub.H04
+#print axioms Overthink.WSub.pair_P_positions
+#print axioms Overthink.WSub.H08
