@@ -14,15 +14,18 @@ uv run overthink package-dataset chomp4_n1000 chomp4_a3000_c60 wythoff_n1000 \
 
 Each archive `dist/datasets/<id>-v0.1.0.zip` contains `data.parquet`, the dataset card (`README.md`), `manifest.json`, `sample.parquet`, `LICENSE` (CC BY 4.0), `SHA256SUMS` and `RELEASE.json`. Packaging fails if the data does not match the committed manifest.
 
-## 2. Zenodo (DOI)
+## 2. Zenodo (DOIs)
 
-Recommended route: the GitHub integration, which archives every GitHub release with the metadata in `.zenodo.json`.
+**Software DOI (automatic).** With the GitHub integration switched on (Zenodo → *Account → GitHub*), every GitHub release is archived with the metadata in `.zenodo.json`. Zenodo archives the release's **source snapshot only**: the code, dataset cards, manifests, samples and the conjecture registry export (all committed). Files attached to the GitHub release are *not* archived by the integration.
 
-1. Sign in at https://zenodo.org with GitHub; under *Account → GitHub*, switch on `gargarnav/overthink-conjecture-engine`.
-2. Create a GitHub release (e.g. `v0.1.0`) and attach the `dist/datasets/*.zip` archives as release assets. Zenodo archives the release, including the assets, and mints a DOI.
-3. Put the DOI badge in `README.md` and the DOI in `CITATION.cff` (`identifiers:`).
+**Dataset DOI (manual upload).** The full Parquet files therefore need their own Zenodo record:
 
-Alternative: a separate Zenodo *dataset* upload of the archives (upload type "Dataset", license CC BY 4.0), linked to the software DOI with "is supplement to".
+1. Zenodo → *New upload*. Upload the `dist/datasets/*.zip` archives.
+2. Resource type **Dataset**; license **CC BY 4.0**; creator Arnav Garg (ORCID 0009-0009-2362-1903); title e.g. "Overthink Conjecture Engine datasets v0.1.0".
+3. Related works: "Is supplement to" the software DOI (or the GitHub release URL).
+4. Publish, then add the dataset DOI to `README.md`, `CITATION.cff` and the dataset cards.
+
+The same archives are also attached to the GitHub release for direct download.
 
 ## 3. Hugging Face mirror (optional)
 
@@ -35,5 +38,6 @@ Alternative: a separate Zenodo *dataset* upload of the archives (upload type "Da
 - [ ] `overthink verify` passes for every dataset
 - [ ] cards regenerated from the current code (`overthink generate`)
 - [ ] archives contain SHA256SUMS; spot-check one with `shasum -a 256 -c SHA256SUMS`
-- [ ] GitHub release created with archives attached; Zenodo DOI minted
+- [ ] GitHub release created with archives attached; software DOI minted
+- [ ] dataset archives uploaded as a Zenodo dataset record; dataset DOI minted
 - [ ] DOI added to README, CITATION.cff and the dataset cards

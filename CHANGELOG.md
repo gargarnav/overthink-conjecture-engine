@@ -2,7 +2,7 @@
 
 All notable changes to this project. Dates are UTC. Results are recorded in detail in `docs/results_log.md`.
 
-## [Unreleased]: 0.1.0
+## [0.1.0]: 2026-10-14
 
 ### Added
 - Exact solvers (Rust core): subtraction games, Wythoff, 4-row Chomp (validated against the author's independent data, brute force, and published 3-row tables), Wythoff subtraction games W(S).
