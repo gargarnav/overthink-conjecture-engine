@@ -176,3 +176,15 @@ Tag `rediscovery2-frozen` → `c33c7c1`; output in `702dc2f` (mining) and `c1b3b
 - `a~b` survivors: 151 (run 1: 57). All 57 run-1 survivors get the same period in run 2. Still no second-order statements (longest run of consecutive groups with a proposal: 6; 12 needed).
 - One refutation came late: (c, d) = (48, 46), period 1 from b ≥ 87, failed at b = 2181 (7× the window).
 - Observation (AI-assisted, not pipeline output): every period found in runs 1–2, including re-proposals, is 2ᵏ or 3·2ᵏ (1 … 192), with no factor of 7.
+
+---
+
+## 2026-10-13: Literature check of the Chomp survivors
+
+Report: `experiments/literature/REPORT.md`.
+- The form of every periodicity survivor is covered by Byrnes's Poset Game Periodicity Theorem (INTEGERS 2003): for fixed lower rows, a − b is eventually periodic in b, or there are finitely many P-positions. The survivors are instances with specific parameters.
+- Sun's 2004 thesis, Table 2.1 (4-row periods for 25 bottom-row pairs, c ≤ 9) vs our a ≤ 3000 data: finite/infinite 25/25, periods 10/10, starts 7/10. Three starts differ ((6,3), (6,4), (6,5)), unresolved; Sun's definition of the start is not precise.
+- Independent validation: with d = 0 (3-row Chomp) our solver and miner reproduce all 9 published Brouwer/Nivasch (r, start, period) entries exactly, up to r = 6541 (period 9).
+- **Retracted:** the "periods are 2ᵏ or 3·2ᵏ" observation from run 2. Counterexample: (c, d) = (6541, 0), period 9.
+- Registry: 23 conjectures marked `known`, i.e. exact matches with Sun's table, Brouwer, Winning Ways, and Unique Extension (author's v2 Lemma 1). No novelty is claimed for the other survivors.
+- Solver: optional `max_d` bound (max_d = 0 is exactly 3-row Chomp). Existing datasets regenerate byte-identically. 85 tests passing.

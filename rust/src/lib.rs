@@ -60,14 +60,16 @@ fn wythoff_grundy<'py>(py: Python<'py>, n: usize) -> Bound<'py, PyArray2<u32>> {
         .into_pyarray(py)
 }
 
-/// All P-positions (a, b, c, d) of 4-row Chomp with c <= max_c and a <= max_a,
-/// returned as four uint32 arrays (a, b, c, d) ordered by (c, d, b).
+/// All P-positions (a, b, c, d) of 4-row Chomp with c <= max_c, d <= max_d (default: no
+/// limit) and a <= max_a, returned as four uint32 arrays (a, b, c, d) ordered by (c, d, b).
 #[pyfunction]
+#[pyo3(signature = (max_c, max_a, max_d=None))]
 #[allow(clippy::type_complexity)]
 fn chomp4_p_positions<'py>(
     py: Python<'py>,
     max_c: usize,
     max_a: usize,
+    max_d: Option<usize>,
 ) -> PyResult<(
     Bound<'py, PyArray1<u32>>,
     Bound<'py, PyArray1<u32>>,
@@ -80,7 +82,8 @@ fn chomp4_p_positions<'py>(
     if max_a >= u32::MAX as usize - 1 {
         return Err(PyValueError::new_err("max_a too large"));
     }
-    let [a, b, c, d] = py.detach(|| chomp4::solve(max_c, max_a).positions());
+    let [a, b, c, d] =
+        py.detach(|| chomp4::solve_bounded(max_c, max_a, max_d.unwrap_or(max_c)).positions());
     Ok((
         a.into_pyarray(py),
         b.into_pyarray(py),

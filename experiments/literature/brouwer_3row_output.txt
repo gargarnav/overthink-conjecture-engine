@@ -1,0 +1,10 @@
+solved 3-row Chomp, c <= 6541, a <= 13910: 28,844,537 P-positions, 416 s
+r=  120: published period 2, start q=170 | ours period 2, start b=170 | period agrees: True, start agrees: True
+r=  400: published period 2, start q=566 | ours period 2, start b=566 | period agrees: True, start agrees: True
+r=  402: published period 4, start q=571 | ours period 4, start b=571 | period agrees: True, start agrees: True
+r=  422: published period 2, start q=597 | ours period 2, start b=597 | period agrees: True, start agrees: True
+r=  585: published period 4, start q=828 | ours period 4, start b=828 | period agrees: True, start agrees: True
+r=  890: published period 4, start q=1258 | ours period 4, start b=1258 | period agrees: True, start agrees: True
+r=  892: published period 4, start q=1265 | ours period 4, start b=1265 | period agrees: True, start agrees: True
+r= 2027: published period 3, start q=2867 | ours period 3, start b=2867 | period agrees: True, start agrees: True
+r= 6541: published period 9, start q=9250 | ours period 9, start b=9250 | period agrees: True, start agrees: True

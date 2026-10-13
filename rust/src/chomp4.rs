@@ -32,32 +32,40 @@ use rayon::prelude::*;
 
 pub const NONE: u32 = u32::MAX;
 
-/// Per-pair results: `rows[pidx(c, d)][b - c]` is a_p(b) - b, or NONE.
+/// Per-pair results: `rows[self.idx(c, d)][b - c]` is a_p(b) - b, or NONE.
 pub struct Chomp4Table {
     pub max_c: usize,
     pub max_a: usize,
+    /// Only pairs with d <= max_d are solved (max_d = 0 is exactly 3-row Chomp).
+    pub max_d: usize,
     rows: Vec<Vec<u32>>,
 }
 
-#[inline]
-fn pidx(c: usize, d: usize) -> usize {
-    c * (c + 1) / 2 + d
-}
-
 impl Chomp4Table {
+    /// Index of pair (c, d): triangular when all pairs are solved, rectangular otherwise.
+    #[inline]
+    fn idx(&self, c: usize, d: usize) -> usize {
+        if self.max_d >= self.max_c {
+            c * (c + 1) / 2 + d
+        } else {
+            c * (self.max_d + 1) + d
+        }
+    }
+
     /// a_p(b) for pair (c, d), if it is <= max_a.
     #[inline]
     pub fn a_of(&self, c: usize, d: usize, b: usize) -> Option<usize> {
-        let v = self.rows[pidx(c, d)][b - c];
+        let v = self.rows[self.idx(c, d)][b - c];
         (v != NONE).then(|| b + v as usize)
     }
 
-    /// All P-positions (a, b, c, d) with c <= max_c and a <= max_a, ordered by (c, d, b).
+    /// All P-positions (a, b, c, d) with c <= max_c, d <= max_d and a <= max_a,
+    /// ordered by (c, d, b).
     pub fn positions(&self) -> [Vec<u32>; 4] {
         let mut out: [Vec<u32>; 4] = Default::default();
         for c in 0..=self.max_c {
-            for d in 0..=c {
-                for (i, &v) in self.rows[pidx(c, d)].iter().enumerate() {
+            for d in 0..=c.min(self.max_d) {
+                for (i, &v) in self.rows[self.idx(c, d)].iter().enumerate() {
                     if v != NONE {
                         let b = c + i;
                         out[0].push((b + v as usize) as u32);
@@ -99,9 +107,9 @@ fn solve_pair(t: &Chomp4Table, c: usize, d: usize) -> Vec<u32> {
     let lower_rows: Vec<(&[u32], usize)> = (0..c)
         .map(|j| {
             let (qc, qd) = lower(j);
-            (t.rows[pidx(qc, qd)].as_slice(), qc)
+            (t.rows[t.idx(qc, qd)].as_slice(), qc)
         })
-        .chain((0..d).map(|j| (t.rows[pidx(c, j)].as_slice(), c)))
+        .chain((0..d).map(|j| (t.rows[t.idx(c, j)].as_slice(), c)))
         .collect();
 
     let mut out = Vec::with_capacity(len);
@@ -137,24 +145,34 @@ fn solve_pair(t: &Chomp4Table, c: usize, d: usize) -> Vec<u32> {
 
 /// Solve all pairs (c, d) with d <= c <= max_c, for a <= max_a.
 pub fn solve(max_c: usize, max_a: usize) -> Chomp4Table {
+    solve_bounded(max_c, max_a, max_c)
+}
+
+/// Solve pairs (c, d) with d <= min(c, max_d), c <= max_c, for a <= max_a. Every pair
+/// depends only on pairs with smaller or equal d, so the restricted solution is exact.
+pub fn solve_bounded(max_c: usize, max_a: usize, max_d: usize) -> Chomp4Table {
     assert!(max_c <= max_a, "max_c must not exceed max_a");
-    let npairs = pidx(max_c, max_c) + 1;
+    let max_d = max_d.min(max_c);
     let mut t = Chomp4Table {
         max_c,
         max_a,
-        rows: vec![Vec::new(); npairs],
+        max_d,
+        rows: Vec::new(),
     };
+    let npairs = t.idx(max_c, max_d) + 1;
+    t.rows = vec![Vec::new(); npairs];
     for s in 0..=2 * max_c {
         let todo: Vec<(usize, usize)> = (0..=s / 2)
             .map(|d| (s - d, d))
-            .filter(|&(c, d)| c <= max_c && d <= c)
+            .filter(|&(c, d)| c <= max_c && d <= c && d <= max_d)
             .collect();
         let solved: Vec<Vec<u32>> = todo
             .par_iter()
             .map(|&(c, d)| solve_pair(&t, c, d))
             .collect();
         for ((c, d), row) in todo.into_iter().zip(solved) {
-            t.rows[pidx(c, d)] = row;
+            let i = t.idx(c, d);
+            t.rows[i] = row;
         }
     }
     t
@@ -162,7 +180,22 @@ pub fn solve(max_c: usize, max_a: usize) -> Chomp4Table {
 
 #[cfg(test)]
 mod tests {
-    use super::solve;
+    use super::{solve, solve_bounded};
+
+    #[test]
+    fn bounded_d_matches_full_solve() {
+        let full = solve(25, 120);
+        for max_d in [0, 1, 3, 25] {
+            let part = solve_bounded(25, 120, max_d);
+            for c in 0..=25 {
+                for d in 0..=c.min(max_d) {
+                    for b in c..=120 {
+                        assert_eq!(full.a_of(c, d, b), part.a_of(c, d, b));
+                    }
+                }
+            }
+        }
+    }
 
     #[test]
     fn single_square_is_p() {

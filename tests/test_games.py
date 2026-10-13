@@ -114,3 +114,14 @@ def test_chomp4_at_most_one_a_per_bcd():
     arr = chomp.chomp4_p_positions(200)
     bcd = arr[:, 1:]
     assert len(np.unique(bcd, axis=0)) == len(bcd)
+
+
+def test_chomp4_max_d_zero_is_three_row_chomp():
+    three = {(int(a), int(b), int(c)) for a, b, c, d in chomp.chomp4_p_positions(25, max_d=0)}
+    assert three == chomp.p_positions_reference(3, 25)
+
+
+def test_chomp4_max_d_is_exact_subset():
+    full = _as_set(chomp.chomp4_p_positions(40))
+    part = _as_set(chomp.chomp4_p_positions(40, max_d=3))
+    assert part == {p for p in full if p[3] <= 3}

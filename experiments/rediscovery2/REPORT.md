@@ -61,7 +61,10 @@ All 57 run-1 `a~b` survivors get a run-2 proposal for the same (c, d) with the *
 | v1 C1 / v2 Lemma 1 | **Found (non-blind)** | Emitted as `d ← (a, b, c)` and survived. This capability was added after reading the ground truth, so it is not a rediscovery. |
 | v1 C2, C3, C4; v2 Conjectures 1–2 | Missed | Statement forms the miners cannot express (unchanged from run 1). |
 
-## Observation from reading the output (AI-assisted, not a pipeline result)
+## Observation from reading the output (AI-assisted, not a pipeline result): RETRACTED
+
+> **Retracted 2026-10-13 after the literature check** (`experiments/literature/REPORT.md`, finding 4): (c, d) = (6541, 0) has period 9 (Brouwer/Nivasch, reproduced exactly by this project's solver). The pattern below only held on the small range examined. The original text is kept for the record.
+
 
 Every period proposed in runs 1 and 2, including the re-proposals made at a ≤ 3000, is of the form **2ᵏ or 3·2ᵏ**: 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 192. No other period occurs, and in particular no factor of 7. This is a candidate conjecture about the eventual periods of a − b along b for fixed (c, d). It is relevant to the "period-8 signal of unknown origin" in v1/v2, and it also has to be checked against the known periodicity literature before any claim of novelty. It was **not** produced by the pipeline: the miners have no view across the parameters of different groups unless 12 consecutive groups all have proposals. A "parameter-set" view (the set of periods across all groups) would be the natural pipeline extension. Like everything here, it would need its own pre-registered run.
 

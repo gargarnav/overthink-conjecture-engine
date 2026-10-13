@@ -5,3 +5,5 @@ def mex(values: list[int]) -> int:
 
 def core_version() -> str:
     """Version of the compiled Rust core."""
+
+def chomp4_p_positions(max_c: int, max_a: int, max_d: int | None = None) -> tuple: ...
