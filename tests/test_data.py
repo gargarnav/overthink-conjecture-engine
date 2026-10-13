@@ -16,6 +16,7 @@ CONFIGS = {
     "chomp4": {"max_a": 25},
     "wythoff": {"n": 40},
     "subtraction": {"sets": [[1, 3, 4], [2, 5]], "all_subsets_of": 3, "n_max": 80},
+    "wythoff_subtraction": {"sets": [[1], [2, 3]], "n": 20},
 }
 
 

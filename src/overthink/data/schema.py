@@ -73,6 +73,26 @@ SCHEMAS: dict[str, FamilySchema] = {
             sample_description="rows with x, y < 32",
         ),
         FamilySchema(
+            family="wythoff_subtraction",
+            title="Wythoff subtraction games W(S): Grundy values",
+            rules=(
+                "Two heaps (x, y) and a finite subtraction set S. A move removes s tokens from "
+                "one heap, or s tokens from both heaps, for some s in S. Normal play. This is "
+                "the finite two-dimensional subtraction game with move vectors (s,0), (0,s), "
+                "(s,s), s in S."
+            ),
+            contents="Every position (x, y) with 0 <= x, y < n, for every listed set S.",
+            columns=(
+                Column("subtraction_set", pl.String(), "S as comma-separated ascending integers"),
+                Column("x", pl.UInt32(), "first heap"),
+                Column("y", pl.UInt32(), "second heap"),
+                Column("grundy", pl.UInt32(), "Sprague-Grundy value; 0 iff P-position"),
+            ),
+            sort_by=("subtraction_set", "x", "y"),
+            sample_filter=(pl.col("x") < 16) & (pl.col("y") < 16),
+            sample_description="rows with x, y < 16",
+        ),
+        FamilySchema(
             family="chomp4",
             title="4-row Chomp: P-positions",
             rules=(

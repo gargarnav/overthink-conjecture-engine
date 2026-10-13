@@ -146,6 +146,49 @@ def _cmd_prove(args: argparse.Namespace) -> int:
     return 0 if all(r["ok"] for r in results.values()) else 1
 
 
+def _cmd_llm_packet(args: argparse.Namespace) -> int:
+    from overthink.conjecture.llm import build_packet
+
+    pk = build_packet(args.config, args.mining_run, args.data_dir, Path("datasets"))
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+    args.out.write_text(pk.text)
+    meta = {
+        **pk.meta,
+        "sha256": pk.sha256,
+        "chars": len(pk.text),
+        "approx_tokens": len(pk.text) // 4,
+    }
+    args.out.with_suffix(".meta.json").write_text(json.dumps(meta, indent=2) + "\n")
+    print(
+        f"packet {args.out}: {len(pk.text):,} chars (~{len(pk.text) // 4:,} tokens), "
+        f"sha256 {pk.sha256[:16]}…"
+    )
+    return 0
+
+
+def _cmd_llm_ingest(args: argparse.Namespace) -> int:
+    from overthink.conjecture.llm import (
+        AnthropicProvider,
+        MockProvider,
+        Packet,
+        SessionProvider,
+        ingest,
+    )
+
+    text = args.packet.read_text()
+    meta = json.loads(args.packet.with_suffix(".meta.json").read_text())
+    pk = Packet(text, meta)
+    if pk.sha256 != meta["sha256"]:
+        print("packet file does not match its recorded SHA-256")
+        return 1
+    provider = {"mock": MockProvider, "anthropic": AnthropicProvider}.get(args.provider)
+    provider = SessionProvider(args.proposals) if args.provider == "session" else provider()
+    run_dir = ingest(pk, args.packet, provider, args.config, args.runs_dir, args.data_dir)
+    info = json.loads((run_dir / "run.json").read_text())
+    print(f"{info['counts']} -> {run_dir}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="overthink",
@@ -213,6 +256,22 @@ def build_parser() -> argparse.ArgumentParser:
     p_prove.add_argument("--registry", type=Path, default=Path("registry/events.jsonl"))
     p_prove.add_argument("--dry-run", action="store_true", help="build only, do not record")
     p_prove.set_defaults(func=_cmd_prove)
+
+    p_pk = sub.add_parser("llm-packet", help="render proposal-window data for an LLM proposer")
+    p_pk.add_argument("config", type=Path)
+    p_pk.add_argument("--mining-run", type=Path, help="include this run's classical proposals")
+    p_pk.add_argument("--out", type=Path, required=True)
+    p_pk.add_argument("--data-dir", type=Path, default=Path("data_out"))
+    p_pk.set_defaults(func=_cmd_llm_packet)
+
+    p_in = sub.add_parser("llm-ingest", help="validate LLM proposals and write them as a run")
+    p_in.add_argument("config", type=Path)
+    p_in.add_argument("--packet", type=Path, required=True)
+    p_in.add_argument("--provider", choices=["mock", "session", "anthropic"], required=True)
+    p_in.add_argument("--proposals", type=Path, help="session provider: proposals JSON")
+    p_in.add_argument("--runs-dir", type=Path, default=Path("experiments/runs"))
+    p_in.add_argument("--data-dir", type=Path, default=Path("data_out"))
+    p_in.set_defaults(func=_cmd_llm_ingest)
 
     return parser
 

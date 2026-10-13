@@ -48,6 +48,25 @@ def build_wythoff(params: dict[str, Any]) -> pl.DataFrame:
     return pl.DataFrame({"x": x.ravel(), "y": y.ravel(), "grundy": g.ravel()})
 
 
+def build_wythoff_subtraction(params: dict[str, Any]) -> pl.DataFrame:
+    n = int(params["n"])
+    x, y = np.indices((n, n), dtype=np.uint32)
+    frames = []
+    for s in _subtraction_sets(params):
+        g = wythoff.subtraction_grundy_table(s, n)
+        frames.append(
+            pl.DataFrame(
+                {
+                    "subtraction_set": ",".join(map(str, s)),
+                    "x": x.ravel(),
+                    "y": y.ravel(),
+                    "grundy": g.ravel(),
+                }
+            )
+        )
+    return pl.concat(frames)
+
+
 def build_chomp4(params: dict[str, Any]) -> pl.DataFrame:
     max_a = int(params["max_a"])
     max_c = params.get("max_c")
@@ -59,6 +78,7 @@ BUILDERS: dict[str, Callable[[dict[str, Any]], pl.DataFrame]] = {
     "subtraction": build_subtraction,
     "wythoff": build_wythoff,
     "chomp4": build_chomp4,
+    "wythoff_subtraction": build_wythoff_subtraction,
 }
 
 

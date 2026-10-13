@@ -103,7 +103,7 @@ class Registry:
                             "dataset": ds,
                             "dataset_content_sha256": ds_hash.get(ds),
                             "method": c["method"],
-                            "model": None,
+                            "model": info.get("proposer", {}).get("model"),
                             "random_seed": info.get("random_seed"),
                             "git_sha": info["provenance"]["git_sha"],
                             "git_dirty": info["provenance"]["git_dirty"],

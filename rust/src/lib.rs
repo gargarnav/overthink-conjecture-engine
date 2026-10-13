@@ -60,6 +60,19 @@ fn wythoff_grundy<'py>(py: Python<'py>, n: usize) -> Bound<'py, PyArray2<u32>> {
         .into_pyarray(py)
 }
 
+/// Grundy values of the Wythoff subtraction game W(S) for 0 <= x, y < n as an n x n array.
+#[pyfunction]
+fn wythoff_subtraction_grundy<'py>(
+    py: Python<'py>,
+    moves: Vec<u32>,
+    n: usize,
+) -> Bound<'py, PyArray2<u32>> {
+    let flat = py.detach(|| wythoff::subtraction_grundy_table(&moves, n));
+    Array2::from_shape_vec((n, n), flat)
+        .expect("table is n*n")
+        .into_pyarray(py)
+}
+
 /// All P-positions (a, b, c, d) of 4-row Chomp with c <= max_c, d <= max_d (default: no
 /// limit) and a <= max_a, returned as four uint32 arrays (a, b, c, d) ordered by (c, d, b).
 #[pyfunction]
@@ -99,6 +112,7 @@ fn _core(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(subtraction_grundy, m)?)?;
     m.add_function(wrap_pyfunction!(wythoff_grundy, m)?)?;
     m.add_function(wrap_pyfunction!(chomp4_p_positions, m)?)?;
+    m.add_function(wrap_pyfunction!(wythoff_subtraction_grundy, m)?)?;
     Ok(())
 }
 

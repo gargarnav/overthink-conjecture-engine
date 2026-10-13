@@ -125,3 +125,19 @@ def test_chomp4_max_d_is_exact_subset():
     full = _as_set(chomp.chomp4_p_positions(40))
     part = _as_set(chomp.chomp4_p_positions(40, max_d=3))
     assert part == {p for p in full if p[3] <= 3}
+
+
+@pytest.mark.parametrize("moves", [[1], [2], [1, 2], [1, 3], [2, 5], [1, 2, 3, 4, 5]])
+def test_wythoff_subtraction_rust_matches_reference(moves):
+    assert wythoff.subtraction_grundy_table(
+        moves, 35
+    ).tolist() == wythoff.subtraction_grundy_table_reference(moves, 35)
+
+
+def test_wythoff_subtraction_symmetric_and_s1_is_kings_like():
+    g = wythoff.subtraction_grundy_table([1, 2, 4], 80)
+    assert np.array_equal(g, g.T)
+    # S = {1}: moves (1,0), (0,1), (1,1); P-positions are exactly x, y both even.
+    g1 = wythoff.subtraction_grundy_table([1], 60)
+    x, y = np.indices(g1.shape)
+    assert np.array_equal(g1 == 0, (x % 2 == 0) & (y % 2 == 0))

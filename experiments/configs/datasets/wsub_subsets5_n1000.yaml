@@ -1,0 +1,9 @@
+dataset: wsub_subsets5_n1000
+family: wythoff_subtraction
+description: >-
+  Grundy values of the Wythoff subtraction game W(S) for every non-empty S contained in
+  {1, ..., 5} (31 sets) and all positions with x, y < 1000. Family H (new game family) of the
+  project; proposal window x, y < 100, falsification on the full table (10x).
+params:
+  all_subsets_of: 5
+  n: 1000

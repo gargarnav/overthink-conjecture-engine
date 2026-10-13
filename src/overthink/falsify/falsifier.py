@@ -27,9 +27,10 @@ from pathlib import Path
 from typing import Any
 
 from overthink.conjecture.checks import check
+from overthink.conjecture.claims import check_claim
 from overthink.conjecture.dependencies import check_table
 from overthink.conjecture.mine import mine_sequence
-from overthink.conjecture.run import new_run_dir
+from overthink.conjecture.run import apply_window, new_run_dir
 from overthink.conjecture.types import Candidate, Sequence
 from overthink.conjecture.views import build_views, dataset_tables, second_order_views
 from overthink.data.store import load, provenance
@@ -166,7 +167,42 @@ def falsify_run(
             ]
             full_so_idx = _index(second_order_views(full_first, full_seqs, so_cfg))
         full_tables = dataset_tables(full, cfg.get("views", {}))
+        window_tables = dataset_tables(apply_window(full, window), cfg.get("views", {}))
         for c in ds_cands:
+            if c["kind"].startswith("claim_"):
+                res_w = check_claim(c["params"], window_tables)
+                res_f = check_claim(c["params"], full_tables)
+                if res_w["status"] == "violated":
+                    status, reason = "refuted", "false already on the proposal-window data"
+                    res_f = {
+                        **res_f,
+                        "counterexample": res_w.get("counterexample"),
+                        "observed": res_w.get("observed", res_f.get("observed")),
+                    }
+                elif res_f["status"] == "violated":
+                    status, reason = "refuted", "false on the full data"
+                elif res_f["status"] == "holds" and res_f["n_checked"] > res_w["n_checked"]:
+                    status, reason = "survived", None
+                else:
+                    status, reason = "untestable", "no new rows in the claim's domain"
+                per = {
+                    **res_f,
+                    "sequence_id": c["sequence_id"],
+                    "window_checked": res_w["n_checked"],
+                    "reason": reason,
+                }
+                results.append(
+                    {
+                        "conjecture_id": c["id"],
+                        "kind": c["kind"],
+                        "sequence_id": c["sequence_id"],
+                        "statement": c["statement"],
+                        "second_order": False,
+                        "status": status,
+                        "per_sequence": [per],
+                    }
+                )
+                continue
             if c["kind"] == "functional_dependency":
                 res = check_table(c["params"], full_tables)
                 status = {"holds": "survived", "violated": "refuted"}.get(
@@ -306,9 +342,16 @@ def render_summary(s: dict[str, Any], results: list[dict]) -> str:
             for p in r["per_sequence"]:
                 if p.get("counterexample"):
                     ce = p["counterexample"]
-                    det.append(
-                        f"n={ce['n']}: observed {ce['observed']}, predicted {ce['predicted']}"
-                    )
+                    if "n" in ce:
+                        det.append(
+                            f"n={ce['n']}: observed {ce['observed']}, predicted {ce['predicted']}"
+                        )
+                    else:
+                        det.append("counterexample " + json.dumps(ce, default=str))
+                    if p.get("reason"):
+                        det.append(p["reason"])
+                elif p.get("observed") is not None and p.get("claimed") is not None:
+                    det.append(f"observed {p['observed']:.5g} vs claimed {p['claimed']}")
                 elif p.get("reason"):
                     det.append(p["reason"])
                 elif p.get("extension_factor"):

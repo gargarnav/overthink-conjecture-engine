@@ -30,6 +30,35 @@ def grundy_table_reference(n: int) -> list[list[int]]:
     return g
 
 
+def subtraction_grundy_table(moves: list[int], n: int) -> np.ndarray:
+    """Grundy values of the Wythoff subtraction game W(S) for 0 <= x, y < n (Rust): a move
+    removes s in S tokens from one heap, or s tokens from both heaps."""
+    moves = sorted({int(s) for s in moves})
+    if not moves or moves[0] < 1:
+        raise ValueError("subtraction set must be non-empty positive integers")
+    return _core.wythoff_subtraction_grundy(moves, n)
+
+
+def subtraction_grundy_table_reference(moves: list[int], n: int) -> list[list[int]]:
+    """Pure-Python Grundy table of W(S), straight from the definition. Test oracle."""
+    g = [[0] * n for _ in range(n)]
+    for x in range(n):
+        for y in range(n):
+            opts = set()
+            for s in moves:
+                if s <= x:
+                    opts.add(g[x - s][y])
+                if s <= y:
+                    opts.add(g[x][y - s])
+                if s <= x and s <= y:
+                    opts.add(g[x - s][y - s])
+            v = 0
+            while v in opts:
+                v += 1
+            g[x][y] = v
+    return g
+
+
 def p_positions_closed_form(k_max: int) -> list[tuple[int, int]]:
     """Wythoff's theorem: P-positions (floor(k*phi), floor(k*phi) + k) for k = 0..k_max.
 
